@@ -1,0 +1,82 @@
+name: gate
+
+# A linter that claims it can gate a repository, shipped without gating itself,
+# would be an instance of the defect it looks for. So: selftest first, then the
+# tool is run against its own tree, then the gate is proven able to fail.
+#
+# Free and unlimited on public repositories with standard runners.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  selftest:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.9", "3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Self-test (expect 18/18, exit 0)
+        run: python3 vacuity_lint.py --selftest
+
+      - name: Scan own tree (expect no findings, exit 0)
+        run: python3 vacuity_lint.py .
+
+  gate-can-fail:
+    # The anti-vacuity control, applied to the workflow itself. A green tick
+    # from a job that cannot go red is worth nothing, so a deliberately
+    # defective file is planted and the tool MUST report it and exit non-zero.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Plant a file with no fail path
+        run: |
+          mkdir -p /tmp/defective
+          cat > /tmp/defective/verify_thing.py <<'EOF'
+          def run():
+              ok = False
+              print("[FAIL] the maths is wrong")
+              return ok
+
+          if __name__ == "__main__":
+              run()
+          EOF
+
+      - name: Tool must find it and exit non-zero
+        run: |
+          if python3 vacuity_lint.py /tmp/defective; then
+            echo "::error::vacuity_lint exited 0 on a file with no fail path."
+            echo "::error::The gate cannot fail, which is the defect it exists to find."
+            exit 1
+          fi
+          echo "gate fired correctly on the planted defect"
+
+      - name: A bare suppression marker must NOT suppress
+        run: |
+          mkdir -p /tmp/bare
+          cat > /tmp/bare/verify_bare.py <<'EOF'
+          # vacuity-lint: intentional
+          if __name__ == "__main__":
+              print("[FAIL] still broken")
+          EOF
+          if python3 vacuity_lint.py /tmp/bare; then
+            echo "::error::A marker with no stated reason suppressed a finding."
+            echo "::error::That turns the marker into a mute button. See selftest P16."
+            exit 1
+          fi
+          echo "bare marker correctly refused to suppress"
