@@ -41,6 +41,7 @@ import re
 import shutil
 import sys
 import tempfile
+import subprocess
 
 VERIFY_HINTS = ("test", "check", "verify", "smoke", "validate", "gate",
                 "audit", "selftest", "assert", "prove", "harness")
@@ -273,6 +274,19 @@ def selftest():
         r.append(("P18 suppression in one file does not affect another",
                   codes(f"{tmp}/bad/verify_prints.py") != []))
 
+        # the empty-scan branch, both directions
+        os.makedirs(f"{tmp}/empty", exist_ok=True)
+        _w(f"{tmp}/nonempty/plain.py", "x = 1\n")
+        def run_on(d):
+            return subprocess.run([sys.executable, os.path.abspath(__file__), d],
+                                  capture_output=True, text=True)
+        _e = run_on(f"{tmp}/empty")
+        _n = run_on(f"{tmp}/nonempty")
+        r.append(("P19 tree with no python files -> exit 2, not a clean bill",
+                  _e.returncode == 2 and "nothing scanned" in _e.stderr))
+        r.append(("P20 tree with a clean python file -> still exit 0",
+                  _n.returncode == 0))
+
         _w(f"{tmp}/broken/test_syntax.py", "def oops(:\n")
         r.append(("P11 syntax error reported, not silently skipped",
                   "UNPARSEABLE" in codes(f"{tmp}/broken/test_syntax.py")))
@@ -316,6 +330,12 @@ def main():
                 suppressed.append((p, s.suppressed))
             for code, why in fs:
                 findings.append((p, code, why))
+
+    if total_files == 0:
+        where = ", ".join(args.paths) or "."
+        print(f"nothing scanned - no python files found under: {where}",
+              file=sys.stderr)
+        return 2
 
     if not args.quiet:
         print(f"python files scanned    : {total_files}")
