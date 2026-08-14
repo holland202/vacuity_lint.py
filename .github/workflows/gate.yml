@@ -12,5 +12,27 @@ jobs:
           python-version: '3.11'
       - name: Run vacuity_lint selftest
         run: python3 vacuity_lint.py --selftest
+      - name: Prove the gate can fail
+        run: |
+          # Anti-vacuity. Until 2026-08-14 the scan step below ended in
+          # `|| echo "Findings detected; review above"`, which discarded the
+          # scanner's exit code. vacuity_lint.py returns 1 on findings by
+          # design -- its own docstring says "Exit 0 when nothing is found,
+          # 1 when findings exist, so it can gate a repo" -- and the `|| echo`
+          # meant the repo was never actually gated. The tool that finds code
+          # which prints failure and exits 0 shipped CI that printed failure
+          # and exited 0.
+          #
+          # This step plants a known-defective file, asserts the scan rejects
+          # it, then removes it. If this step ever passes with the file
+          # planted, the gate is inert and the clean scan below means nothing.
+          printf 'import sys\nok = False\nprint("[FAIL] planted")\nprint("[PASS] ok")\nsys.exit(0)\n' > _gate_probe.py
+          if python3 vacuity_lint.py . ; then
+            echo "GATE IS INERT: scan returned 0 with a known-vacuous file present"
+            rm -f _gate_probe.py
+            exit 1
+          fi
+          echo "gate rejects a planted defect as expected"
+          rm -f _gate_probe.py
       - name: Scan repo
-        run: python3 vacuity_lint.py . || echo "Findings detected; review above"
+        run: python3 vacuity_lint.py .
