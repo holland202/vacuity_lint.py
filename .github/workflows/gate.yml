@@ -36,3 +36,19 @@ jobs:
           rm -f _gate_probe.py
       - name: Scan repo
         run: python3 vacuity_lint.py .
+      - name: Mutation probe selftest
+        run: |
+          # Companion tool, added 2026-08-14: mutation_probe.py asks a
+          # question vacuity_lint.py cannot -- not just "is there a
+          # reachable nonzero exit" but "does the verdict actually depend
+          # on the logic it claims to check." Grounded in Kupferman/Li/
+          # Seshia's mutation theory (FMCAD 2008), the same operation as
+          # the --sabotage flags added to igar's tests the same day.
+          #
+          # This step only runs the tool's own anti-vacuity selftest, which
+          # is self-contained and needs no real target. It proves the tool
+          # can report both KILLED and SURVIVED before anyone runs it
+          # against real code. The tool itself caught two bugs in its own
+          # first build before it ever touched a real file -- see the
+          # module docstring.
+          python3 mutation_probe.py --selftest
