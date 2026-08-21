@@ -25,9 +25,28 @@ Mutation operators (deliberately small and well-understood; the "boundary" and
   - boolean connective swap: and <-> or
 
 Verdict per mutation:
-  KILLED    exit code changed from baseline -> the mutated line mattered here
-  SURVIVED  exit code unchanged             -> the check did not depend on it
+  KILLED    exit code changed from baseline, OR exit code matched but the
+            mutant crashed (uncaught traceback) while baseline did not (or
+            vice versa) -- the mutated line mattered here
+  SURVIVED  exit code unchanged AND crash-state unchanged -> the check did
+            not depend on it
   ERROR     mutant did not even run (unparse/syntax failure unrelated to logic)
+
+MASKED-CRASH CONFOUND, found 2026-08-21 against a real target (sovereign-
+suite/tools/calibrate_governance.py, note059 P4 follow-up): Python's default
+exit status for an unhandled exception is 1. Any target whose own legitimate
+"unhealthy"/"failed" exit code is *also* 1 -- which is nearly every target,
+since 1 is the conventional Unix failure code -- can have a mutation that
+completely destroys its behavior (crashes before ever reaching the real
+verdict) score as SURVIVED, because exit-code comparison alone cannot tell
+"correctly computed failure" from "blew up before computing anything."
+Verified case: `out = args.out or f"..."` mutated to `and`; args.out is None
+by default, so the mutant computes out=None, then `open(None, "w")` raises
+an uncaught TypeError -- the report is never written, nothing downstream
+runs -- and the crash's exit code (1) coincidentally equals the target's own
+baseline "UNHEALTHY, exit 1" code. Old logic: SURVIVED. The mutation was
+absolutely load-bearing. Fixed by also comparing whether an uncaught
+traceback appears on stderr, independent of the exit code.
 
 Mutation score = killed / (killed + survived). A well-gated verdict line can
 still score under 100% if surrounding code has dead comparisons; a low score
@@ -109,6 +128,12 @@ def apply_mutation(source, index):
     return ast.unparse(ast.fix_missing_locations(tree))
 
 
+def crashed(stderr):
+    """True if stderr shows an uncaught Python exception, i.e. the process
+    died via traceback rather than via a deliberate sys.exit/return path."""
+    return "Traceback (most recent call last):" in stderr
+
+
 def run_source(src, timeout, cwd=None, filename="mutant.py"):
     """Write src to filename INSIDE cwd (not /tmp) and run it from there.
     Many scripts in this estate use sys.path.insert(0, ".") or otherwise
@@ -116,7 +141,12 @@ def run_source(src, timeout, cwd=None, filename="mutant.py"):
     an unrelated directory makes it fail at import time regardless of the
     mutation, and every result would misreport as SURVIVED. Using the
     target's own directory and filename keeps relative imports and any
-    sibling-file lookups working the same way they would for the real file."""
+    sibling-file lookups working the same way they would for the real file.
+
+    Returns (returncode, crashed_bool). crashed_bool distinguishes "exited
+    via a deliberate code path" from "died to an uncaught exception" even
+    when both happen to produce the same returncode -- see the MASKED-CRASH
+    CONFOUND note in the module docstring."""
     target_dir = cwd or os.getcwd()
     path = os.path.join(target_dir, f".mutant_{os.getpid()}_{filename}")
     with open(path, "w") as f:
@@ -125,9 +155,9 @@ def run_source(src, timeout, cwd=None, filename="mutant.py"):
         p = subprocess.run([sys.executable, os.path.basename(path)],
                             capture_output=True, timeout=timeout, text=True,
                             cwd=target_dir)
-        return p.returncode
+        return p.returncode, crashed(p.stderr)
     except subprocess.TimeoutExpired:
-        return "TIMEOUT"
+        return "TIMEOUT", False
     finally:
         os.unlink(path)
 
@@ -137,7 +167,7 @@ def probe(path, timeout=30, cwd=None):
     tree = ast.parse(source, filename=path)
     target_dir = cwd or os.path.dirname(os.path.abspath(path)) or "."
     fname = os.path.basename(path)
-    baseline = run_source(source, timeout, cwd=target_dir, filename=fname)
+    baseline, baseline_crashed = run_source(source, timeout, cwd=target_dir, filename=fname)
 
     nodes = eligible_nodes(tree)
     results = []
@@ -148,14 +178,21 @@ def probe(path, timeout=30, cwd=None):
         except Exception as e:
             results.append((lineno, desc, "ERROR", f"apply failed: {e}"))
             continue
-        rc = run_source(mutant_src, timeout, cwd=target_dir, filename=fname)
+        rc, rc_crashed = run_source(mutant_src, timeout, cwd=target_dir, filename=fname)
         if rc == "TIMEOUT":
             verdict = "ERROR"
-        elif rc == baseline:
-            verdict = "SURVIVED"
-        else:
+            detail = f"exit {baseline!r} -> TIMEOUT"
+        elif rc != baseline:
             verdict = "KILLED"
-        results.append((lineno, desc, verdict, f"exit {baseline!r} -> {rc!r}"))
+            detail = f"exit {baseline!r} -> {rc!r}"
+        elif rc_crashed != baseline_crashed:
+            verdict = "KILLED"
+            how = "crash introduced" if rc_crashed else "crash removed"
+            detail = f"exit {baseline!r} -> {rc!r}  (masked -- {how})"
+        else:
+            verdict = "SURVIVED"
+            detail = f"exit {baseline!r} -> {rc!r}"
+        results.append((lineno, desc, verdict, detail))
     return baseline, results
 
 
@@ -213,6 +250,21 @@ sys.exit(1)
 # guard that has no bearing on its own verdict, e.g. an assert that always
 # runs but whose predicate nothing downstream depends on.
 
+MASKED_CRASH_FIXTURE = '''\
+import sys
+value = None
+label = "ok" if True else value.attr
+sys.exit(1)
+'''
+# Baseline: the True branch runs, label="ok", no crash, then sys.exit(1)
+# fires deliberately -> rc=1, no traceback. The file's ONE eligible site is
+# that bare `True`. Mutated to False: the else-branch runs, value.attr on
+# None raises an uncaught AttributeError -> Python's own crash exit status
+# is ALSO 1. Same returncode as baseline, totally different behavior (the
+# real verdict path never even runs). Old exit-code-only comparison: WOULD
+# report SURVIVED. This is exactly the confound found 2026-08-21 against
+# calibrate_governance.py's `args.out or f"..."` line. Must be KILLED.
+
 
 def selftest():
     print("=" * 68)
@@ -226,6 +278,9 @@ def selftest():
     with tempfile.NamedTemporaryFile("w", suffix=".py", delete=False) as f:
         f.write(INDEPENDENT_FIXTURE)
         p2 = f.name
+    with tempfile.NamedTemporaryFile("w", suffix=".py", delete=False) as f:
+        f.write(MASKED_CRASH_FIXTURE)
+        p3 = f.name
 
     try:
         print("\nFixture A (guard genuinely depends on its comparison):")
@@ -240,14 +295,24 @@ def selftest():
         survived_b = sum(1 for _, _, v, _ in res_b if v == "SURVIVED")
         print(f"\n  requires >=1 SURVIVED: {'PASS' if survived_b >= 1 else 'FAIL'}")
         ok = ok and survived_b >= 1
+
+        print("\n" + "-" * 68)
+        print("\nFixture C (mutation crashes into the SAME exit code as baseline):")
+        _, res_c = report(p3)
+        killed_c = sum(1 for _, _, v, _ in res_c if v == "KILLED")
+        print(f"\n  requires >=1 KILLED (masked-crash caught, not misreported "
+              f"SURVIVED): {'PASS' if killed_c >= 1 else 'FAIL'}")
+        ok = ok and killed_c >= 1
     finally:
         os.unlink(p1)
         os.unlink(p2)
+        os.unlink(p3)
 
     print("\n" + "=" * 68)
     if ok:
         print("SELFTEST PASS -- this tool reports both KILLED and SURVIVED "
-              "depending on input. It is not stuck reporting one verdict.")
+              "depending on input, and does not mistake a masked crash for "
+              "a survivor. It is not stuck reporting one verdict.")
     else:
         print("SELFTEST FAIL -- do not trust output from this tool until fixed.")
     print("=" * 68)
