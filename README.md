@@ -8,11 +8,14 @@ functions — these report success to whatever calls them regardless of what
 they discover. CI goes green. A `make` target succeeds. Nobody finds out.
 
 `vacuity_lint.py` is a single file, AST-based, zero dependencies. It exits
-non-zero when it finds something, so it can gate a repository.
+with three exit codes, so a caller can tell looking from finding: **0**
+looked and found nothing, **1** looked and found something, **2** could not
+look. The third exists because an earlier version, run on a tree with no
+Python files, printed a clean bill of health for a tree it never read.
 
 ```
 python3 vacuity_lint.py .            # scan a tree
-python3 vacuity_lint.py --selftest   # 18 checks, exit 1 on any failure
+python3 vacuity_lint.py --selftest   # 20 checks, exit 1 on any failure
 ```
 
 Example output:
@@ -99,7 +102,7 @@ they stay visible and the open count can converge to zero honestly.
 
 ## Self-test
 
-18 checks. Run them before trusting a single finding.
+20 checks. Run them before trusting a single finding.
 
 ```
 P1  test_*.py with no test funcs -> UNCOLLECTABLE_TEST
@@ -120,11 +123,13 @@ P15 marker WITH a reason suppresses the finding
 P16 bare marker with NO reason does NOT suppress
 P17 suppression is recorded, not silent
 P18 suppression in one file does not affect another
+P19 tree with no python files -> exit 2, not a clean bill
+P20 tree with a clean python file -> still exit 0
 
-18/18 checks passed
+20/20 checks passed
 ```
 
-P9 and P10 are the anti-vacuity pair, and they are not decoration: a detector
+P9/P10 and P19/P20 are the two anti-vacuity pairs, and they are not decoration: a detector
 must be shown capable of returning *nothing* on a clean tree and *something* on
 a defective one. Without both, this tool would be an instance of the defect it
 looks for.
