@@ -36,6 +36,15 @@ jobs:
           rm -f _gate_probe.py
       - name: Scan repo
         run: python3 vacuity_lint.py .
+      - name: Provenance audit selftest
+        run: |
+          # provenance_audit.py landed unrun, deliberately, so git would
+          # timestamp its frozen evidence tiers before any unit was scored.
+          # It was then never exercised here. An untested tool in a
+          # repository about untested verification is the joke writing
+          # itself. Its selftest proves it reports both reconstructible and
+          # not-reconstructible, and refuses to infer authorship from style.
+          python3 provenance_audit.py --selftest
       - name: Mutation probe selftest
         run: |
           # Companion tool, added 2026-08-14: mutation_probe.py asks a

@@ -34,6 +34,41 @@ PRINTS_FAIL_ONLY  (1)
                            raise, or nonzero exit
 ```
 
+## Also in this repository
+
+`vacuity_lint.py` is one of four artifacts here. The other three exist
+because the first one is not enough.
+
+| | |
+|---|---|
+| `vacuity_lint.py` | Finds gates with no fail path. Static, AST-based. |
+| `mutation_probe.py` | Asks the question the linter cannot: does the verdict actually *depend* on the logic it claims to check? Mutates the target, reports KILLED or SURVIVED. |
+| `provenance_audit.py` | Measures whether a repository can say who wrote its verification code, under a five-tier evidence hierarchy frozen in code. Tier 5, "inferred from coding style", is inadmissible by construction, so the measurement cannot become circular. A low score is a result, not a build failure, so it exits 0 either way. |
+| `E15/PREREG.md` | A preregistration, committed before the experiment it describes was run. Registers a three-arm prevalence measurement and pins this tool at `e549dbf` for the duration. Status: REGISTERED, NOT RUN. |
+
+Each of the three tools ships a self-test that proves it can return **both**
+verdicts. A detector stuck on one answer is the defect this repository exists
+to find, and that applies to these tools first.
+
+## A third category, found 2026-09-11
+
+The taxonomy below splits vacuity into Type A (no fail path) and Type B (a
+fail path that cannot fire). A third kind turned up in another repository,
+and `vacuity_lint.py` is blind to it by definition:
+
+**a gate whose verdict is redrawn on every run.**
+
+An assertion required that an estimator win at least 40 of 100 trials, and
+drew those 100 trials from an unseeded generator. CI had passed it 45 times.
+Measured over 60 executions of identical code, the statistic ranged 31 to 62
+and fell below the threshold twice. This tool had scanned that repository and
+reported it clean, correctly by its own definition: the assert was present,
+it could raise, the exit code was wired. It was simply not asking the same
+question twice.
+
+Not yet detected here. Recorded because an undetected category is worth more
+in the README than in a notebook.
+
 ## Why this exists
 
 On 2026-07-26 four independent codebases were found to contain a verification
@@ -190,7 +225,9 @@ python3 vacuity_lint.py . || echo "verification that cannot fail - fix or mark i
   heuristic does not recognise will be missed.
 - Filenames matter to it, which means unusual project layouts may need the
   suppression marker more than tidy ones.
-- Single author, unreviewed, no CI. Judge accordingly.
+- Single author, unreviewed. CI runs the self-tests and a planted-defect
+  probe on every push (`.github/workflows/gate.yml`); there is no second
+  reviewer. Judge accordingly.
 
 ## Contributing
 
