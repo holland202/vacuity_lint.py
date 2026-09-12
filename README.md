@@ -42,12 +42,12 @@ because the first one is not enough.
 | | |
 |---|---|
 | `vacuity_lint.py` | Finds gates with no fail path. Static, AST-based. |
-| `mutation_probe.py` | Asks the question the linter cannot: does the verdict actually *depend* on the logic it claims to check? Mutates the target, reports KILLED or SURVIVED. |
+| `mutation_probe.py` | Asks the question the linter cannot: does the verdict actually *depend* on the logic it claims to check? Mutates the target and reports KILLED, SURVIVED, or CRASHED. A mutant that makes the target die to an uncaught exception has not been *detected* by it, so CRASHED is excluded from both sides of the score. |
 | `provenance_audit.py` | Measures whether a repository can say who wrote its verification code, under a five-tier evidence hierarchy frozen in code. Tier 5, "inferred from coding style", is inadmissible by construction, so the measurement cannot become circular. A low score is a result, not a build failure, so it exits 0 either way. |
 | `E15/PREREG.md` | A preregistration, committed before the experiment it describes was run. Registers a three-arm prevalence measurement and pins this tool at `e549dbf` for the duration. Status: REGISTERED, NOT RUN. |
 
-Each of the three tools ships a self-test that proves it can return **both**
-verdicts. A detector stuck on one answer is the defect this repository exists
+Each of the three tools ships a self-test that proves it can return **more than one
+verdict**, under fixtures that force each answer in turn. A detector stuck on one answer is the defect this repository exists
 to find, and that applies to these tools first.
 
 ## A third category, found 2026-09-11
