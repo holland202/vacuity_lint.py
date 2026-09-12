@@ -30,7 +30,18 @@ Verdict per mutation:
             vice versa) -- the mutated line mattered here
   SURVIVED  exit code unchanged AND crash-state unchanged -> the check did
             not depend on it
-  ERROR     mutant did not even run (unparse/syntax failure unrelated to logic)
+  CRASHED   the mutant made the target die to an uncaught exception the
+            baseline did not raise. EXCLUDED from numerator and denominator.
+            The gate did not detect the change; the change broke the gate.
+  INVALID   the mutant does not compile. EXCLUDED from both.
+  ERROR     mutant did not even run (timeout, or unparse failure)
+
+  score = KILLED / (KILLED + SURVIVED).  CRASHED, INVALID and ERROR are
+  excluded from both sides of that fraction.
+
+  exit 0 = every scoreable mutant was killed
+  exit 1 = at least one survivor
+  exit 2 = could not look: nothing was scoreable
 
 MASKED-CRASH CONFOUND, found 2026-08-21 against a real target (sovereign-
 suite/tools/calibrate_governance.py, note059 P4 follow-up): Python's default
@@ -44,9 +55,35 @@ Verified case: `out = args.out or f"..."` mutated to `and`; args.out is None
 by default, so the mutant computes out=None, then `open(None, "w")` raises
 an uncaught TypeError -- the report is never written, nothing downstream
 runs -- and the crash's exit code (1) coincidentally equals the target's own
-baseline "UNHEALTHY, exit 1" code. Old logic: SURVIVED. The mutation was
-absolutely load-bearing. Fixed by also comparing whether an uncaught
-traceback appears on stderr, independent of the exit code.
+baseline "UNHEALTHY, exit 1" code. Old logic: SURVIVED. Fixed by also
+comparing whether an uncaught traceback appears on stderr, independent of
+the exit code.
+
+CORRECTION 2026-09-12, kept rather than rewritten. From 2026-08-21 the fix
+above classified masked crashes as KILLED. That was half right. Detecting
+them was necessary; scoring them as detections was not. A mutant that makes
+the target raise has not been caught by the target -- it has destroyed it,
+and counting it in the numerator inflates the score. Crash mutants are now
+their own excluded category.
+
+Direction of the old error: INFLATION. Every score this tool printed before
+2026-09-12 for a target with crash-inducing mutants is an UPPER BOUND on the
+corrected score, never a lower one. No conclusion that rested on a LOW score
+is weakened by this correction; such scores can only fall further. Scores
+published before that date should be re-run before being quoted again.
+report() now prints the corrected score and the pre-correction score side by
+side from a single run, so a correction can be written without guessing.
+
+A related defect does NOT apply to this tool, and the reason is structural
+rather than lucky: mutants are executed as __main__ via
+`python .mutant_<pid>_<name>.py`, and CPython does not read or write cached
+bytecode for the main script. A sibling tool that instead mutates a MODULE
+and lets a separate test suite import it IS affected -- apply_mutation()
+round-trips through ast.unparse, so a mutant is often the same byte length
+as the original and written in the same clock second, which defeats
+CPython's (mtime, size) staleness check and silently runs the stale
+original. Do not refactor this tool to import its target without deleting
+the target's cached bytecode first.
 
 Mutation score = killed / (killed + survived). A well-gated verdict line can
 still score under 100% if surrounding code has dead comparisons; a low score
@@ -178,17 +215,31 @@ def probe(path, timeout=30, cwd=None):
         except Exception as e:
             results.append((lineno, desc, "ERROR", f"apply failed: {e}"))
             continue
+        try:
+            compile(mutant_src, path, "exec")
+        except SyntaxError as e:
+            results.append((lineno, desc, "INVALID",
+                            f"does not compile: {e.msg}"))
+            continue
         rc, rc_crashed = run_source(mutant_src, timeout, cwd=target_dir, filename=fname)
         if rc == "TIMEOUT":
             verdict = "ERROR"
             detail = f"exit {baseline!r} -> TIMEOUT"
+        elif rc_crashed and not baseline_crashed:
+            # CORRECTED 2026-09-12. This branch used to yield KILLED, both
+            # here and via the rc != baseline branch below. A mutant that
+            # makes the module die to an uncaught exception has not been
+            # DETECTED by the gate -- it has broken the gate. Counting it as
+            # a kill inflates the numerator with crashes.
+            verdict = "CRASHED"
+            detail = (f"exit {baseline!r} -> {rc!r}  (uncaught exception "
+                      f"introduced -- excluded, not a detection)")
         elif rc != baseline:
             verdict = "KILLED"
             detail = f"exit {baseline!r} -> {rc!r}"
         elif rc_crashed != baseline_crashed:
             verdict = "KILLED"
-            how = "crash introduced" if rc_crashed else "crash removed"
-            detail = f"exit {baseline!r} -> {rc!r}  (masked -- {how})"
+            detail = (f"exit {baseline!r} -> {rc!r}  (masked -- crash removed)")
         else:
             verdict = "SURVIVED"
             detail = f"exit {baseline!r} -> {rc!r}"
@@ -201,6 +252,8 @@ def report(path, timeout=30, cwd=None):
     killed = sum(1 for _, _, v, _ in results if v == "KILLED")
     survived = sum(1 for _, _, v, _ in results if v == "SURVIVED")
     errored = sum(1 for _, _, v, _ in results if v == "ERROR")
+    crashed_n = sum(1 for _, _, v, _ in results if v == "CRASHED")
+    invalid = sum(1 for _, _, v, _ in results if v == "INVALID")
     total = killed + survived
     print(f"target        : {path}")
     print(f"baseline exit : {baseline}")
@@ -209,11 +262,27 @@ def report(path, timeout=30, cwd=None):
     for lineno, desc, verdict, detail in results:
         print(f"  line {lineno:<4} {verdict:9s} {desc:20s} {detail}")
     print()
+    print(f"counted  : killed={killed} survived={survived}")
+    print(f"excluded : crashed={crashed_n} invalid={invalid} errored={errored}")
     if total:
-        print(f"killed={killed} survived={survived} errored={errored} "
-              f"score={killed/total:.1%}")
+        print(f"score    = {killed/total:.1%}   n = {total}")
     else:
-        print(f"killed={killed} survived={survived} errored={errored} score=n/a (0 scoreable sites)")
+        print(f"score    = n/a (0 scoreable sites)   n = 0")
+    # Both numbers, from one run, so a correction can be written without
+    # guessing what the old rule would have said. Pre-2026-09-12 this tool
+    # counted crash mutants as kills.
+    legacy_k = killed + crashed_n
+    legacy_t = legacy_k + survived
+    if legacy_t and crashed_n:
+        print(f"score    = {legacy_k/legacy_t:.1%}   n = {legacy_t}   "
+              f"<- what this tool reported BEFORE 2026-09-12, when crash "
+              f"mutants were counted as kills. Superseded.")
+    if crashed_n:
+        print()
+        print(f"{crashed_n} mutant(s) CRASHED: they made the target die to an "
+              f"uncaught exception rather than being detected by it. Excluded "
+              f"from numerator and denominator. A crash is information about "
+              f"the code, not evidence the gate noticed anything.")
     if survived:
         print()
         print("SURVIVED mutants above did not change the exit code. Either the "
@@ -261,9 +330,18 @@ sys.exit(1)
 # that bare `True`. Mutated to False: the else-branch runs, value.attr on
 # None raises an uncaught AttributeError -> Python's own crash exit status
 # is ALSO 1. Same returncode as baseline, totally different behavior (the
-# real verdict path never even runs). Old exit-code-only comparison: WOULD
-# report SURVIVED. This is exactly the confound found 2026-08-21 against
-# calibrate_governance.py's `args.out or f"..."` line. Must be KILLED.
+# real verdict path never even runs). An exit-code-only comparison would
+# report SURVIVED. This is the confound found 2026-08-21 against
+# calibrate_governance.py's `args.out or f"..."` line.
+#
+# HISTORY, kept rather than rewritten. From 2026-08-21 to 2026-09-12 this
+# fixture asserted KILLED, and the tool scored it in the numerator. That was
+# wrong, and the error was inflation: the mutation was not DETECTED by the
+# target, it BROKE the target. Detecting the confound was right; calling it
+# a kill was not. The assertion is now CRASHED and such mutants are excluded
+# from both numerator and denominator. Any score this tool printed before
+# 2026-09-12 for a target with crash-inducing mutants is an upper bound on
+# the corrected score, never a lower one.
 
 
 def selftest():
@@ -299,10 +377,12 @@ def selftest():
         print("\n" + "-" * 68)
         print("\nFixture C (mutation crashes into the SAME exit code as baseline):")
         _, res_c = report(p3)
+        crashed_c = sum(1 for _, _, v, _ in res_c if v == "CRASHED")
         killed_c = sum(1 for _, _, v, _ in res_c if v == "KILLED")
-        print(f"\n  requires >=1 KILLED (masked-crash caught, not misreported "
-              f"SURVIVED): {'PASS' if killed_c >= 1 else 'FAIL'}")
-        ok = ok and killed_c >= 1
+        print(f"\n  requires >=1 CRASHED (masked crash detected, and NOT "
+              f"counted as a kill): "
+              f"{'PASS' if crashed_c >= 1 and killed_c == 0 else 'FAIL'}")
+        ok = ok and crashed_c >= 1 and killed_c == 0
     finally:
         os.unlink(p1)
         os.unlink(p2)
@@ -310,9 +390,14 @@ def selftest():
 
     print("\n" + "=" * 68)
     if ok:
-        print("SELFTEST PASS -- this tool reports both KILLED and SURVIVED "
-              "depending on input, and does not mistake a masked crash for "
-              "a survivor. It is not stuck reporting one verdict.")
+        print("SELFTEST PASS -- this tool reports KILLED, SURVIVED and "
+              "CRASHED depending on input. It does not mistake a masked "
+              "crash for a survivor, and it does not count one as a kill. "
+              "It is not stuck reporting one verdict.")
+        print()
+        print("NOT covered by any fixture: the 'crash removed' direction "
+              "(a mutant that stops an already-crashing baseline from "
+              "crashing). That branch is unexercised. Stated, not hidden.")
     else:
         print("SELFTEST FAIL -- do not trust output from this tool until fixed.")
     print("=" * 68)
@@ -336,6 +421,16 @@ def main():
         ap.error("target required unless --selftest")
     _, results = report(a.target, a.timeout, cwd=a.cwd)
     survived = sum(1 for _, _, v, _ in results if v == "SURVIVED")
+    killed = sum(1 for _, _, v, _ in results if v == "KILLED")
+    if killed + survived == 0:
+        # Added 2026-09-12. Previously this returned 0 -- a clean bill of
+        # health -- for a run in which nothing was scoreable, e.g. every
+        # mutant crashed or the file had no eligible sites. "Found nothing"
+        # and "could not look" are different answers and must not share an
+        # exit code. Same three-code scheme as vacuity_lint.py.
+        sys.stderr.write("could not look: 0 scoreable sites (killed+survived "
+                         "= 0). No score was measured.\n")
+        return 2
     return 1 if survived else 0
 
 
