@@ -35,7 +35,14 @@ jobs:
           echo "gate rejects a planted defect as expected"
           rm -f _gate_probe.py
       - name: Scan repo
-        run: python3 vacuity_lint.py .
+        run: |
+          # E16/fixtures holds deliberately weakened checks (planted defects registered in E16/PREREG.md);
+          # W3 is meant to be flagged, so the repo scan excludes that directory. The second command keeps
+          # the exclusion honest: if the planted fixtures ever stop being flagged, this step fails.
+          mkdir -p "$RUNNER_TEMP/scan"
+          tar --exclude=./E16/fixtures --exclude=./.git -cf - . | tar -xf - -C "$RUNNER_TEMP/scan"
+          python3 vacuity_lint.py "$RUNNER_TEMP/scan"
+          if python3 vacuity_lint.py E16/fixtures; then echo "E16 planted defect (W3) no longer flagged"; exit 1; fi
       - name: Provenance audit selftest
         run: |
           # provenance_audit.py landed unrun, deliberately, so git would
