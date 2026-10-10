@@ -1,0 +1,120 @@
+{
+ "rows": {
+  "W0": {
+   "as_predicted": [
+    true,
+    true
+   ],
+   "lint": "clean",
+   "lint_exit": 0,
+   "lint_stdout": "python files scanned    : 2\nverification-shaped     : 1\nfindings                : 0\ndeclared intentional    : 0\n\nno vacuous verification found\n",
+   "pred": [
+    "clean",
+    "clean"
+   ],
+   "probe": "clean",
+   "probe_exit": 0,
+   "probe_stdout": "target        : /home/claude/vacuity_lint.py/E16/fixtures/W0/check_add.py\nbaseline exit : 0\nmutation sites: 1\n\n  line 6    KILLED    Eq -> NotEq          exit 0 -> 1\n\ncounted  : killed=1 survived=0\nexcluded : crashed=0 invalid=0 errored=0\nscore    = 100.0%   n = 1\n"
+  },
+  "W1": {
+   "as_predicted": [
+    true,
+    true
+   ],
+   "lint": "clean",
+   "lint_exit": 0,
+   "lint_stdout": "python files scanned    : 2\nverification-shaped     : 1\nfindings                : 0\ndeclared intentional    : 0\n\nno vacuous verification found\n",
+   "pred": [
+    "miss",
+    "caught"
+   ],
+   "probe": "caught",
+   "probe_exit": 1,
+   "probe_stdout": "target        : /home/claude/vacuity_lint.py/E16/fixtures/W1/check_add.py\nbaseline exit : 0\nmutation sites: 1\n\n  line 6    SURVIVED  Eq -> NotEq          exit 0 -> 0\n\ncounted  : killed=0 survived=1\nexcluded : crashed=0 invalid=0 errored=0\nscore    = 0.0%   n = 1\n\nSURVIVED mutants above did not change the exit code. Either the check does not depend on that comparison/constant, or the mutation landed somewhere unreachable from the verdict path. Read each one; a low score is a place to look, not a proven defect.\n"
+  },
+  "W1p": {
+   "as_predicted": [
+    true,
+    true
+   ],
+   "lint": "clean",
+   "lint_exit": 0,
+   "lint_stdout": "python files scanned    : 2\nverification-shaped     : 1\nfindings                : 0\ndeclared intentional    : 0\n\nno vacuous verification found\n",
+   "pred": [
+    "miss",
+    "n/a"
+   ],
+   "probe": "n/a",
+   "probe_exit": null,
+   "probe_stdout": ""
+  },
+  "W2": {
+   "as_predicted": [
+    true,
+    true
+   ],
+   "lint": "clean",
+   "lint_exit": 0,
+   "lint_stdout": "python files scanned    : 2\nverification-shaped     : 1\nfindings                : 0\ndeclared intentional    : 0\n\nno vacuous verification found\n",
+   "pred": [
+    "miss",
+    "caught"
+   ],
+   "probe": "caught",
+   "probe_exit": 1,
+   "probe_stdout": "target        : /home/claude/vacuity_lint.py/E16/fixtures/W2/check_add.py\nbaseline exit : 0\nmutation sites: 1\n\n  line 7    SURVIVED  Eq -> NotEq          exit 0 -> 0\n\ncounted  : killed=0 survived=1\nexcluded : crashed=0 invalid=0 errored=0\nscore    = 0.0%   n = 1\n\nSURVIVED mutants above did not change the exit code. Either the check does not depend on that comparison/constant, or the mutation landed somewhere unreachable from the verdict path. Read each one; a low score is a place to look, not a proven defect.\n"
+  },
+  "W3": {
+   "as_predicted": [
+    true,
+    true
+   ],
+   "lint": "caught",
+   "lint_exit": 1,
+   "lint_stdout": "python files scanned    : 2\nverification-shaped     : 1\nfindings                : 1\ndeclared intentional    : 0\n\nNO_FAIL_PATH  (1)\n  /home/claude/vacuity_lint.py/E16/fixtures/W3/check_add.py\n      verification-shaped but has no assert, raise, test function, or nonzero exit\n\n",
+   "pred": [
+    "caught",
+    "could_not_look"
+   ],
+   "probe": "could_not_look",
+   "probe_exit": 2,
+   "probe_stdout": "target        : /home/claude/vacuity_lint.py/E16/fixtures/W3/check_add.py\nbaseline exit : 0\nmutation sites: 0\n\n\ncounted  : killed=0 survived=0\nexcluded : crashed=0 invalid=0 errored=0\nscore    = n/a (0 scoreable sites)   n = 0\ncould not look: 0 scoreable sites (killed+survived = 0). No score was measured.\n"
+  },
+  "W4": {
+   "as_predicted": [
+    true,
+    true
+   ],
+   "lint": "clean",
+   "lint_exit": 0,
+   "lint_stdout": "python files scanned    : 2\nverification-shaped     : 1\nfindings                : 0\ndeclared intentional    : 0\n\nno vacuous verification found\n",
+   "pred": [
+    "miss",
+    "caught"
+   ],
+   "probe": "caught",
+   "probe_exit": 1,
+   "probe_stdout": "target        : /home/claude/vacuity_lint.py/E16/fixtures/W4/check_add.py\nbaseline exit : 0\nmutation sites: 1\n\n  line 6    SURVIVED  Gt -> GtE            exit 0 -> 0\n\ncounted  : killed=0 survived=1\nexcluded : crashed=0 invalid=0 errored=0\nscore    = 0.0%   n = 1\n\nSURVIVED mutants above did not change the exit code. Either the check does not depend on that comparison/constant, or the mutation landed somewhere unreachable from the verdict path. Read each one; a low score is a place to look, not a proven defect.\n"
+  },
+  "W4b": {
+   "as_predicted": [
+    true,
+    true
+   ],
+   "lint": "clean",
+   "lint_exit": 0,
+   "lint_stdout": "python files scanned    : 2\nverification-shaped     : 1\nfindings                : 0\ndeclared intentional    : 0\n\nno vacuous verification found\n",
+   "pred": [
+    "miss",
+    "could_not_look"
+   ],
+   "probe": "could_not_look",
+   "probe_exit": 2,
+   "probe_stdout": "target        : /home/claude/vacuity_lint.py/E16/fixtures/W4b/check_add.py\nbaseline exit : 0\nmutation sites: 0\n\n\ncounted  : killed=0 survived=0\nexcluded : crashed=0 invalid=0 errored=0\nscore    = n/a (0 scoreable sites)   n = 0\ncould not look: 0 scoreable sites (killed+survived = 0). No score was measured.\n"
+  }
+ },
+ "selftest": {
+  "lint": 0,
+  "probe": 0
+ }
+}
