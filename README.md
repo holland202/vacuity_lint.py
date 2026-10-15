@@ -1,8 +1,8 @@
 # vacuity-lint
 
-> **v1.0.0 release candidate:** The core scanner has a previously passing CI gate.
-> The installable wheel/sdist and entry-point acceptance are being qualified on
-> the release branch; do not claim the package is published on PyPI yet.
+> **v1.0.0 package candidate:** The original scanner gate and wheel/sdist
+> installation acceptance passed on the release candidate commit. This source
+> checkout is not itself evidence of a tagged GitHub release or PyPI publication.
 
 ## Install and try it
 
