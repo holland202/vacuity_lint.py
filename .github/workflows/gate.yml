@@ -12,6 +12,8 @@ jobs:
           python-version: '3.11'
       - name: Run vacuity_lint selftest
         run: python3 vacuity_lint.py --selftest
+      - name: Regression tests for exit and entry-point precision
+        run: python3 -m unittest discover -s tests -v
       - name: Prove the gate can fail
         run: |
           # Anti-vacuity. Until 2026-08-14 the scan step below ended in

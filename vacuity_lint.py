@@ -36,12 +36,25 @@ Zero dependencies, standard library only.
 
 import argparse
 import ast
+import json
 import os
 import re
 import shutil
 import sys
 import tempfile
 import subprocess
+
+__version__ = "1.1.0"
+
+# Public rule identifiers are stable across JSON consumers.
+# Category separates incomplete analysis from heuristic review prompts.
+RULE_INFO = {
+    "NO_FAIL_PATH": ("VL001", "warning", "heuristic"),
+    "PRINTS_FAIL_ONLY": ("VL002", "warning", "heuristic"),
+    "UNCOLLECTABLE_TEST": ("VL003", "warning", "heuristic"),
+    "ALWAYS_EXITS_ZERO": ("VL004", "warning", "heuristic"),
+    "UNPARSEABLE": ("VL005", "error", "analysis_error"),
+}
 
 VERIFY_HINTS = ("test", "check", "verify", "smoke", "validate", "gate",
                 "audit", "selftest", "assert", "prove", "harness")
@@ -51,6 +64,31 @@ SUPPRESS_RE = re.compile(
 
 SKIP_DIRS = {".git", "__pycache__", "node_modules", "venv", ".venv", "build",
              "dist", "site-packages", "secp_env", "llama.cpp", ".tox"}
+
+
+def _exit_code_kind(argument):
+    """Classify the AST of an exit code without evaluating source code."""
+    if isinstance(argument, ast.Constant):
+        return "zero" if argument.value in (0, None) else "nonzero"
+    return "dynamic"
+
+
+def _is_main_guard(stmt):
+    """Accept only real top-level __name__ == '__main__' guards."""
+    if not isinstance(stmt, ast.If):
+        return False
+    check = stmt.test
+    if not (isinstance(check, ast.Compare) and len(check.ops) == 1
+            and isinstance(check.ops[0], ast.Eq) and len(check.comparators) == 1):
+        return False
+    left, right = check.left, check.comparators[0]
+    return (
+        isinstance(left, ast.Name) and left.id == "__name__"
+        and isinstance(right, ast.Constant) and right.value == "__main__"
+    ) or (
+        isinstance(right, ast.Name) and right.id == "__name__"
+        and isinstance(left, ast.Constant) and left.value == "__main__"
+    )
 
 
 class Scan(ast.NodeVisitor):
@@ -69,7 +107,15 @@ class Scan(ast.NodeVisitor):
         self.generic_visit(n)
 
     def visit_Raise(self, n):
-        self.raises += 1
+        # SystemExit(0) is a successful exit, not a fail path.
+        # Keep other raises counted as potential failures.
+        if (isinstance(n.exc, ast.Call)
+                and isinstance(n.exc.func, ast.Name)
+                and n.exc.func.id == "SystemExit"):
+            self.exit_calls.append(
+                _exit_code_kind(n.exc.args[0]) if n.exc.args else "zero")
+        else:
+            self.raises += 1
         self.generic_visit(n)
 
     def visit_FunctionDef(self, n):
@@ -90,21 +136,15 @@ class Scan(ast.NodeVisitor):
     def visit_Call(self, n):
         f = n.func
         name = None
-        if isinstance(f, ast.Attribute) and f.attr == "exit":
-            if isinstance(f.value, ast.Name) and f.value.id in ("sys", "os"):
+        if isinstance(f, ast.Attribute) and isinstance(f.value, ast.Name):
+            if (f.value.id == "sys" and f.attr == "exit") or (
+                    f.value.id == "os" and f.attr == "_exit"):
                 name = "exit"
         elif isinstance(f, ast.Name) and f.id in ("exit", "quit"):
             name = "exit"
         if name:
-            if not n.args:
-                self.exit_calls.append("zero")
-            else:
-                a = n.args[0]
-                if isinstance(a, ast.Constant):
-                    self.exit_calls.append(
-                        "zero" if a.value in (0, None) else "nonzero")
-                else:
-                    self.exit_calls.append("dynamic")
+            self.exit_calls.append(
+                _exit_code_kind(n.args[0]) if n.args else "zero")
         self.generic_visit(n)
 
 
@@ -131,9 +171,10 @@ def has_fail_path(s):
 def analyse(path):
     """Return (findings, scan) for one file. findings is a list of codes."""
     try:
-        src = open(path, encoding="utf-8", errors="replace").read()
+        with open(path, encoding="utf-8", errors="replace") as fh:
+            src = fh.read()
         tree = ast.parse(src)
-        has_main = "__main__" in src
+        has_main = any(_is_main_guard(n) for n in tree.body)
     except (OSError, SyntaxError) as e:
         return [("UNPARSEABLE", str(e).split("\n")[0][:60])], None
 
@@ -156,7 +197,13 @@ def analyse(path):
                     "pytest collects nothing here"))
 
     if looks_like_verification(path, s):
-        if not has_fail_path(s):
+        # Prefer a printed-failure finding when a zero-only checker
+        # announces errors; otherwise use the more precise exit category.
+        if (s.exit_calls and all(e == "zero" for e in s.exit_calls)
+                and not (s.asserts or s.raises or s.test_defs or s.fail_strings)):
+            out.append(("ALWAYS_EXITS_ZERO",
+                        f"{len(s.exit_calls)} exit call(s), all literal 0"))
+        elif not has_fail_path(s):
             if s.fail_strings:
                 out.append(("PRINTS_FAIL_ONLY",
                             f"prints failure text {s.fail_strings}x but has no "
@@ -165,11 +212,7 @@ def analyse(path):
                 out.append(("NO_FAIL_PATH",
                             "verification-shaped but has no assert, raise, "
                             "test function, or nonzero exit"))
-        elif s.exit_calls and all(e == "zero" for e in s.exit_calls) \
-                and not (s.asserts or s.raises or s.test_defs):
-            out.append(("ALWAYS_EXITS_ZERO",
-                        f"{len(s.exit_calls)} exit call(s), all literal 0"))
-
+ 
     # A file may declare a finding deliberate, but only with a stated reason.
     # A bare marker does not suppress: writing down WHY is the whole value of
     # the mechanism, and a mute button without a reason is how a known defect
@@ -310,7 +353,10 @@ def main():
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("paths", nargs="*", default=["."])
     ap.add_argument("--selftest", action="store_true")
-    ap.add_argument("--quiet", action="store_true", help="findings only")
+    ap.add_argument("--quiet", action="store_true", help="findings only in text mode")
+    ap.add_argument("--format", choices=("text", "json"), default="text",
+                    help="output format; JSON uses stable rule IDs and no unverified line numbers")
+    ap.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     args = ap.parse_args()
 
     if args.selftest:
@@ -330,6 +376,38 @@ def main():
                 suppressed.append((p, s.suppressed))
             for code, why in fs:
                 findings.append((p, code, why))
+
+    if args.format == "json":
+        data = {
+            "tool": "vacuity-lint",
+            "version": __version__,
+            "files_scanned": total_files,
+            "verification_shaped": verification_files,
+            "status": (
+                "no_python_files" if total_files == 0 else
+                "findings" if findings else "clean"
+            ),
+            "findings": [
+                {
+                    "rule_id": RULE_INFO[code][0],
+                    "rule": code,
+                    "severity": RULE_INFO[code][1],
+                    "category": RULE_INFO[code][2],
+                    "path": path,
+                    "message": message,
+                    "suppressed": False,
+                }
+                for path, code, message in sorted(findings)
+            ],
+            "suppressions": [
+                {"path": path, "reason": reason, "suppressed": True}
+                for path, reason in sorted(suppressed)
+            ],
+        }
+        # Per-file classification does not establish a truthful line number.
+        # Never invent one for machine-readable diagnostics.
+        print(json.dumps(data, indent=2, sort_keys=True))
+        return 2 if total_files == 0 else 1 if findings else 0
 
     if total_files == 0:
         where = ", ".join(args.paths) or "."
