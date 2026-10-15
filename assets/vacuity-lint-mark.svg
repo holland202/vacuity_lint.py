@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="144" height="144" viewBox="0 0 144 144" role="img" aria-labelledby="title desc">
+  <title id="title">Vacuity Lint</title>
+  <desc id="desc">A cyan checkmark with a gap, examined under an amber magnifying glass.</desc>
+  <rect width="144" height="144" rx="30" fill="#111D30"/>
+  <path d="M24 68 43 87 72 52" fill="none" stroke="#66D9E8" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m82 40 10-12" fill="none" stroke="#66D9E8" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="88" cy="83" r="26" fill="#17273B" stroke="#F5B85D" stroke-width="7"/>
+  <path d="m107 103 18 18" fill="none" stroke="#F5B85D" stroke-width="7" stroke-linecap="round"/>
+  <path d="M88 69v15" fill="none" stroke="#F5B85D" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="88" cy="94" r="3" fill="#F5B85D"/>
+</svg>
