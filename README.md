@@ -1,5 +1,43 @@
 # vacuity-lint
 
+> **v1.0.0 package candidate:** The original scanner gate and wheel/sdist
+> installation acceptance passed on the release candidate commit. This source
+> checkout is not itself evidence of a tagged GitHub release or PyPI publication.
+
+## Install and try it
+
+Python 3.10+; **no third-party runtime dependencies**. To install directly
+from a checkout of this repository:
+
+```sh
+python3 -m pip install .
+vacuity-lint --selftest
+vacuity-lint ./your-python-project
+```
+
+The tool returns **0** when scanned Python files have no detected findings,
+**1** when it reports findings, and **2** when there were no Python files to
+scan. It does not run code under inspection or contact a remote service.
+
+A tiny demonstration:
+
+```sh
+mkdir -p demo
+printf "print('[FAIL] verification failed')\\n" > demo/verify_checks.py
+vacuity-lint demo
+echo $?
+```
+
+Expected: the scanner identifies a verification-shaped file that prints
+failure without a recognized failing exit path; exit code **1**. The finding
+is a heuristic *review prompt*, not proof that the code is unsafe.
+
+This detector intentionally **does not** prove tests are correct, detect
+all logically unreachable failure branches, or replace mutation testing.
+See [RELEASE.md](RELEASE.md) for release acceptance and [LICENSE](LICENSE) for
+reuse terms.
+
+
 Finds verification code that cannot fail.
 
 A test suite that always passes, a `verify_*.py` that prints

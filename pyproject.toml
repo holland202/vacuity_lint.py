@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vacuity-lint"
+version = "1.0.0"
+description = "Find Python verification scripts with no recognized failure path"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Chad Edward Holland" }]
+keywords = ["testing", "verification", "static-analysis", "ci", "quality"]
+classifiers = [
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Software Development :: Testing",
+  "Topic :: Software Development :: Quality Assurance",
+]
+
+[project.scripts]
+vacuity-lint = "vacuity_lint:main"
+
+[project.urls]
+Homepage = "https://github.com/holland202/vacuity_lint.py"
+Source = "https://github.com/holland202/vacuity_lint.py"
+Issues = "https://github.com/holland202/vacuity_lint.py/issues"
+
+[tool.setuptools]
+py-modules = ["vacuity_lint"]
