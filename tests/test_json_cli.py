@@ -116,7 +116,8 @@ class JSONContractTests(unittest.TestCase):
         self.assertEqual(r.returncode, 1)
         v = json.loads(r.stdout)
         self.assertEqual(v["files_scanned"], 2)
-        self.assertEqual(v["findings"][0]["rule_id"], "VL003")
+        self.assertIn("VL003", [f["rule_id"] for f in v["findings"]])
+        self.assertIn("VL001", [f["rule_id"] for f in v["findings"]])
 
     def test_invalid_format_refused(self):
         r = self.run_cli("--format", "sarif")
