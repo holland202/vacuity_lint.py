@@ -71,7 +71,7 @@ def main():
         require(syntax_result.returncode == 1 and "UNPARSEABLE" in syntax_result.stdout,
                 "syntax errors reported as findings")
 
-    print("RELEASE CONTRACT: PASS (v1.0.0, 8 checks)")
+    print("RELEASE CONTRACT: PASS (v1.0.0, 9 checks)")
     return 0
 
 
