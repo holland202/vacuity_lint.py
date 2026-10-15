@@ -4,7 +4,7 @@
 
 # vacuity-lint
 
-> **v1.0.0 released:** [GitHub Release](https://github.com/holland202/vacuity_lint.py/releases/tag/v1.0.0). The tagged CLI passed package and installation checks on Python 3.10, 3.11, 3.13 and 3.14, plus an Android Termux smoke test. The GitHub Release includes source archives; PyPI publication has not been verified.
+> **Release history:** [Official GitHub Releases](https://github.com/holland202/vacuity_lint.py/releases). Tagged releases are immutable; see the release page for the latest published version. Python 3.10+ is supported. PyPI publication has not been verified.
 
 ## Install and try it
 
@@ -20,6 +20,27 @@ vacuity-lint ./your-python-project
 The tool returns **0** when scanned Python files have no detected findings,
 **1** when it reports findings, and **2** when there were no Python files to
 scan. It does not run code under inspection or contact a remote service.
+
+## JSON diagnostics (v1.1.0)
+
+Use the **same scanner and exit codes** with machine-readable output:
+
+```sh
+vacuity-lint --version
+vacuity-lint ./your-python-project --format json
+```
+
+The JSON includes file counts, an array of findings with stable rule IDs
+(e.g. `VL002` for `PRINTS_FAIL_ONLY`), severity/category labels,
+and reason-bearing intentional suppressions. It does **not** fabricate a
+line number for its file-level findings. JSON output is also provided for
+empty scans, which still exit **2**.
+
+Use [RULES.md](RULES.md) for precise triggers, examples, rule metadata and
+limitations. CI can enforce the existing code `1`, or capture and review it
+as an advisory report; the tool does not provide a configurable
+`--fail-on` override in this release. An `UNPARSEABLE` finding means
+analysis was incomplete and is categorized separately from heuristic warnings.
 
 A tiny demonstration:
 
