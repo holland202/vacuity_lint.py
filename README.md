@@ -1,8 +1,10 @@
+<p align="center">
+  <img src="assets/vacuity-lint-mark.svg" alt="Vacuity Lint: a checkmark under inspection" width="112">
+</p>
+
 # vacuity-lint
 
-> **v1.0.0 package candidate:** The original scanner gate and wheel/sdist
-> installation acceptance passed on the release candidate commit. This source
-> checkout is not itself evidence of a tagged GitHub release or PyPI publication.
+> **v1.0.0 released:** [GitHub Release](https://github.com/holland202/vacuity_lint.py/releases/tag/v1.0.0). The tagged CLI passed package and installation checks on Python 3.10, 3.11, 3.13 and 3.14, plus an Android Termux smoke test. The GitHub Release includes source archives; PyPI publication has not been verified.
 
 ## Install and try it
 
@@ -23,7 +25,7 @@ A tiny demonstration:
 
 ```sh
 mkdir -p demo
-printf "print('[FAIL] verification failed')\\n" > demo/verify_checks.py
+printf "print('[FAIL] verification failed')\n" > demo/verify_checks.py
 vacuity-lint demo
 echo $?
 ```
