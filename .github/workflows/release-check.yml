@@ -2,12 +2,14 @@ name: Release candidate acceptance
 
 on:
   push:
-    branches: [main, release/v1.0.0-rc1]
+    branches: [main, release/v1.0.0-rc1, release/v1.1.0-final-pass]
   pull_request:
     paths:
       - "vacuity_lint.py"
       - "pyproject.toml"
       - "release_smoke.py"
+      - "tests/**"
+      - "RULES.md"
       - ".github/workflows/release-check.yml"
   workflow_dispatch:
 
