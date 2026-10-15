@@ -13,7 +13,6 @@ license-files = ["LICENSE"]
 authors = [{ name = "Chad Edward Holland" }]
 keywords = ["testing", "verification", "static-analysis", "ci", "quality"]
 classifiers = [
-  "Development Status :: 5 - Production/Stable",
   "Environment :: Console",
   "Intended Audience :: Developers",
   "Operating System :: OS Independent",
