@@ -2,7 +2,7 @@ name: Release candidate acceptance
 
 on:
   push:
-    branches: [release/v1.0.0-rc1]
+    branches: [main, release/v1.0.0-rc1]
   pull_request:
     paths:
       - "vacuity_lint.py"
