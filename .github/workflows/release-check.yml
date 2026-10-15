@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11", "3.13"]
+        python-version: ["3.10", "3.11", "3.13", "3.14"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -32,6 +32,34 @@ jobs:
         run: |
           python -m pip install --upgrade build
           python -m build
+      - name: Inspect distribution contents before installation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import tarfile
+          import zipfile
+
+          wheels = list(Path("dist").glob("*.whl"))
+          sources = list(Path("dist").glob("*.tar.gz"))
+          assert len(wheels) == 1 and len(sources) == 1, "Expected one wheel and one sdist"
+          with zipfile.ZipFile(wheels[0]) as z:
+              wheel_names = z.namelist()
+          with tarfile.open(sources[0], "r:gz") as t:
+              source_names = t.getnames()
+
+          def check(files, label):
+              assert any(p.endswith("vacuity_lint.py") for p in files), f"{label}: module missing"
+              assert any(p.endswith("LICENSE") or "/licenses/LICENSE" in p for p in files), f"{label}: license missing"
+              assert not any(
+                  p.lower().endswith((".pem", ".key", ".env", ".sqlite", ".db", ".gguf"))
+                  or "/.git/" in p.lower()
+                  or "/.obsidian/" in p.lower()
+                  for p in files
+              ), f"{label}: unexpected sensitive or irrelevant path"
+              print(label, "files=", len(files), "OK")
+          check(wheel_names, "wheel")
+          check(source_names, "sdist")
+          PY
       - name: Install and smoke-test both distribution formats
         run: |
           python -m venv .release-venv
