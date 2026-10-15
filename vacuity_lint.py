@@ -36,12 +36,25 @@ Zero dependencies, standard library only.
 
 import argparse
 import ast
+import json
 import os
 import re
 import shutil
 import sys
 import tempfile
 import subprocess
+
+__version__ = "1.1.0"
+
+# Public rule identifiers are stable across JSON consumers.
+# Category separates incomplete analysis from heuristic review prompts.
+RULE_INFO = {
+    "NO_FAIL_PATH": ("VL001", "warning", "heuristic"),
+    "PRINTS_FAIL_ONLY": ("VL002", "warning", "heuristic"),
+    "UNCOLLECTABLE_TEST": ("VL003", "warning", "heuristic"),
+    "ALWAYS_EXITS_ZERO": ("VL004", "warning", "heuristic"),
+    "UNPARSEABLE": ("VL005", "error", "analysis_error"),
+}
 
 VERIFY_HINTS = ("test", "check", "verify", "smoke", "validate", "gate",
                 "audit", "selftest", "assert", "prove", "harness")
@@ -340,7 +353,10 @@ def main():
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("paths", nargs="*", default=["."])
     ap.add_argument("--selftest", action="store_true")
-    ap.add_argument("--quiet", action="store_true", help="findings only")
+    ap.add_argument("--quiet", action="store_true", help="findings only in text mode")
+    ap.add_argument("--format", choices=("text", "json"), default="text",
+                    help="output format; JSON uses stable rule IDs and no unverified line numbers")
+    ap.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     args = ap.parse_args()
 
     if args.selftest:
@@ -360,6 +376,38 @@ def main():
                 suppressed.append((p, s.suppressed))
             for code, why in fs:
                 findings.append((p, code, why))
+
+    if args.format == "json":
+        data = {
+            "tool": "vacuity-lint",
+            "version": __version__,
+            "files_scanned": total_files,
+            "verification_shaped": verification_files,
+            "status": (
+                "no_python_files" if total_files == 0 else
+                "findings" if findings else "clean"
+            ),
+            "findings": [
+                {
+                    "rule_id": RULE_INFO[code][0],
+                    "rule": code,
+                    "severity": RULE_INFO[code][1],
+                    "category": RULE_INFO[code][2],
+                    "path": path,
+                    "message": message,
+                    "suppressed": False,
+                }
+                for path, code, message in sorted(findings)
+            ],
+            "suppressions": [
+                {"path": path, "reason": reason, "suppressed": True}
+                for path, reason in sorted(suppressed)
+            ],
+        }
+        # Per-file classification does not establish a truthful line number.
+        # Never invent one for machine-readable diagnostics.
+        print(json.dumps(data, indent=2, sort_keys=True))
+        return 2 if total_files == 0 else 1 if findings else 0
 
     if total_files == 0:
         where = ", ".join(args.paths) or "."
