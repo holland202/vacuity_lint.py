@@ -4,7 +4,7 @@
 
 # vacuity-lint
 
-> **Release history:** [Official GitHub Releases](https://github.com/holland202/vacuity_lint.py/releases). Tagged releases are immutable; see the release page for the latest published version. Python 3.10+ is supported. PyPI publication has not been verified.
+> **Release history:** [Official GitHub Releases](https://github.com/holland202/vacuity_lint.py/releases). Release tags point to fixed commits (`v1.0.0` → `6ee0671`, `v1.1.0` → `92e1ced`); GitHub release immutability has not been verified. See the release page for the latest published version. Python 3.10+ is supported. PyPI publication has not been verified.
 
 ## Install and try it
 
@@ -149,7 +149,7 @@ that had already been fixed elsewhere. Fixing a file does not fix its copies.
 |---|---|
 | `NO_FAIL_PATH` | Verification-shaped and runnable, but contains no `assert`, no `raise`, no non-zero exit, and no `def test_` |
 | `PRINTS_FAIL_ONLY` | Prints failure text ("FAIL", "ERROR", "WRONG") while having no fail path — announces the problem, reports success |
-| `UNCOLLECTABLE_TEST` | Named `test_*.py` but declares no test functions, so pytest collects nothing and reports green |
+| `UNCOLLECTABLE_TEST` | Named `test_*.py` but declares no test functions. Run alone, pytest collects nothing and exits 5; inside a larger suite the run stays green while this file contributes no tests |
 | `ALWAYS_EXITS_ZERO` | Every exit in the file is `exit(0)` |
 | `UNPARSEABLE` | Did not parse — reported, never silently skipped |
 
@@ -168,8 +168,9 @@ The original four defects split into two kinds:
   never written; a boolean branch that is dead because one condition implies
   another. Needs reachability analysis.
 
-The four split exactly 2 / 2, and **this tool caught 2 of 4.** It finds every
-Type A case and misses every Type B case — and Type B is the harder half.
+The four split exactly 2 / 2, and **this tool caught 2 of 4**: both Type A
+cases and neither Type B case. That is four cases, not a detection rate — and
+Type B is the harder half.
 
 Do not describe this as catching the pattern. It catches half of it. The blind
 spot is encoded as selftest **P12**, so it is a documented property rather than
@@ -274,8 +275,20 @@ three other instances of exactly this defect. Knowing about the pattern is not
 sufficient protection against it.
 
 ```
-python3 vacuity_lint.py . || echo "verification that cannot fail - fix or mark intentional"
+vacuity-lint .              # or, without installing: python3 vacuity_lint.py .
 ```
+
+Exit code 1 on findings is what blocks the commit or CI step. In a script
+with several commands, keep that code: `vacuity-lint . || exit "$?"`.
+
+Do not append `|| echo "..."`. A successful `echo` turns the scanner's 1 back
+into 0, so the step passes while printing a warning — the exact defect this
+tool looks for. This repository's own CI made that mistake until 2026-08-14
+(see the comment in `.github/workflows/gate.yml`).
+
+*Corrected 2026-10-16:* this section previously recommended
+`python3 vacuity_lint.py . || echo "verification that cannot fail - fix or mark intentional"`.
+On a tree the scanner flags (exit 1), that command exits 0.
 
 ## Limitations
 
@@ -286,9 +299,11 @@ python3 vacuity_lint.py . || echo "verification that cannot fail - fix or mark i
   heuristic does not recognise will be missed.
 - Filenames matter to it, which means unusual project layouts may need the
   suppression marker more than tidy ones.
-- Single author, unreviewed. CI runs the self-tests and a planted-defect
-  probe on every push (`.github/workflows/gate.yml`); there is no second
-  reviewer. Judge accordingly.
+- One human maintainer (Chad Holland), no independent reviewer. AI systems
+  contributed code, tests and documentation; where recorded, they are named
+  in commit trailers (Claude, Anthropic). CI runs the self-tests and a
+  planted-defect probe on every push (`.github/workflows/gate.yml`). Judge
+  accordingly.
 
 ## Contributing
 
