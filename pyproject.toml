@@ -4,12 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "vacuity-lint"
-version = "1.1.0"
+version = "2.0.0"
 description = "Find Python verification scripts with no recognized failure path"
 readme = "README.md"
 requires-python = ">=3.10"
-license = "MIT"
-license-files = ["LICENSE"]
+license = "BUSL-1.1"
+license-files = ["LICENSE", "LICENSE-MIT"]
 authors = [{ name = "Chad Edward Holland" }]
 keywords = ["testing", "verification", "static-analysis", "ci", "quality"]
 classifiers = [

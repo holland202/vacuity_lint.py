@@ -1,4 +1,4 @@
-# Vacuity Lint — Rule reference (v1.1.0)
+# Vacuity Lint — Rule reference (v2.0.0)
 
 Vacuity Lint is a **file-level, heuristic** Python AST scanner. Findings are
 **review prompts**, not assertions that a test is incorrect or that a fail
@@ -119,7 +119,7 @@ because the present detector scores files, not precise AST locations):
 ```json
 {
   "tool": "vacuity-lint",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "status": "findings",
   "files_scanned": 1,
   "verification_shaped": 1,
