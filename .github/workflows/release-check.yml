@@ -51,7 +51,8 @@ jobs:
 
           def check(files, label):
               assert any(p.endswith("vacuity_lint.py") for p in files), f"{label}: module missing"
-              assert any(p.endswith("LICENSE") or "/licenses/LICENSE" in p for p in files), f"{label}: license missing"
+              assert any(p.endswith("LICENSE") or "/licenses/LICENSE" in p for p in files), f"{label}: BSL license missing"
+              assert any(p.endswith("/LICENSE-MIT") or p == "LICENSE-MIT" for p in files), f"{label}: historical MIT license missing"
               assert not any(
                   p.lower().endswith((".pem", ".key", ".env", ".sqlite", ".db", ".gguf"))
                   or "/.git/" in p.lower()
