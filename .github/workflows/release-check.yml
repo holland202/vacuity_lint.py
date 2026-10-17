@@ -51,7 +51,8 @@ jobs:
 
           def check(files, label):
               assert any(p.endswith("vacuity_lint.py") for p in files), f"{label}: module missing"
-              assert any(p.endswith("LICENSE") or "/licenses/LICENSE" in p for p in files), f"{label}: license missing"
+              assert any(p.endswith("LICENSE") or "/licenses/LICENSE" in p for p in files), f"{label}: BSL license missing"
+              assert any(p.endswith("/LICENSE-MIT") or p == "LICENSE-MIT" for p in files), f"{label}: historical MIT license missing"
               assert not any(
                   p.lower().endswith((".pem", ".key", ".env", ".sqlite", ".db", ".gguf"))
                   or "/.git/" in p.lower()
@@ -71,3 +72,46 @@ jobs:
           python -m pip uninstall -y vacuity-lint
           python -m pip install --no-deps dist/*.tar.gz
           python release_smoke.py
+
+  publish-v2-0-0:
+    name: Publish v2.0.0 after acceptance
+    needs: package-and-smoke
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Fail closed on unexpected release source
+        run: |
+          python - <<'PY'
+          import pathlib, tomllib
+          config = tomllib.loads(pathlib.Path("pyproject.toml").read_text())
+          assert config["project"]["version"] == "2.0.0"
+          assert config["project"]["license"] == "BUSL-1.1"
+          assert "Vacuity Lint, version 2.0.0 and later." in pathlib.Path("LICENSE").read_text()
+          assert pathlib.Path("LICENSE-MIT").read_text().startswith("MIT License")
+          assert pathlib.Path("RELEASE_NOTES_2_0_0.md").is_file()
+          print("Release source checks: PASS")
+          PY
+      - name: Create v2.0.0 tag and GitHub Release once
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if gh release view v2.0.0 --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Release already exists; no changes made."
+            exit 0
+          fi
+          if git ls-remote --exit-code --tags origin refs/tags/v2.0.0 >/dev/null 2>&1; then
+            echo "Refusing to reuse an existing v2.0.0 tag without its release."
+            exit 1
+          fi
+          gh release create v2.0.0 \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --title "Vacuity Lint v2.0.0 — BSL 1.1 transition" \
+            --notes-file RELEASE_NOTES_2_0_0.md \
+            --latest

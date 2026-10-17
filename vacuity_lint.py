@@ -44,7 +44,7 @@ import sys
 import tempfile
 import subprocess
 
-__version__ = "1.1.0"
+__version__ = "2.0.0"
 
 # Public rule identifiers are stable across JSON consumers.
 # Category separates incomplete analysis from heuristic review prompts.

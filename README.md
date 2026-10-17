@@ -4,7 +4,7 @@
 
 # vacuity-lint
 
-> **Release history:** [Official GitHub Releases](https://github.com/holland202/vacuity_lint.py/releases). Release tags point to fixed commits (`v1.0.0` → `6ee0671`, `v1.1.0` → `92e1ced`); GitHub release immutability has not been verified. See the release page for the latest published version. Python 3.10+ is supported. PyPI publication has not been verified.
+> **Release and license history:** [GitHub Releases](https://github.com/holland202/vacuity_lint.py/releases) include historical MIT versions `v1.0.0` (`6ee0671`) and `v1.1.0` (`92e1ced`), preserved in [ARCHIVED_RELEASES.md](ARCHIVED_RELEASES.md). **v2.0.0** changes to BSL 1.1; the source tree version does not itself prove a `v2.0.0` tag or GitHub Release has been published. See [RELEASE_2_0_0.md](RELEASE_2_0_0.md) for acceptance and publication status. Python 3.10+ is supported. PyPI publication has not been verified.
 
 ## Install and try it
 
@@ -314,6 +314,8 @@ tool does not solve.
 
 ## License
 
-MIT. See LICENSE.
+**Vacuity Lint v2.0.0 and later: [Business Source License 1.1](LICENSE).** Non-production testing, evaluation, research, and security review are free; defined individual, nonprofit, academic, and qualifying small-organization production uses are also permitted. Other production uses require a separate commercial license. See [COMMERCIAL.md](COMMERCIAL.md) for the summary and LICENSE for controlling terms. Each BSL-covered version converts to Apache-2.0 four years after that version's first publication.
+
+**v1.1.0 and earlier: MIT.** Historical release tags and archives remain unchanged under their original [MIT license](LICENSE-MIT). See [ARCHIVED_RELEASES.md](ARCHIVED_RELEASES.md).
 
 *Vincit Omnia Veritas.*
