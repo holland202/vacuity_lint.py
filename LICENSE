@@ -18,11 +18,14 @@ Additional Use Grant: You may make production use of the Licensed Work if You
                       stops meeting condition (c) needs a commercial license to
                       continue production use.
 
-                      "Production use" means using the Licensed Work to make or
-                      enforce authorization decisions for actions that affect
-                      real systems, data or people, or using it inside a product
-                      or service offered to others. Testing, evaluation,
-                      research and security review are not production use.
+                      "Production use" means using the Licensed Work as an
+                      operational part of routine software development, code
+                      review, CI/CD, compliance, security assurance, or release
+                      processes for software an organization uses or supplies,
+                      or incorporating it into a product or service offered
+                      to others. Testing or evaluating the Licensed Work
+                      itself, research, and independent security review of
+                      the Licensed Work are not production use.
 Change Date:          Four years from the date each version of the Licensed Work
                       is first published.
 Change License:       Apache License, Version 2.0
