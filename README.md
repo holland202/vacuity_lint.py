@@ -302,7 +302,8 @@ On a tree the scanner flags (exit 1), that command exits 0.
 - A `test_*` function whose body cannot fail (`def test_x(): pass`) is not
   flagged: declaring a test function counts as a fail path. Found by IE1.
 - One human maintainer (Chad Holland). One independent evaluation so far:
-  IE1, by Putluru Sandeep (2026-10-18), on 2.0.0 with cases he wrote. It
+  IE1, by Putluru Sandeep ([@sunny-kavixo](https://github.com/sunny-kavixo),
+  2026-10-18), on 2.0.0 with cases he wrote. It
   found the tool behaving as documented, including the blind spots above,
   and a misleading VL002 message (`independent/IE1/`). That is one outside
   evaluation, not a validation. AI systems
