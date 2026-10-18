@@ -1,0 +1,97 @@
+# Claude rerun of IE1, 2026-10-18. Scanner: repository vacuity_lint.py at da5fe76 (not the package copy).
+$ sha256sum ../../../vacuity_lint.py source_snapshot/vacuity_lint.py
+3cb0d07d4d5b807132a6a82bef50e09051d4fab35e00449e4cf435745a406971  ../../../vacuity_lint.py
+3cb0d07d4d5b807132a6a82bef50e09051d4fab35e00449e4cf435745a406971  source_snapshot/vacuity_lint.py
+$ for each file under source_snapshot/: cmp with the same path at the repository root (da5fe76)
+same ARCHIVED_RELEASES.md
+same COMMERCIAL.md
+same LICENSE
+same LICENSE-MIT
+same README.md
+same RELEASE.md
+same RELEASE_1_1_0.md
+same RELEASE_2_0_0.md
+same RELEASE_NOTES_2_0_0.md
+same RULES.md
+same mutation_probe.py
+same provenance_audit.py
+same pyproject.toml
+same release_smoke.py
+same vacuity_lint.py
+same E16/RESULTS.md
+same assets/vacuity-lint-mark.svg
+same tests/test_exit_precision.py
+same tests/test_json_cli.py
+$ python3 -I -B verify_package.py
+SHA256SUMS: 56 file hashes PASS
+Pinned scanner, retained input hashes, 16 cases and 7 EGRR inputs: PASS
+Distribution verification: PASS; no original workspace needed
+verify_exit=0
+$ sha256sum -c SHA256SUMS | grep -c ': OK$'
+56
+$ python3 -I -B ../../../vacuity_lint.py --version
+vacuity_lint.py 2.0.0
+$ python3 -I -B ../../../vacuity_lint.py --selftest | tail -1
+20/20 checks passed
+$ python3 -I -B ../../../vacuity_lint.py independent_evidence/reproductions/vl002_docstring.py
+python files scanned    : 1
+verification-shaped     : 1
+findings                : 1
+declared intentional    : 0
+
+PRINTS_FAIL_ONLY  (1)
+  independent_evidence/reproductions/vl002_docstring.py
+      prints failure text 1x but has no assert, raise, or nonzero exit
+
+scanner_exit=1
+$ python3 -I -B ../../../vacuity_lint.py independent_evidence/reproductions/empty_pytest.py
+python files scanned    : 1
+verification-shaped     : 1
+findings                : 0
+declared intentional    : 0
+
+no vacuous verification found
+scanner_exit=0
+$ python3 -I -B ../../../vacuity_lint.py independent_evidence/reproductions/verify_unreachable_raise.py
+python files scanned    : 1
+verification-shaped     : 1
+findings                : 0
+declared intentional    : 0
+
+no vacuous verification found
+scanner_exit=0
+$ python3 -I -B independent_evidence/reproductions/vl002_docstring.py
+documentation loaded
+target_exit=0
+$ python3 -I -B independent_evidence/reproductions/verify_unreachable_raise.py
+success
+target_exit=0
+$ python3 -I -B independent_cases/run_independent.py ../../../vacuity_lint.py independent_cases
+PASS clean/test_real.py: exit=0, rules=[], status=clean
+PASS clean/verify_assert.py: exit=0, rules=[], status=clean
+PASS clean/verify_dynamic_exit.py: exit=0, rules=[], status=clean
+PASS clean/ordinary.py: exit=0, rules=[], status=clean
+PASS clean/verify_suppressed.py: exit=0, rules=[], status=clean
+PASS defective/verify_prints.py: exit=1, rules=['VL002'], status=findings
+PASS defective/test_empty.py: exit=1, rules=['VL001', 'VL003'], status=findings
+PASS defective/verify_zero.py: exit=1, rules=['VL004'], status=findings
+PASS defective/test_broken.py: exit=1, rules=['VL005'], status=findings
+PASS blind/verify_unreachable_raise.py: exit=0, rules=[], status=clean
+PASS blind/verify_always_assert.py: exit=0, rules=[], status=clean
+PASS blind/verify_dead_exit.py: exit=0, rules=[], status=clean
+PASS blind/test_empty_function.py: exit=0, rules=[], status=clean
+PASS edge/verify_doc_fail.py: exit=1, rules=['VL002'], status=findings
+PASS edge/check_module.py: exit=1, rules=['VL001'], status=findings
+PASS edge/validate_library.py: exit=0, rules=[], status=clean
+
+independent_cases=16 failures=0
+driver_exit=0
+$ python3 -I -B ../../../vacuity_lint.py --format json independent_cases/egrr_copies  (summary)
+scanner_exit=0
+files_scanned 7 verification_shaped 6 findings 0 status clean
+$ python3 -I -B ../../../vacuity_lint.py independent_cases/empty
+nothing scanned - no python files found under: independent_cases/empty
+scanner_exit=2
+$ python3 -I -B ../../../vacuity_lint.py --format json independent_cases/defective  (rule ids)
+scanner_exit=1
+findings 5 ['VL001', 'VL002', 'VL003', 'VL004', 'VL005']

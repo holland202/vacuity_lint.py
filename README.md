@@ -299,7 +299,13 @@ On a tree the scanner flags (exit 1), that command exits 0.
   heuristic does not recognise will be missed.
 - Filenames matter to it, which means unusual project layouts may need the
   suppression marker more than tidy ones.
-- One human maintainer (Chad Holland), no independent reviewer. AI systems
+- A `test_*` function whose body cannot fail (`def test_x(): pass`) is not
+  flagged: declaring a test function counts as a fail path. Found by IE1.
+- One human maintainer (Chad Holland). One independent evaluation so far:
+  IE1, by Putluru Sandeep (2026-10-18), on 2.0.0 with cases he wrote. It
+  found the tool behaving as documented, including the blind spots above,
+  and a misleading VL002 message (`independent/IE1/`). That is one outside
+  evaluation, not a validation. AI systems
   contributed code, tests and documentation; where recorded, they are named
   in commit trailers (Claude, Anthropic). CI runs the self-tests and a
   planted-defect probe on every push (`.github/workflows/gate.yml`). Judge
