@@ -1,0 +1,47 @@
+SANITIZED DISTRIBUTION COPY — local paths/private archive references redacted. Historical record; see MAINTAINER_HANDOFF.md for portable commands and qualifications.
+
+Vacuity Lint v2.0.0 independent verification environment
+========================================================
+
+Audit execution date: 2026-10-18
+Host OS: macOS 27.0.1
+Host build: 26A434
+Architecture: arm64
+
+System Python used for host metadata and the pytest smoke case:
+  Python 3.14.5
+  executable: /usr/local/bin/python3
+  platform: macOS-27.0.1-arm64-arm-64bit-Mach-O
+
+Isolated evaluation virtual environment used for the Vacuity CLI, self-tests,
+repository tests, independent 16-case driver, seven-file scan, and installed
+release console command:
+  Python 3.14.5
+  executable: <ORIGINAL_EVALUATION_WORKSPACE>/venv/bin/python
+  platform: macOS-27.0.1-arm64-arm-64bit-Mach-O
+  Vacuity command: vacuity-lint 2.0.0
+  pytest: not installed in this venv
+
+System pytest used only to demonstrate the empty pytest function behavior:
+  pytest 9.1.1
+
+Repository under test:
+  origin: https://github.com/holland202/vacuity_lint.py.git
+  evaluated branch: main
+  evaluated commit: da5fe76ddcd660c2d21a89853623e905a0b33708
+  evaluated commit parent/tag target: c31330e8baaf44ef6610b26272c0ab8910e610be
+  release tag: v2.0.0
+  package version: 2.0.0
+  source SHA-256 (vacuity_lint.py): 3cb0d07d4d5b807132a6a82bef50e09051d4fab35e00449e4cf435745a406971
+
+Evidence root:
+  <ORIGINAL_EVALUATION_WORKSPACE>/independent_evidence/
+
+Original recovered evaluation inputs:
+  16-case fixtures: ../independent_cases/
+  seven copied EGRR scripts: ../independent_cases/egrr_copies/
+
+Evidence provenance:
+  The 16-case and seven-file inputs predated this verification and were
+  recovered byte-for-byte. The test and reproduction results marked NEW in the
+  report were executed for this package. No source repository was modified.

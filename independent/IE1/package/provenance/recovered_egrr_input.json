@@ -1,0 +1,13 @@
+{
+  "recovered_utc": "2026-10-18T04:00:26.536584+00:00",
+  "reason": "File absent from temporary egrr_copies at handoff inspection",
+  "destination": "independent_cases/egrr_copies/descriptive_reporting_gate.py",
+  "source_url": "https://github.com/sunny-kavixo/principia-artificialis/blob/52915857c8bddee66cf86d48c5c8cbc5807168a5/experiments/egrr_issue28/descriptive_reporting_gate.py",
+  "source_commit": "52915857c8bddee66cf86d48c5c8cbc5807168a5",
+  "github_blob_sha1": "5907aad584da5a5bf49899e6de2386a4903a55e6",
+  "sha256": "5492a13d6ddb75e73e95f83c7e848174797d43af27ce5bf703b4e436c6c1a526",
+  "expected_sha256_from_prior_report": "5492a13d6ddb75e73e95f83c7e848174797d43af27ce5bf703b4e436c6c1a526",
+  "bytes": 1190,
+  "matches_recorded_scan_input": true,
+  "tests_or_scans_rerun": false
+}

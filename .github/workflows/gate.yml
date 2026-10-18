@@ -41,10 +41,15 @@ jobs:
           # E16/fixtures holds deliberately weakened checks (planted defects registered in E16/PREREG.md);
           # W3 is meant to be flagged, so the repo scan excludes that directory. The second command keeps
           # the exclusion honest: if the planted fixtures ever stop being flagged, this step fails.
+          # independent/IE1/package is an outside evaluator's evidence (independent/IE1/README.md): it holds
+          # deliberately defective and invalid cases, so it is excluded too, and his own 16-case driver must
+          # still pass against this scanner.
           mkdir -p "$RUNNER_TEMP/scan"
-          tar --exclude=./E16/fixtures --exclude=./.git -cf - . | tar -xf - -C "$RUNNER_TEMP/scan"
+          tar --exclude=./E16/fixtures --exclude=./independent/IE1/package --exclude=./.git -cf - . | tar -xf - -C "$RUNNER_TEMP/scan"
           python3 vacuity_lint.py "$RUNNER_TEMP/scan"
           if python3 vacuity_lint.py E16/fixtures; then echo "E16 planted defect (W3) no longer flagged"; exit 1; fi
+          if python3 vacuity_lint.py independent/IE1/package/independent_cases/defective; then echo "IE1 defective cases no longer flagged"; exit 1; fi
+          python3 independent/IE1/package/independent_cases/run_independent.py vacuity_lint.py independent/IE1/package/independent_cases
       - name: Provenance audit selftest
         run: |
           # provenance_audit.py landed unrun, deliberately, so git would
