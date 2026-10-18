@@ -1,7 +1,11 @@
 # IE1: first independent evaluation of Vacuity Lint (Putluru Sandeep, 2026-10-18)
 
-**Evaluator:** Putluru Sandeep (GitHub `sunny-kavixo`), who designed the cases, ran them on his own machine and
-wrote the package. **Published with his agreement**, as confirmed to the maintainer on 2026-10-18.
+**Evaluator:** Putluru Sandeep ([@sunny-kavixo](https://github.com/sunny-kavixo)), who designed the cases, ran
+them on his own machine and wrote the package. **Credit, in the terms he asked for:** an independent technical
+evaluation and reproducibility review, including the constructed test cases, the VL002 diagnostic observations,
+the empty pytest test limitation, and the documented unreachable failure-path behaviour. **Published with his
+agreement**, confirmed to the maintainer on 2026-10-18 and given by him in writing the same day (a private message
+to the maintainer, not reproduced here).
 **Instrument evaluated:** `vacuity_lint.py` 2.0.0 at `da5fe76ddcd660c2d21a89853623e905a0b33708` (`main` at the
 time), scanner SHA-256 `3cb0d07d4d5b807132a6a82bef50e09051d4fab35e00449e4cf435745a406971`.
 **His environment:** macOS 27.0.1 arm64, Python 3.14.5; pytest 9.1.1 for the separate pytest control.
