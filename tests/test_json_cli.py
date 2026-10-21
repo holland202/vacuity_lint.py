@@ -29,7 +29,7 @@ class JSONContractTests(unittest.TestCase):
     def test_version(self):
         r = self.run_cli("--version")
         self.assertEqual(r.returncode, 0)
-        self.assertEqual(r.stdout.strip(), "vacuity_lint.py 2.0.0")
+        self.assertEqual(r.stdout.strip(), "vacuity_lint.py 2.0.1.dev0")
 
     def test_legacy_text_mode_and_code_unchanged(self):
         file = self.make("verify_bad.py", 'print("[FAIL] but still 0")\n')
@@ -45,7 +45,7 @@ class JSONContractTests(unittest.TestCase):
         v = json.loads(r.stdout)
         self.assertEqual(v["status"], "clean")
         self.assertEqual(v["tool"], "vacuity-lint")
-        self.assertEqual(v["version"], "2.0.0")
+        self.assertEqual(v["version"], "2.0.1.dev0")
         self.assertEqual(v["files_scanned"], 1)
         self.assertEqual(v["findings"], [])
         self.assertEqual(v["suppressions"], [])

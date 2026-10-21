@@ -31,7 +31,7 @@ def require(condition, description):
 
 def main():
     require(shutil.which("vacuity-lint") is not None, "installed executable on PATH")
-    require(version("vacuity-lint") == "2.0.0", "installed metadata is v2.0.0")
+    require(version("vacuity-lint") == "2.0.1.dev0", "installed metadata is v2.0.1.dev0")
     selftest = invoke("--selftest")
     require(selftest.returncode == 0 and "20/20 checks passed" in selftest.stdout,
             "20 detector self-tests via installed console command")
@@ -74,7 +74,7 @@ def main():
 
     version_result = invoke("--version")
     require(version_result.returncode == 0 and
-            version_result.stdout.strip() == "vacuity-lint 2.0.0",
+            version_result.stdout.strip() == "vacuity-lint 2.0.1.dev0",
             "installed CLI --version matches package metadata")
 
     with TemporaryDirectory(prefix="vacuity-release-json-") as temp:
@@ -85,7 +85,7 @@ def main():
         require(json_result.returncode == 1,
                 "installed JSON mode preserves findings exit code")
         data = json.loads(json_result.stdout)
-        require(data["version"] == "2.0.0" and
+        require(data["version"] == "2.0.1.dev0" and
                 data["findings"][0]["rule_id"] == "VL002" and
                 data["findings"][0]["category"] == "heuristic" and
                 "line" not in data["findings"][0],
@@ -96,7 +96,24 @@ def main():
                 json.loads(empty_result.stdout)["status"] == "no_python_files",
                 "installed JSON mode preserves empty-scan exit 2")
 
-    print("RELEASE CONTRACT: PASS (v2.0.0, 13 checks)")
+        (root / "ordinary.py").write_text("value = 1\n", encoding="utf-8")
+        missing = root / "missing"
+        partial = invoke(root, missing, "--format", "json")
+        partial_data = json.loads(partial.stdout)
+        require(partial.returncode == 2 and partial_data["status"] == "analysis_error"
+                and partial_data["coverage_errors"][0]["path"] == str(missing),
+                "installed CLI refuses a partial scan with a missing root")
+
+        broken.write_text(
+            'marker = "# vacuity-lint: intentional - quoted example"\n'
+            'print("[FAIL]")\nraise SystemExit\n', encoding="utf-8")
+        lexical = invoke(broken, "--format", "json")
+        lexical_data = json.loads(lexical.stdout)
+        require(lexical.returncode == 1 and lexical_data["suppressions"] == []
+                and lexical_data["findings"][0]["rule_id"] == "VL002",
+                "installed CLI rejects string suppression and bare successful SystemExit")
+
+    print("RELEASE CONTRACT: PASS (v2.0.1.dev0)")
     return 0
 
 

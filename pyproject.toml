@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "vacuity-lint"
-version = "2.0.0"
+version = "2.0.1.dev0"
 description = "Find Python verification scripts with no recognized failure path"
 readme = "README.md"
 requires-python = ">=3.10"

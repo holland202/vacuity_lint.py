@@ -2,76 +2,36 @@ name: Vacuity Lint Gate
 
 on: [push, pull_request]
 
+permissions:
+  contents: read
+
 jobs:
   vacuity_lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.11'
       - name: Run vacuity_lint selftest
         run: python3 vacuity_lint.py --selftest
-      - name: Regression tests for exit and entry-point precision
+      - name: Regression and gate sabotage tests
         run: python3 -m unittest discover -s tests -v
-      - name: Prove the gate can fail
+      - name: Prove issue 7 regression tests reject deliberate scanner defects
+        run: python3 ci/check_issue7_mutants.py
+      - name: Prepare fixture-free scan tree
         run: |
-          # Anti-vacuity. Until 2026-08-14 the scan step below ended in
-          # `|| echo "Findings detected; review above"`, which discarded the
-          # scanner's exit code. vacuity_lint.py returns 1 on findings by
-          # design -- its own docstring says "Exit 0 when nothing is found,
-          # 1 when findings exist, so it can gate a repo" -- and the `|| echo`
-          # meant the repo was never actually gated. The tool that finds code
-          # which prints failure and exits 0 shipped CI that printed failure
-          # and exited 0.
-          #
-          # This step plants a known-defective file, asserts the scan rejects
-          # it, then removes it. If this step ever passes with the file
-          # planted, the gate is inert and the clean scan below means nothing.
-          printf 'import sys\nok = False\nprint("[FAIL] planted")\nprint("[PASS] ok")\nsys.exit(0)\n' > _gate_probe.py
-          if python3 vacuity_lint.py . ; then
-            echo "GATE IS INERT: scan returned 0 with a known-vacuous file present"
-            rm -f _gate_probe.py
-            exit 1
-          fi
-          echo "gate rejects a planted defect as expected"
-          rm -f _gate_probe.py
-      - name: Scan repo
+          scan=$(mktemp -d "$RUNNER_TEMP/vacuity-scan.XXXXXX")
+          tar --exclude=./E16/fixtures --exclude=./independent/IE1/package --exclude=./.git -cf - . | tar -xf - -C "$scan"
+          printf 'VACUITY_SCAN_ROOT=%s\n' "$scan" >> "$GITHUB_ENV"
+      - name: Require clean, intended planted failure, then clean
+        run: python3 ci/verify_gate.py vacuity_lint.py "$VACUITY_SCAN_ROOT" --evidence-dir "$RUNNER_TEMP/vacuity-gate-evidence"
+      - name: Scan repo and preserve exact planted-fixture expectations
         run: |
-          # E16/fixtures holds deliberately weakened checks (planted defects registered in E16/PREREG.md);
-          # W3 is meant to be flagged, so the repo scan excludes that directory. The second command keeps
-          # the exclusion honest: if the planted fixtures ever stop being flagged, this step fails.
-          # independent/IE1/package is an outside evaluator's evidence (independent/IE1/README.md): it holds
-          # deliberately defective and invalid cases, so it is excluded too, and his own 16-case driver must
-          # still pass against this scanner.
-          mkdir -p "$RUNNER_TEMP/scan"
-          tar --exclude=./E16/fixtures --exclude=./independent/IE1/package --exclude=./.git -cf - . | tar -xf - -C "$RUNNER_TEMP/scan"
-          python3 vacuity_lint.py "$RUNNER_TEMP/scan"
-          if python3 vacuity_lint.py E16/fixtures; then echo "E16 planted defect (W3) no longer flagged"; exit 1; fi
-          if python3 vacuity_lint.py independent/IE1/package/independent_cases/defective; then echo "IE1 defective cases no longer flagged"; exit 1; fi
+          python3 vacuity_lint.py "$VACUITY_SCAN_ROOT"
+          python3 ci/verify_fixtures.py
           python3 independent/IE1/package/independent_cases/run_independent.py vacuity_lint.py independent/IE1/package/independent_cases
       - name: Provenance audit selftest
-        run: |
-          # provenance_audit.py landed unrun, deliberately, so git would
-          # timestamp its frozen evidence tiers before any unit was scored.
-          # It was then never exercised here. An untested tool in a
-          # repository about untested verification is the joke writing
-          # itself. Its selftest proves it reports both reconstructible and
-          # not-reconstructible, and refuses to infer authorship from style.
-          python3 provenance_audit.py --selftest
+        run: python3 provenance_audit.py --selftest
       - name: Mutation probe selftest
-        run: |
-          # Companion tool, added 2026-08-14: mutation_probe.py asks a
-          # question vacuity_lint.py cannot -- not just "is there a
-          # reachable nonzero exit" but "does the verdict actually depend
-          # on the logic it claims to check." Grounded in Kupferman/Li/
-          # Seshia's mutation theory (FMCAD 2008), the same operation as
-          # the --sabotage flags added to igar's tests the same day.
-          #
-          # This step only runs the tool's own anti-vacuity selftest, which
-          # is self-contained and needs no real target. It proves the tool
-          # can report both KILLED and SURVIVED before anyone runs it
-          # against real code. The tool itself caught two bugs in its own
-          # first build before it ever touched a real file -- see the
-          # module docstring.
-          python3 mutation_probe.py --selftest
+        run: python3 mutation_probe.py --selftest
