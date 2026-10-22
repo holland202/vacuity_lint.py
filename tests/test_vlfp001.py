@@ -15,7 +15,6 @@ ROOT = Path(__file__).resolve().parents[1]
 
 FALSE_PASSES = {
     "V-A": ("verify_tuple.py", 'import sys\nx = 2\nassert (x == 1, "x must be 1")\nprint("[FAIL] would be printed")\n'),
-    "V-B": ("verify_true.py", 'print("[FAIL] check failed")\nassert True\n'),
     "V-C": ("verify_swallow.py", 'x = 2\ntry:\n    assert x == 1\nexcept AssertionError:\n    print("[FAIL] x != 1")\n'),
     "V-D": ("verify_testdef.py", 'import sys\ndef test_placeholder():\n    pass\nif __name__ == "__main__":\n'
                                  '    print("[FAIL] check failed")\n    sys.exit(0)\n'),
@@ -35,7 +34,18 @@ GUARDS = {
                                  '        self.assertEqual(1, 1)\nif __name__ == "__main__":\n    unittest.main()\n'),
     "G10": ("verify_called.py", 'def test_value():\n    if 1 + 1 != 2:\n        raise SystemExit(1)\n'
                                 'if __name__ == "__main__":\n    test_value()\n'),
+    # Post hoc (added with the executability rule after fix attempt 1; see VLFP001/RESULTS.md):
+    "G11": ("check_utils.py", 'try:\n    import yaml\nexcept ImportError:\n    yaml = None\n'
+                              'FAIL_MSG = "[FAIL] check failed"\ndef check(x):\n    return x\n'),
+    "G12": ("verify_lib_gate.py", 'import sys\nif sys.version_info < (3, 8):\n    raise RuntimeError("[FAIL] old python")\n'
+                                  'def gate(x):\n    return x > 0\n'),
 }
+
+
+# V-B (`assert True` as the only check) was registered as a false pass to fix. The fix is WITHDRAWN:
+# the frozen IE1 independent package expects `assert True` files to scan clean (clean/verify_assert.py)
+# and lists them as a known blind spot (blind/verify_always_assert.py). See VLFP001/RESULTS.md.
+V_B_DOCUMENTED_BLIND_SPOT = ("verify_true.py", 'print("[FAIL] check failed")\nassert True\n')
 
 
 class VLFP001(unittest.TestCase):
@@ -54,6 +64,10 @@ class VLFP001(unittest.TestCase):
             with self.subTest(case=cid):
                 codes = self.codes(name, body)
                 self.assertTrue(set(codes) & {"NO_FAIL_PATH", "PRINTS_FAIL_ONLY"}, f"{cid} scanned clean: {codes}")
+
+    def test_v_b_remains_a_documented_blind_spot(self):
+        name, body = V_B_DOCUMENTED_BLIND_SPOT
+        self.assertEqual(self.codes(name, body), [])
 
     def test_guards_stay_clean(self):
         for gid, (name, body) in GUARDS.items():

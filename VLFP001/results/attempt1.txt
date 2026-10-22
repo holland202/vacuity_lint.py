@@ -1,0 +1,7 @@
+VL-FP-001 fix attempt 1 (type/swallow/uncollected guards only), Python 3.13.16:
+FAIL: test_cli_exits_one_for_each_false_pass (case='V-C')
+FAIL: test_false_passes_now_report_a_finding (case='V-C')
+    self.assertTrue(set(codes) & {"NO_FAIL_PATH", "PRINTS_FAIL_ONLY"}, f"{cid} scanned clean: {codes}")
+AssertionError: set() is not true : V-C scanned clean: []
+Ran 3 tests in 0.219s
+FAILED (failures=2)
