@@ -42,6 +42,15 @@ There is no calibrated probability or automated correctness score.
 | VL004 | `ALWAYS_EXITS_ZERO` | heuristic | warning | Verification-shaped file with exit calls all classified as literal zero, no recognized assert/raise/test function and no failure-string signal |
 | VL005 | `UNPARSEABLE` | analysis_error | error | Python AST parsing failed; CLI filesystem coverage failures are reported separately in `coverage_errors` |
 
+**What does not count as a fail path (VL-FP-001, unreleased):**
+- an `assert` whose test is a non-empty tuple, e.g. `assert (x == 1, "msg")`, which is always true;
+- an `assert` inside a `try` whose handler catches `AssertionError` (or `Exception`/`BaseException`/bare) and neither re-raises nor calls an exit-like function;
+- a `def test_*` in a file pytest does not collect by default (not `test_*.py` / `*_test.py`), with no `unittest`/`pytest` import and no reference in the module.
+
+A top-level `try`/`if`/`for`/`while`/`with` block containing an `assert` or a call statement now makes a file executable.
+
+`assert True` is still counted, as a documented blind spot recorded by the independent IE1 cases. Details: [VLFP001/RESULTS.md](VLFP001/RESULTS.md).
+
 Recognized fail-path shapes include any `assert`, non-`SystemExit` `raise`,
 `raise SystemExit(nonzero)`, `sys.exit(nonzero)`, `os._exit(nonzero)`,
 `quit(nonzero)`, `exit(nonzero)`, or an exit with a dynamic expression,

@@ -1,0 +1,29 @@
+VL-FP-001 after fix: every gate.yml step run locally (Python 3.13.16, x86_64, 2026-10-22T14:47:27Z). Self-tested.
+## selftest
+20/20 checks passed
+## unittest discover
+Ran 58 tests in 2.354s
+
+OK
+## issue 7 mutants
+ISSUE 7 MUTANTS: 4/4 killed by regression assertions
+## VL-FP-001 mutants
+mutant tuple-assert: KILLED (FAILED (failures=2))
+mutant swallow: KILLED (FAILED (failures=2))
+mutant uncollected-test: KILLED (FAILED (failures=2))
+mutant top-level-block-executable: KILLED (FAILED (failures=2))
+VL-FP-001 MUTANTS: 4/4 killed
+## gate control
+GATE CONTROL PASS: clean -> sole intended VL002 -> clean
+## self-scan (fixture-free tree)
+findings                : 0
+declared intentional    : 0
+
+no vacuous verification found
+## fixtures
+FIXTURE CONTROLS PASS
+## IE1 independent cases
+independent_cases=16 failures=0
+## provenance/mutation selftests
+SELFTEST PASS -- this tool reports reconstructible AND
+SELFTEST PASS -- this tool reports KILLED, SURVIVED and CRASHED depending on input. It does not mistake a masked crash for a survivor, and it does not count one as a kill. It is not stuck reporting one verdict.

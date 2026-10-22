@@ -147,6 +147,23 @@ def _is_main_guard(stmt):
     )
 
 
+def _runs_a_check(stmt):
+    """VL-FP-001 (post hoc, see VLFP001/RESULTS.md): a top-level try/if/for/while/with block whose own
+    statements (not nested defs or classes) contain an assert or a bare call statement runs at import or
+    execution time. Blocks of only imports and assignments (e.g. optional-import fallbacks) do not count."""
+    if not isinstance(stmt, (ast.Try, ast.If, ast.For, ast.While, ast.With)) and type(stmt).__name__ != "TryStar":
+        return False
+    stack = list(ast.iter_child_nodes(stmt))
+    while stack:
+        node = stack.pop()
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef, ast.Lambda)):
+            continue
+        if isinstance(node, ast.Assert) or (isinstance(node, ast.Expr) and isinstance(node.value, ast.Call)):
+            return True
+        stack.extend(ast.iter_child_nodes(node))
+    return False
+
+
 class Scan(ast.NodeVisitor):
     def __init__(self, tree=None):
         self.exit_bindings = _exit_bindings(
@@ -155,13 +172,96 @@ class Scan(ast.NodeVisitor):
         self.raises = 0
         self.exit_calls = []      # list of "zero" | "nonzero" | "dynamic"
         self.test_defs = 0
+        self.test_names = set()
+        self.names_used = set()
+        self.runner_imported = False
+        self.tautological_asserts = 0   # VL-FP-001: assert (x, "msg") / assert True cannot fail
+        self.swallowed_asserts = 0      # VL-FP-001: assert inside try whose AssertionError is swallowed
+        self._swallow_depth = 0
         self.fail_strings = 0
         self.has_main = False
         self.is_executable = False
         self.suppressed = None
 
     def visit_Assert(self, n):
-        self.asserts += 1
+        t = n.test
+        # `assert (x, "msg")`: a non-empty tuple is always true (Python itself warns). A bare
+        # `assert True` is deliberately NOT reclassified: the frozen IE1 independent cases record it as
+        # clean / a documented blind spot (VLFP001/RESULTS.md, V-B withdrawn).
+        if isinstance(t, ast.Tuple) and t.elts:
+            self.tautological_asserts += 1
+        elif self._swallow_depth:
+            self.swallowed_asserts += 1
+        else:
+            self.asserts += 1
+        self.generic_visit(n)
+
+    @staticmethod
+    def _handler_swallows(h):
+        """A handler that can catch AssertionError and neither re-raises nor exits."""
+        caught = h.type
+        names = []
+        if caught is None:
+            names = ["BaseException"]
+        else:
+            for e in (caught.elts if isinstance(caught, ast.Tuple) else [caught]):
+                if isinstance(e, ast.Name):
+                    names.append(e.id)
+                elif isinstance(e, ast.Attribute):
+                    names.append(e.attr)
+        if not set(names) & {"AssertionError", "Exception", "BaseException"}:
+            return False
+        for node in ast.walk(ast.Module(body=h.body, type_ignores=[])):
+            if isinstance(node, ast.Raise):
+                return False
+            if isinstance(node, ast.Call):
+                f = node.func
+                attr = f.attr if isinstance(f, ast.Attribute) else f.id if isinstance(f, ast.Name) else ""
+                if attr in ("exit", "_exit", "abort", "fail"):
+                    return False   # conservative: any exit-like call keeps the assert counted
+        return True
+
+    def visit_Try(self, n):
+        swallows = any(self._handler_swallows(h) for h in n.handlers)
+        if swallows:
+            self._swallow_depth += 1
+        for stmt in n.body:
+            self.visit(stmt)
+        if swallows:
+            self._swallow_depth -= 1
+        for part in (n.handlers, n.orelse, n.finalbody):
+            for stmt in part:
+                self.visit(stmt)
+
+    visit_TryStar = visit_Try
+
+    def visit_Lambda(self, n):
+        depth, self._swallow_depth = self._swallow_depth, 0
+        self.generic_visit(n)
+        self._swallow_depth = depth
+
+    def visit_ClassDef(self, n):
+        depth, self._swallow_depth = self._swallow_depth, 0
+        self.generic_visit(n)
+        self._swallow_depth = depth
+
+    def visit_Import(self, n):
+        if any(a.name.split(".")[0] in ("unittest", "pytest") for a in n.names):
+            self.runner_imported = True
+        self.generic_visit(n)
+
+    def visit_ImportFrom(self, n):
+        if (n.module or "").split(".")[0] in ("unittest", "pytest"):
+            self.runner_imported = True
+        self.generic_visit(n)
+
+    def visit_Name(self, n):
+        if isinstance(n.ctx, ast.Load):
+            self.names_used.add(n.id)
+        self.generic_visit(n)
+
+    def visit_Attribute(self, n):
+        self.names_used.add(n.attr)
         self.generic_visit(n)
 
     def visit_Raise(self, n):
@@ -182,7 +282,10 @@ class Scan(ast.NodeVisitor):
     def visit_FunctionDef(self, n):
         if n.name.startswith("test_"):
             self.test_defs += 1
+            self.test_names.add(n.name)
+        depth, self._swallow_depth = self._swallow_depth, 0   # a def's body does not run inside the try
         self.generic_visit(n)
+        self._swallow_depth = depth
 
     def visit_AsyncFunctionDef(self, n):
         self.visit_FunctionDef(n)
@@ -229,8 +332,19 @@ def looks_like_verification(path, s):
     return any(h in base for h in VERIFY_HINTS) or s.fail_strings > 0
 
 
+def effective_test_defs(s, path=None):
+    """VL-FP-001: `def test_*` counts as a fail path only if something can run it: pytest's default
+    collection (test_*.py / *_test.py), an imported unittest/pytest runner, or a call in the module."""
+    if not s.test_defs:
+        return 0
+    base = os.path.basename(path or getattr(s, "path", "") or "")
+    if base.startswith("test_") or base.endswith("_test.py") or s.runner_imported:
+        return s.test_defs
+    return len(s.test_names & s.names_used)
+
+
 def has_fail_path(s):
-    return (s.asserts > 0 or s.raises > 0 or s.test_defs > 0
+    return (s.asserts > 0 or s.raises > 0 or effective_test_defs(s) > 0
             or any(e in ("nonzero", "dynamic") for e in s.exit_calls))
 
 
@@ -263,6 +377,7 @@ def analyse(path, *, strict_io=False):
         return [("UNPARSEABLE", str(e).split("\n")[0][:60])], None
 
     s = Scan(tree)
+    s.path = path
     s.visit(tree)
     s.has_main = has_main
     # Executable = a __main__ guard, or a call at module level. A file of
@@ -270,7 +385,7 @@ def analyse(path, *, strict_io=False):
     # by itself and must not be judged as if it could.
     s.is_executable = has_main or any(
         isinstance(n, ast.Expr) and isinstance(n.value, ast.Call)
-        for n in tree.body)
+        for n in tree.body) or any(_runs_a_check(n) for n in tree.body)
     out = []
     base = os.path.basename(path)
 
@@ -284,7 +399,7 @@ def analyse(path, *, strict_io=False):
         # Prefer a printed-failure finding when a zero-only checker
         # announces errors; otherwise use the more precise exit category.
         if (s.exit_calls and all(e == "zero" for e in s.exit_calls)
-                and not (s.asserts or s.raises or s.test_defs or s.fail_strings)):
+                and not (s.asserts or s.raises or effective_test_defs(s) or s.fail_strings)):
             out.append(("ALWAYS_EXITS_ZERO",
                         f"{len(s.exit_calls)} exit call(s), all literal 0"))
         elif not has_fail_path(s):

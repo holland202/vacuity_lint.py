@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+"""VL-FP probe. Fixtures are written, scanned with the scanner given as argv[1], never executed."""
+import json, os, subprocess, sys, tempfile
+SCANNER = os.path.abspath(sys.argv[1])
+CLEAN = 'import sys\nx = len(sys.argv)\nassert x >= 1\n'
+VAC = 'import sys\nprint("[FAIL] check failed")\nsys.exit(0)\n'
+CASES = {
+ "C1": {"verify_plain.py": VAC},
+ "C2": {"verify_real.py": CLEAN},
+ "V-A": {"verify_tuple.py": 'import sys\nx = 2\nassert (x == 1, "x must be 1")\nprint("[FAIL] would be printed")\n'},
+ "V-B": {"verify_true.py": 'print("[FAIL] check failed")\nassert True\n'},
+ "V-C": {"verify_swallow.py": 'x = 2\ntry:\n    assert x == 1\nexcept AssertionError:\n    print("[FAIL] x != 1")\n'},
+ "V-D": {"verify_testdef.py": 'import sys\ndef test_placeholder():\n    pass\nif __name__ == "__main__":\n    print("[FAIL] check failed")\n    sys.exit(0)\n'},
+ "V-E": {"ok.py": CLEAN, ".github/scripts/verify_ci.py": VAC},
+ "V-F": {"ok.py": CLEAN, "build/verify_build.py": VAC},
+ "V-G": {"ok.py": CLEAN, "ci/verify": "#!/usr/bin/env python3\n" + VAC},
+ "V-H": {"verify_main.py": 'import sys\ndef main():\n    print("[FAIL] check failed")\n    return 0\nif __name__ == "__main__":\n    sys.exit(main())\n'},
+ "V-I": {"verify_dead.py": 'import sys\nprint("[FAIL] check failed")\nif False:\n    sys.exit(1)\n'},
+ "V-J": {"ok.py": CLEAN, "real/verify_linked.py": VAC, "__link__": ("real", "linked")},
+}
+for cid, files in CASES.items():
+    with tempfile.TemporaryDirectory() as tmp:
+        outer = os.path.join(tmp, "outer"); root = os.path.join(outer, "scan"); os.makedirs(root)
+        link = files.get("__link__")
+        for rel, text in files.items():
+            if rel == "__link__": continue
+            base = outer if link and rel.startswith(link[0] + "/") else root
+            p = os.path.join(base, rel); os.makedirs(os.path.dirname(p), exist_ok=True)
+            open(p, "w").write(text)
+        if link: os.symlink(os.path.join(outer, link[0]), os.path.join(root, link[1]))
+        r = subprocess.run([sys.executable, "-I", SCANNER, root, "--format", "json"], capture_output=True, text=True)
+        d = json.loads(r.stdout)
+        print(f"{cid:5} exit={r.returncode} status={d['status']:<14} files={d['files_scanned']} "
+              f"rules={[f['rule_id'] for f in d['findings']]}")

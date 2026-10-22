@@ -19,6 +19,8 @@ jobs:
         run: python3 -m unittest discover -s tests -v
       - name: Prove issue 7 regression tests reject deliberate scanner defects
         run: python3 ci/check_issue7_mutants.py
+      - name: Prove VL-FP-001 regression tests reject each removed guard
+        run: python3 VLFP001/mutants.py
       - name: Prepare fixture-free scan tree
         run: |
           scan=$(mktemp -d "$RUNNER_TEMP/vacuity-scan.XXXXXX")
