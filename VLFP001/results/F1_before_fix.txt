@@ -1,0 +1,23 @@
+VL-FP-001 F1: new tests on unfixed scanner c9390d2 (Python 3.13.16). Self-tested.
+FAIL: test_cli_exits_one_for_each_false_pass (case='V-A')
+AssertionError: 0 != 1 : python files scanned    : 1
+FAIL: test_cli_exits_one_for_each_false_pass (case='V-B')
+AssertionError: 0 != 1 : python files scanned    : 1
+FAIL: test_cli_exits_one_for_each_false_pass (case='V-C')
+AssertionError: 0 != 1 : python files scanned    : 1
+FAIL: test_cli_exits_one_for_each_false_pass (case='V-D')
+AssertionError: 0 != 1 : python files scanned    : 1
+FAIL: test_false_passes_now_report_a_finding (case='V-A')
+    self.assertTrue(set(codes) & {"NO_FAIL_PATH", "PRINTS_FAIL_ONLY"}, f"{cid} scanned clean: {codes}")
+AssertionError: set() is not true : V-A scanned clean: []
+FAIL: test_false_passes_now_report_a_finding (case='V-B')
+    self.assertTrue(set(codes) & {"NO_FAIL_PATH", "PRINTS_FAIL_ONLY"}, f"{cid} scanned clean: {codes}")
+AssertionError: set() is not true : V-B scanned clean: []
+FAIL: test_false_passes_now_report_a_finding (case='V-C')
+    self.assertTrue(set(codes) & {"NO_FAIL_PATH", "PRINTS_FAIL_ONLY"}, f"{cid} scanned clean: {codes}")
+AssertionError: set() is not true : V-C scanned clean: []
+FAIL: test_false_passes_now_report_a_finding (case='V-D')
+    self.assertTrue(set(codes) & {"NO_FAIL_PATH", "PRINTS_FAIL_ONLY"}, f"{cid} scanned clean: {codes}")
+AssertionError: set() is not true : V-D scanned clean: []
+Ran 3 tests in 0.261s
+FAILED (failures=8)
