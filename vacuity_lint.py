@@ -12,10 +12,12 @@ This tool finds that class of defect by parsing the AST, not by grepping.
 
 WHAT COUNTS AS A FAIL PATH
     assert                        -> AssertionError propagates, exit nonzero
-    raise                         -> propagates, exit nonzero
-    sys.exit(<not literal 0>)     -> can exit nonzero
+    ordinary raise                -> potential nonzero failure
+    nonzero/dynamic exit code     -> potential nonzero failure
+    os.abort()                    -> nonzero termination
     def test_*                    -> pytest can fail it
-Anything else cannot make the process exit nonzero on its own.
+Simple stdlib exit aliases are recognized unless shadowed. This is a
+syntactic inventory, not a proof about reachable outcomes.
 
 FINDINGS
     NO_FAIL_PATH        looks like verification, has no fail path at all
@@ -30,21 +32,25 @@ implied `not abort_reason`, so the 1 branch was dead. That needs reachability
 analysis; this tool would call that file clean. It finds missing fail paths,
 not dead ones.
 
-Exit 0 when nothing is found, 1 when findings exist, so it can gate a repo.
+Exit 0 for a complete nonempty scan without findings; 1 for findings,
+including syntax-error VL005; 2 for empty scans or filesystem coverage errors.
 Zero dependencies, standard library only.
 """
 
 import argparse
 import ast
+import io
 import json
 import os
 import re
 import shutil
+import stat
 import sys
 import tempfile
+import tokenize
 import subprocess
 
-__version__ = "2.0.0"
+__version__ = "2.0.1.dev0"
 
 # Public rule identifiers are stable across JSON consumers.
 # Category separates incomplete analysis from heuristic review prompts.
@@ -69,8 +75,58 @@ SKIP_DIRS = {".git", "__pycache__", "node_modules", "venv", ".venv", "build",
 def _exit_code_kind(argument):
     """Classify the AST of an exit code without evaluating source code."""
     if isinstance(argument, ast.Constant):
-        return "zero" if argument.value in (0, None) else "nonzero"
+        value = argument.value
+        return "zero" if value is None or (isinstance(value, int) and value == 0) else "nonzero"
     return "dynamic"
+
+
+def _exit_bindings(tree):
+    """Recognize simple stdlib imports, conservatively rejecting shadowed names.
+
+    This is not Python name-resolution or control-flow analysis. A binding
+    anywhere in the file disables that alias, including in nested scopes.
+    """
+    bindings = {"sys": ("module", "sys"), "os": ("module", "os"),
+                "exit": ("call", "exit"), "quit": ("call", "exit")}
+    trusted = set()
+    for node in tree.body:
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                if alias.name in ("sys", "os"):
+                    name = alias.asname or alias.name
+                    bindings[name] = ("module", alias.name)
+                    trusted.add((id(node), name))
+        elif isinstance(node, ast.ImportFrom) and node.level == 0:
+            for alias in node.names:
+                kind = ("exit" if node.module == "sys" and alias.name == "exit"
+                        else alias.name if node.module == "os" and alias.name in ("_exit", "abort")
+                        else None)
+                if kind is not None:
+                    name = alias.asname or alias.name
+                    bindings[name] = ("call", kind)
+                    trusted.add((id(node), name))
+    shadowed = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Name) and isinstance(node.ctx, (ast.Store, ast.Del)):
+            shadowed.add(node.id)
+        elif isinstance(node, ast.arg):
+            shadowed.add(node.arg)
+        elif isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+            shadowed.add(node.name)
+        elif isinstance(node, ast.ExceptHandler) and node.name:
+            shadowed.add(node.name)
+        elif isinstance(node, (ast.MatchAs, ast.MatchStar)) and node.name:
+            shadowed.add(node.name)
+        elif isinstance(node, ast.MatchMapping) and node.rest:
+            shadowed.add(node.rest)
+        elif isinstance(node, (ast.Import, ast.ImportFrom)):
+            for alias in node.names:
+                if alias.name == "*":
+                    shadowed.update(bindings)
+                name = alias.asname or alias.name.split(".")[0]
+                if (id(node), name) not in trusted:
+                    shadowed.add(name)
+    return {name: kind for name, kind in bindings.items() if name not in shadowed}
 
 
 def _is_main_guard(stmt):
@@ -92,7 +148,9 @@ def _is_main_guard(stmt):
 
 
 class Scan(ast.NodeVisitor):
-    def __init__(self):
+    def __init__(self, tree=None):
+        self.exit_bindings = _exit_bindings(
+            tree if tree is not None else ast.Module(body=[], type_ignores=[]))
         self.asserts = 0
         self.raises = 0
         self.exit_calls = []      # list of "zero" | "nonzero" | "dynamic"
@@ -113,7 +171,10 @@ class Scan(ast.NodeVisitor):
                 and isinstance(n.exc.func, ast.Name)
                 and n.exc.func.id == "SystemExit"):
             self.exit_calls.append(
+                "nonzero" if len(n.exc.args) > 1 else
                 _exit_code_kind(n.exc.args[0]) if n.exc.args else "zero")
+        elif isinstance(n.exc, ast.Name) and n.exc.id == "SystemExit":
+            self.exit_calls.append("zero")
         else:
             self.raises += 1
         self.generic_visit(n)
@@ -137,13 +198,18 @@ class Scan(ast.NodeVisitor):
         f = n.func
         name = None
         if isinstance(f, ast.Attribute) and isinstance(f.value, ast.Name):
-            if (f.value.id == "sys" and f.attr == "exit") or (
-                    f.value.id == "os" and f.attr == "_exit"):
+            module = self.exit_bindings.get(f.value.id)
+            if module == ("module", "sys") and f.attr == "exit":
                 name = "exit"
-        elif isinstance(f, ast.Name) and f.id in ("exit", "quit"):
-            name = "exit"
+            elif module == ("module", "os") and f.attr in ("_exit", "abort"):
+                name = f.attr
+        elif isinstance(f, ast.Name):
+            binding = self.exit_bindings.get(f.id)
+            if binding is not None and binding[0] == "call":
+                name = binding[1]
         if name:
             self.exit_calls.append(
+                "nonzero" if name == "abort" or len(n.args) > 1 else
                 _exit_code_kind(n.args[0]) if n.args else "zero")
         self.generic_visit(n)
 
@@ -168,17 +234,35 @@ def has_fail_path(s):
             or any(e in ("nonzero", "dynamic") for e in s.exit_calls))
 
 
-def analyse(path):
+def _comment_suppression(src):
+    """A quoted example is source data, not a suppression declaration."""
+    try:
+        for token in tokenize.generate_tokens(io.StringIO(src).readline):
+            if token.type == tokenize.COMMENT:
+                match = SUPPRESS_RE.search(token.string)
+                if match:
+                    return match.group(1)
+    except (tokenize.TokenError, IndentationError):
+        # If comment identity cannot be established, never suppress a finding.
+        pass
+    return None
+
+
+def analyse(path, *, strict_io=False):
     """Return (findings, scan) for one file. findings is a list of codes."""
     try:
         with open(path, encoding="utf-8", errors="replace") as fh:
             src = fh.read()
         tree = ast.parse(src)
         has_main = any(_is_main_guard(n) for n in tree.body)
-    except (OSError, SyntaxError) as e:
+    except OSError as e:
+        if strict_io:
+            raise
+        return [("UNPARSEABLE", str(e).split("\n")[0][:60])], None
+    except SyntaxError as e:
         return [("UNPARSEABLE", str(e).split("\n")[0][:60])], None
 
-    s = Scan()
+    s = Scan(tree)
     s.visit(tree)
     s.has_main = has_main
     # Executable = a __main__ guard, or a call at module level. A file of
@@ -217,18 +301,25 @@ def analyse(path):
     # A bare marker does not suppress: writing down WHY is the whole value of
     # the mechanism, and a mute button without a reason is how a known defect
     # becomes an invisible one.
-    m = SUPPRESS_RE.search(src)
-    if m and out:
-        s.suppressed = m.group(1)
+    reason = _comment_suppression(src)
+    if reason and out:
+        s.suppressed = reason
         out = []
     return out, s
 
 
 def walk(root):
-    if os.path.isfile(root):
+    mode = os.stat(root).st_mode
+    if stat.S_ISREG(mode):
         yield root
         return
-    for base, dirs, files in os.walk(root):
+    if not stat.S_ISDIR(mode):
+        raise OSError(f"scan path is not a regular file or directory: {root}")
+
+    def traversal_error(error):
+        raise error
+
+    for base, dirs, files in os.walk(root, onerror=traversal_error):
         dirs[:] = [d for d in dirs if d not in SKIP_DIRS and not d.startswith(".")]
         for f in sorted(files):
             if f.endswith(".py"):
@@ -366,16 +457,24 @@ def main():
     verification_files = 0
     findings = []
     suppressed = []
+    coverage_errors = []
     for root in args.paths:
-        for p in walk(os.path.expanduser(root)):
-            total_files += 1
-            fs, s = analyse(p)
-            if s is not None and looks_like_verification(p, s):
-                verification_files += 1
-            if s is not None and s.suppressed:
-                suppressed.append((p, s.suppressed))
-            for code, why in fs:
-                findings.append((p, code, why))
+        try:
+            for p in walk(os.path.expanduser(root)):
+                total_files += 1
+                try:
+                    fs, s = analyse(p, strict_io=True)
+                except OSError as exc:
+                    coverage_errors.append({"path": p, "message": str(exc)})
+                    continue
+                if s is not None and looks_like_verification(p, s):
+                    verification_files += 1
+                if s is not None and s.suppressed:
+                    suppressed.append((p, s.suppressed))
+                for code, why in fs:
+                    findings.append((p, code, why))
+        except OSError as exc:
+            coverage_errors.append({"path": root, "message": str(exc)})
 
     if args.format == "json":
         data = {
@@ -384,6 +483,7 @@ def main():
             "files_scanned": total_files,
             "verification_shaped": verification_files,
             "status": (
+                "analysis_error" if coverage_errors else
                 "no_python_files" if total_files == 0 else
                 "findings" if findings else "clean"
             ),
@@ -403,11 +503,15 @@ def main():
                 {"path": path, "reason": reason, "suppressed": True}
                 for path, reason in sorted(suppressed)
             ],
+            "coverage_errors": coverage_errors,
         }
         # Per-file classification does not establish a truthful line number.
         # Never invent one for machine-readable diagnostics.
         print(json.dumps(data, indent=2, sort_keys=True))
-        return 2 if total_files == 0 else 1 if findings else 0
+        return 2 if coverage_errors or total_files == 0 else 1 if findings else 0
+
+    for error in coverage_errors:
+        print(f"could not scan {error['path']}: {error['message']}", file=sys.stderr)
 
     if total_files == 0:
         where = ", ".join(args.paths) or "."
@@ -436,9 +540,9 @@ def main():
             print(f"      {why}")
         print()
 
-    if not findings and not args.quiet:
+    if not findings and not coverage_errors and not args.quiet:
         print("no vacuous verification found")
-    return 0 if not findings else 1
+    return 2 if coverage_errors else 1 if findings else 0
 
 
 if __name__ == "__main__":

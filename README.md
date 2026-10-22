@@ -4,7 +4,7 @@
 
 # vacuity-lint
 
-> **Release and license history:** [GitHub Releases](https://github.com/holland202/vacuity_lint.py/releases) include historical MIT versions `v1.0.0` (`6ee0671`) and `v1.1.0` (`92e1ced`), preserved in [ARCHIVED_RELEASES.md](ARCHIVED_RELEASES.md). **v2.0.0** changes to BSL 1.1; the source tree version does not itself prove a `v2.0.0` tag or GitHub Release has been published. See [RELEASE_2_0_0.md](RELEASE_2_0_0.md) for acceptance and publication status. Python 3.10+ is supported. PyPI publication has not been verified.
+> **Release and license history:** [GitHub Releases](https://github.com/holland202/vacuity_lint.py/releases) include historical MIT versions `v1.0.0` (`6ee0671`) and `v1.1.0` (`92e1ced`), preserved in [ARCHIVED_RELEASES.md](ARCHIVED_RELEASES.md). The published [v2.0.0 baseline](https://github.com/holland202/vacuity_lint.py/releases/tag/v2.0.0) changes to BSL 1.1. Current source identifies the **unreleased 2.0.1.dev0** engineering revision; no new release is implied. See [the Issue #7 maintenance record](maintenance/ISSUE_7_2026-10-21.md). Python 3.10+ is supported. PyPI publication has not been verified.
 
 ## Install and try it
 
@@ -34,7 +34,12 @@ The JSON includes file counts, an array of findings with stable rule IDs
 (e.g. `VL002` for `PRINTS_FAIL_ONLY`), severity/category labels,
 and reason-bearing intentional suppressions. It does **not** fabricate a
 line number for its file-level findings. JSON output is also provided for
-empty scans, which still exit **2**.
+empty scans, which still exit **2**. Missing roots, unreadable directories,
+and files that cannot be read produce `status: "analysis_error"`, named
+`coverage_errors`, and exit **2**, even when another root was scanned.
+Any findings from the partial scan remain in the report. Syntax errors
+retain the historical VL005 finding and exit **1** unless a coverage error
+also occurred.
 
 Use [RULES.md](RULES.md) for precise triggers, examples, rule metadata and
 limitations. CI can enforce the existing code `1`, or capture and review it
@@ -105,7 +110,7 @@ because the first one is not enough.
 | `vacuity_lint.py` | Finds gates with no fail path. Static, AST-based. |
 | `mutation_probe.py` | Asks the question the linter cannot: does the verdict actually *depend* on the logic it claims to check? Mutates the target and reports KILLED, SURVIVED, or CRASHED. A mutant that makes the target die to an uncaught exception has not been *detected* by it, so CRASHED is excluded from both sides of the score. |
 | `provenance_audit.py` | Measures whether a repository can say who wrote its verification code, under a five-tier evidence hierarchy frozen in code. Tier 5, "inferred from coding style", is inadmissible by construction, so the measurement cannot become circular. A low score is a result, not a build failure, so it exits 0 either way. |
-| `E15/PREREG.md` | A preregistration, committed before the experiment it describes was run. Registers a three-arm prevalence measurement and pins this tool at `e549dbf` for the duration. Status: REGISTERED, NOT RUN. |
+| `E15/PREREG.md` | Original frozen three-arm prevalence registration, pinned to `e549dbf`. Status remains REGISTERED, NOT RUN. The instrument-freeze deviation is recorded separately in [E15/DEVIATIONS.md](E15/DEVIATIONS.md); the development scanner is not substituted for that instrument. |
 
 Each of the three tools ships a self-test that proves it can return **more than one
 verdict**, under fixtures that force each answer in turn. A detector stuck on one answer is the defect this repository exists
@@ -196,6 +201,10 @@ selftest P16, and it is the point of the design: the mechanism forces the
 justification into the file instead of handing you a mute button. Suppressed
 cases are printed under *declared intentional* with their reason attached, so
 they stay visible and the open count can converge to zero honestly.
+
+Only Python comment tokens declare a suppression. Marker text in strings
+or docstrings does not suppress a finding. A reason applies to the comment
+line itself; it is not taken from source on a following line.
 
 ## Self-test
 

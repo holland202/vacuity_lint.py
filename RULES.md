@@ -1,4 +1,4 @@
-# Vacuity Lint — Rule reference (v2.0.0)
+# Vacuity Lint — Rule reference (2.0.1.dev0, unreleased)
 
 Vacuity Lint is a **file-level, heuristic** Python AST scanner. Findings are
 **review prompts**, not assertions that a test is incorrect or that a fail
@@ -40,7 +40,7 @@ There is no calibrated probability or automated correctness score.
 | VL002 | `PRINTS_FAIL_ONLY` | heuristic | warning | Verification-shaped file containing a failure-oriented **string constant** but no recognized failure path (name is historical; the string need not be printed) |
 | VL003 | `UNCOLLECTABLE_TEST` | heuristic | warning | File named `test_*.py` with no `test_` function and no recognized fail path; may coexist with VL001/VL002 |
 | VL004 | `ALWAYS_EXITS_ZERO` | heuristic | warning | Verification-shaped file with exit calls all classified as literal zero, no recognized assert/raise/test function and no failure-string signal |
-| VL005 | `UNPARSEABLE` | analysis_error | error | Python AST parsing failed or the file could not be read; scan of that file was not completed |
+| VL005 | `UNPARSEABLE` | analysis_error | error | Python AST parsing failed; CLI filesystem coverage failures are reported separately in `coverage_errors` |
 
 Recognized fail-path shapes include any `assert`, non-`SystemExit` `raise`,
 `raise SystemExit(nonzero)`, `sys.exit(nonzero)`, `os._exit(nonzero)`,
@@ -48,7 +48,17 @@ Recognized fail-path shapes include any `assert`, non-`SystemExit` `raise`,
 plus declarations of `test_*` functions (including methods). This is a
 **syntactic** inventory, not control-flow reachability analysis. In particular,
 a conditional or unreachable `raise` still counts as a potential fail path,
-and `SystemExit(0)` is treated as successful rather than failing.
+and bare `raise SystemExit`, `SystemExit()`, `SystemExit(0)` and
+`SystemExit(None)` are treated as successful rather than failing.
+
+Simple top-level `import sys/os as ...`, `from sys import exit as ...`, and
+`from os import _exit/abort as ...` aliases are recognized. `os.abort()` is
+a possible nonzero termination. Names assigned, deleted, imported from
+another module, or shadowed by a parameter/definition/pattern anywhere in
+the file are conservatively excluded from this recognition. This can
+produce false positives across separate scopes. Dynamic rebinding,
+attribute replacement, wildcard imports and general Python name resolution
+are not analyzed. These remain heuristic shapes, not execution proofs.
 
 ## Examples
 
@@ -119,7 +129,7 @@ because the present detector scores files, not precise AST locations):
 ```json
 {
   "tool": "vacuity-lint",
-  "version": "2.0.0",
+  "version": "2.0.1.dev0",
   "status": "findings",
   "files_scanned": 1,
   "verification_shaped": 1,
@@ -134,7 +144,8 @@ because the present detector scores files, not precise AST locations):
       "suppressed": false
     }
   ],
-  "suppressions": []
+  "suppressions": [],
+  "coverage_errors": []
 }
 ```
 
@@ -142,10 +153,19 @@ The emitted JSON object is deterministic in key order; `findings` and
 `suppressions` are sorted for JSON output. `--quiet` affects only text mode;
 JSON always contains the complete machine-readable report.
 
-The existing **exit code contract** remains unchanged for text and JSON:
-- `0`: at least one Python file scanned, no **unsuppressed** findings.
-- `1`: unsuppressed findings (including VL005 analysis errors).
-- `2`: no Python files scanned (not a clean bill of health).
+The **exit code contract** for text and JSON is:
+
+- `0`: at least one Python file scanned, no **unsuppressed** findings or coverage errors.
+- `1`: unsuppressed findings, including syntax-error VL005, with no coverage error.
+- `2`: no Python files scanned, or any requested root/traversal/read failed.
+
+Coverage errors take precedence over findings and produce JSON status
+`analysis_error` with `coverage_errors: [{"path": "...", "message": "..."}]`.
+Successfully obtained findings and suppressions are retained. The
+`files_scanned` count includes enumerated files whose read or parse failed;
+it does not certify complete coverage. Hidden/configured directories and
+directory symlinks are not recursively followed. Filesystem changes during
+enumeration are not an atomic snapshot guarantee.
 
 CLI-usage errors (such as an invalid `--format` value) also use argparse's
 exit code `2` and are written to stderr, not as a scanner JSON report.
@@ -166,6 +186,13 @@ included** in this release.
 - `tests/test_exit_precision.py`: 13 distinct exit-style/entry-point cases.
 - `tests/test_json_cli.py`: CLI version, JSON, rule metadata, suppressions,
   syntax errors and stable legacy text/exit behavior.
+- `tests/test_scan_integrity.py`: missing roots, incomplete traversal/read,
+  real permission denial where supported, lexical suppressions and bare SystemExit.
+- `tests/test_exit_aliases.py`: imported exits, shadowing and precise literal exits.
+- `tests/test_gate_control.py`: real clean/planted/clean control plus constant,
+  unrelated-finding, malformed-output and scan-error substitutes.
+- `ci/check_issue7_mutants.py`: four deliberate scanner regressions must fail
+  their intended assertions; crashes/import errors do not count as detection.
 
 These tests do not demonstrate real-world precision rates on unrelated
 repositories. Submit minimal reproducible false positives/false negatives
