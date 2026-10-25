@@ -20,6 +20,8 @@ separate decision.
 
 ## IE1-B: an empty test function
 
+**Update 2026-10-25:** registered, not run, in [IE1B/PREREG.md](../../IE1B/PREREG.md). Two owner decisions (D1, D2) are needed before any code.
+
 **Problem.** `def test_empty(): pass` scans clean, because a `test_*` declaration counts as a fail path. A test whose
 body cannot fail verifies nothing.
 
