@@ -149,7 +149,7 @@ because the present detector scores files, not precise AST locations):
       "severity": "warning",
       "category": "heuristic",
       "path": "verify_model.py",
-      "message": "prints failure text 1x but has no assert, raise, or nonzero exit",
+      "message": "contains failure text 1x but has no assert, raise, or nonzero exit",
       "suppressed": false
     }
   ],

@@ -1,0 +1,43 @@
+# IE1-A after the change; branch HEAD d388edb + working tree; Python 3.13.17
+# scanner before: 79cbff3 sha256 20c5e56750b9d5f4…; after: a85080952576b7fc…
+## A2
+Ran 2 tests in 0.161s
+
+OK
+exit=0
+## A3: old vs new, whole tree (includes E16/fixtures, IE1 package, VLFP001)
+VL002 findings in the old report: 3
+old: exit=1 findings=10 files=65
+new: exit=1 findings=10 files=65
+IDENTICAL (VL002 message normalised)
+exit=0
+## A5: sabotage, new scanner with VL002 remapped to VL001 (substitutions: 1)
+old: exit=1 findings=10 files=65
+new: exit=1 findings=10 files=65
+DIFFERENT
+  differs: findings
+exit=1
+## A4
+$ python3 vacuity_lint.py --selftest
+20/20 checks passed
+exit=0
+$ python3 -m unittest discover -s tests
+Ran 60 tests in 3.459s
+
+OK
+exit=0
+$ python3 ci/check_issue7_mutants.py
+ISSUE 7 MUTANTS: 4/4 killed by regression assertions
+exit=0
+$ python3 ci/verify_fixtures.py
+FIXTURE CONTROLS PASS
+exit=0
+$ python3 ci/verify_gate.py vacuity_lint.py <scan copy as in gate.yml>
+GATE CONTROL PASS: clean -> sole intended VL002 -> clean
+exit=0
+$ IE1 run_independent.py
+independent_cases=16 failures=0
+exit=0
+$ python3 E16/run_e16.py
+REFUSED: E16/results exists
+exit=3

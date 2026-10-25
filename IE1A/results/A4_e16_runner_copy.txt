@@ -1,0 +1,6 @@
+E16  python=3.13.17  platform=Linux-6.18.44-fc-v153-x86_64-with-glibc2.39
+MISMATCH a85080952576b7fc2ba475cc21f107e15f1b92cc1121d4de91e00ce6e5ac0b37  vacuity_lint.py
+ok       90180d53443c8297f1ef6a1ffefd671b04b4c22951e8de57c5ee91f18b4ee24d  mutation_probe.py
+selftest lint: exit 0  20/20 checks passed
+selftest probe: exit 0  ====================================================================
+PRECONDITION FAILED: INCONCLUSIVE

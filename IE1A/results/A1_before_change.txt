@@ -1,0 +1,55 @@
+# A1: new test on the unchanged scanner (ed6de8a, scanner = 79cbff3)
+FF
+======================================================================
+FAIL: test_docstring_case_from_ie1 (tests.test_ie1a_wording.IE1AWording.test_docstring_case_from_ie1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/claude/vacuity_lint.py/tests/test_ie1a_wording.py", line 30, in test_docstring_case_from_ie1
+    self.check(IE1 / "independent_evidence" / "reproductions" / "vl002_docstring.py")
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/claude/vacuity_lint.py/tests/test_ie1a_wording.py", line 27, in check
+    self.assertEqual([(f["rule_id"], f["message"]) for f in report["findings"]], [("VL002", EXPECTED)])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [('VL002', 'prints failure text 1x but has no assert,[21 chars]it')] != [('VL002', 'contains failure text 1x but has no asser[23 chars]it')]
+
+First differing element 0:
+('VL002', 'prints failure text 1x but has no assert, raise, or nonzero exit')
+('VL002', 'contains failure text 1x but has no assert, raise, or nonzero exit')
+
++ [('VL002',
+- [('VL002', 'prints failure text 1x but has no assert, raise, or nonzero exit')]
+? ^^ ^^^^^^^^^^^  -
+
++   'contains failure text 1x but has no assert, raise, or nonzero exit')]
+? ^^ ^^^^^
+
+
+======================================================================
+FAIL: test_printed_case_from_ie1 (tests.test_ie1a_wording.IE1AWording.test_printed_case_from_ie1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/claude/vacuity_lint.py/tests/test_ie1a_wording.py", line 33, in test_printed_case_from_ie1
+    self.check(IE1 / "independent_cases" / "defective" / "verify_prints.py")
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/claude/vacuity_lint.py/tests/test_ie1a_wording.py", line 27, in check
+    self.assertEqual([(f["rule_id"], f["message"]) for f in report["findings"]], [("VL002", EXPECTED)])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [('VL002', 'prints failure text 1x but has no assert,[21 chars]it')] != [('VL002', 'contains failure text 1x but has no asser[23 chars]it')]
+
+First differing element 0:
+('VL002', 'prints failure text 1x but has no assert, raise, or nonzero exit')
+('VL002', 'contains failure text 1x but has no assert, raise, or nonzero exit')
+
++ [('VL002',
+- [('VL002', 'prints failure text 1x but has no assert, raise, or nonzero exit')]
+? ^^ ^^^^^^^^^^^  -
+
++   'contains failure text 1x but has no assert, raise, or nonzero exit')]
+? ^^ ^^^^^
+
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.264s
+
+FAILED (failures=2)
+exit=1
