@@ -100,6 +100,10 @@ PRINTS_FAIL_ONLY  (1)
                            raise, or nonzero exit
 ```
 
+(Pasted from a 2.0.0 run. Since IE1-A the VL002 message reads `contains failure
+text …`, because the rule counts any failure string constant, docstrings
+included; nothing has to be printed. See [IE1A/](IE1A/).)
+
 ## Also in this repository
 
 `vacuity_lint.py` is one of four artifacts here. The other three exist

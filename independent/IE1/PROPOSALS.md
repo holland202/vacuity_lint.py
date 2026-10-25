@@ -5,6 +5,8 @@ maintainer's decision and, before any code, a registration with predictions, as 
 
 ## IE1-A: VL002 wording
 
+**Update 2026-10-25:** registered and implemented in [IE1A/](../../IE1A/), self-tested. Results: [IE1A/RESULTS.md](../../IE1A/RESULTS.md).
+
 **Problem.** VL002's message says `prints failure text 1x`, but the rule counts any failure-oriented string constant,
 including docstrings (`RULES.md`). In IE1's docstring case nothing is printed.
 

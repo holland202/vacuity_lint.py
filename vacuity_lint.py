@@ -405,7 +405,7 @@ def analyse(path, *, strict_io=False):
         elif not has_fail_path(s):
             if s.fail_strings:
                 out.append(("PRINTS_FAIL_ONLY",
-                            f"prints failure text {s.fail_strings}x but has no "
+                            f"contains failure text {s.fail_strings}x but has no "
                             "assert, raise, or nonzero exit"))
             else:
                 out.append(("NO_FAIL_PATH",
