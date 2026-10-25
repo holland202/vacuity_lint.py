@@ -1,0 +1,76 @@
+# IE1 rerun on main, 2026-10-25 (Claude, Anthropic, Opus 5.5; Linux x86-64; Python 3.13.17)
+# repository HEAD: 79cbff37ee15f92f63befbe3a29eeb335e55750c
+# scanner sha256 (main): 20c5e56750b9d5f43c829025b7d0ce2b76213ce725314a41ac3cc70aeff48608
+# scanner sha256 (da5fe76, evaluated by IE1): 3cb0d07d4d5b807132a6a82bef50e09051d4fab35e00449e4cf435745a406971
+
+$ python3 vacuity_lint.py --selftest
+20/20 checks passed
+
+## scanner: vacuity_lint.py
+$ python3 independent/IE1/package/independent_cases/run_independent.py <scanner> independent/IE1/package/independent_cases
+PASS clean/test_real.py: exit=0, rules=[], status=clean
+PASS clean/verify_assert.py: exit=0, rules=[], status=clean
+PASS clean/verify_dynamic_exit.py: exit=0, rules=[], status=clean
+PASS clean/ordinary.py: exit=0, rules=[], status=clean
+PASS clean/verify_suppressed.py: exit=0, rules=[], status=clean
+PASS defective/verify_prints.py: exit=1, rules=['VL002'], status=findings
+PASS defective/test_empty.py: exit=1, rules=['VL001', 'VL003'], status=findings
+PASS defective/verify_zero.py: exit=1, rules=['VL004'], status=findings
+PASS defective/test_broken.py: exit=1, rules=['VL005'], status=findings
+PASS blind/verify_unreachable_raise.py: exit=0, rules=[], status=clean
+PASS blind/verify_always_assert.py: exit=0, rules=[], status=clean
+PASS blind/verify_dead_exit.py: exit=0, rules=[], status=clean
+PASS blind/test_empty_function.py: exit=0, rules=[], status=clean
+PASS edge/verify_doc_fail.py: exit=1, rules=['VL002'], status=findings
+PASS edge/check_module.py: exit=1, rules=['VL001'], status=findings
+PASS edge/validate_library.py: exit=0, rules=[], status=clean
+
+independent_cases=16 failures=0
+exit=0
+$ python3 <scanner> --format json independent/IE1/package/independent_evidence/reproductions/vl002_docstring.py
+status= findings findings= [('VL002', 'prints failure text 1x but has no assert, raise, or nonzero exit')]
+exit=1
+$ python3 <scanner> --format json independent/IE1/package/independent_evidence/reproductions/empty_pytest.py
+status= findings findings= [('VL001', 'verification-shaped but has no assert, raise, test function, or nonzero exit')]
+exit=1
+$ python3 <scanner> --format json independent/IE1/package/independent_evidence/reproductions/verify_unreachable_raise.py
+status= clean findings= []
+exit=0
+
+## scanner: /tmp/vl_da5fe76.py
+$ python3 independent/IE1/package/independent_cases/run_independent.py <scanner> independent/IE1/package/independent_cases
+PASS clean/test_real.py: exit=0, rules=[], status=clean
+PASS clean/verify_assert.py: exit=0, rules=[], status=clean
+PASS clean/verify_dynamic_exit.py: exit=0, rules=[], status=clean
+PASS clean/ordinary.py: exit=0, rules=[], status=clean
+PASS clean/verify_suppressed.py: exit=0, rules=[], status=clean
+PASS defective/verify_prints.py: exit=1, rules=['VL002'], status=findings
+PASS defective/test_empty.py: exit=1, rules=['VL001', 'VL003'], status=findings
+PASS defective/verify_zero.py: exit=1, rules=['VL004'], status=findings
+PASS defective/test_broken.py: exit=1, rules=['VL005'], status=findings
+PASS blind/verify_unreachable_raise.py: exit=0, rules=[], status=clean
+PASS blind/verify_always_assert.py: exit=0, rules=[], status=clean
+PASS blind/verify_dead_exit.py: exit=0, rules=[], status=clean
+PASS blind/test_empty_function.py: exit=0, rules=[], status=clean
+PASS edge/verify_doc_fail.py: exit=1, rules=['VL002'], status=findings
+PASS edge/check_module.py: exit=1, rules=['VL001'], status=findings
+PASS edge/validate_library.py: exit=0, rules=[], status=clean
+
+independent_cases=16 failures=0
+exit=0
+$ python3 <scanner> --format json independent/IE1/package/independent_evidence/reproductions/vl002_docstring.py
+status= findings findings= [('VL002', 'prints failure text 1x but has no assert, raise, or nonzero exit')]
+exit=1
+$ python3 <scanner> --format json independent/IE1/package/independent_evidence/reproductions/empty_pytest.py
+status= clean findings= []
+exit=0
+$ python3 <scanner> --format json independent/IE1/package/independent_evidence/reproductions/verify_unreachable_raise.py
+status= clean findings= []
+exit=0
+
+## same bytes, different names (main scanner)
+8b92aecf9a8bd4ec751f5581a615b197  independent/IE1/package/independent_cases/blind/test_empty_function.py
+8b92aecf9a8bd4ec751f5581a615b197  independent/IE1/package/independent_evidence/reproductions/empty_pytest.py
+empty_pytest.py exit=1
+test_empty_pytest.py exit=0
+empty_pytest_test.py exit=0
