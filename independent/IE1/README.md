@@ -86,3 +86,29 @@ Sandeep. Whether AI tools helped him is not stated in the package. This record a
 (Anthropic, Opus 5.5) wrote them → human validation: not performed → human editing/curation: direction by Chad
 Holland → human responsibility: Chad Holland. Human review level: direction only. ChatGPT's rerun was directed by
 Chad Holland and is reported, not reproduced, here.
+
+## Addendum, 2026-10-25: rerun on `main` after PRs #12 and #13
+
+Added after the record above; nothing above this heading has been changed, and nothing in `package/` has been
+touched. Full transcript, verbatim: [`rerun_2026-10-25.txt`](rerun_2026-10-25.txt) (`main` at `79cbff3`, Linux
+x86-64, Python 3.13). **Self-tested** by Claude; not a second independent evaluation.
+
+- His 16-case runner still gives `independent_cases=16 failures=0` on `main`, and also on the scanner he evaluated
+  (`da5fe76`, the SHA-256 recorded above).
+- **VL002 docstring:** unchanged on `main`, exit 1, same message. The wording change is proposal IE1-A.
+- **Unreachable `raise`:** unchanged, exit 0 (documented Type B limit).
+- **Empty test: his reproduction file now gives a different result, and the reason matters.**
+  `independent_evidence/reproductions/empty_pytest.py` now gets VL001 (`NO_FAIL_PATH`) and exit 1; at `da5fe76` it was
+  exit 0, as he recorded. His `blind/test_empty_function.py` has the **same bytes** (md5 `8b92aecf…`) and still scans
+  clean, exit 0. Copies of those bytes named `test_empty_pytest.py` and `empty_pytest_test.py` also exit 0. The flag
+  on `empty_pytest.py` comes from VL-FP-001 (PR #13): a `def test_*` in a file pytest does not collect no longer
+  counts as a fail path. It is a **filename** effect, not detection of the empty body.
+
+**So the IE1-B blind spot is still open.** An empty `test_*` function in a file pytest collects scans clean on
+`main`. Anyone rerunning `empty_pytest.py` on `main` will see exit 1 and should not read that as IE1-B being fixed.
+His record above is correct for the version he evaluated. IE1-B is now registered, not run, in
+[`../../IE1B/PREREG.md`](../../IE1B/PREREG.md).
+
+Provenance: Claude (Anthropic, Opus 5.5) ran the rerun and wrote this addendum → human validation: not performed →
+human editing/curation: direction by Chad Holland (2026-10-25) → human responsibility: Chad Holland. Human review
+level: direction only.
