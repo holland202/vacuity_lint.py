@@ -1,0 +1,57 @@
+====================================================================
+ANTI-VACUITY SELFTEST
+====================================================================
+
+Fixture A (guard genuinely depends on its comparison):
+target        : /tmp/tmpssdoi1ss.py
+baseline exit : 0
+mutation sites: 1
+
+  line 3    KILLED    GtE -> Gt            exit 0 -> 1
+
+counted  : killed=1 survived=0
+excluded : crashed=0 invalid=0 errored=0
+score    = 100.0%   n = 1
+
+  requires >=1 KILLED: PASS
+
+--------------------------------------------------------------------
+
+Fixture B (comparison computed but never used):
+target        : /tmp/tmpmc0la124.py
+baseline exit : 1
+mutation sites: 1
+
+  line 3    SURVIVED  GtE -> Gt            exit 1 -> 1
+
+counted  : killed=0 survived=1
+excluded : crashed=0 invalid=0 errored=0
+score    = 0.0%   n = 1
+
+SURVIVED mutants above did not change the exit code. Either the check does not depend on that comparison/constant, or the mutation landed somewhere unreachable from the verdict path. Read each one; a low score is a place to look, not a proven defect.
+
+  requires >=1 SURVIVED: PASS
+
+--------------------------------------------------------------------
+
+Fixture C (mutation crashes into the SAME exit code as baseline):
+target        : /tmp/tmp7opkj43b.py
+baseline exit : 1
+mutation sites: 1
+
+  line 3    CRASHED   True -> False        exit 1 -> 1  (uncaught exception introduced -- excluded, not a detection)
+
+counted  : killed=0 survived=0
+excluded : crashed=1 invalid=0 errored=0
+score    = n/a (0 scoreable sites)   n = 0
+score    = 100.0%   n = 1   <- what this tool reported BEFORE 2026-09-12, when crash mutants were counted as kills. Superseded.
+
+1 mutant(s) CRASHED: they made the target die to an uncaught exception rather than being detected by it. Excluded from numerator and denominator. A crash is information about the code, not evidence the gate noticed anything.
+
+  requires >=1 CRASHED (masked crash detected, and NOT counted as a kill): PASS
+
+====================================================================
+SELFTEST PASS -- this tool reports KILLED, SURVIVED and CRASHED depending on input. It does not mistake a masked crash for a survivor, and it does not count one as a kill. It is not stuck reporting one verdict.
+
+NOT covered by any fixture: the 'crash removed' direction (a mutant that stops an already-crashing baseline from crashing). That branch is unexercised. Stated, not hidden.
+====================================================================
