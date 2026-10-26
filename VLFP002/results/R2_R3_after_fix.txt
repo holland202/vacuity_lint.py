@@ -1,0 +1,10 @@
+test_lookalikes_are_not_fail_paths (tests.test_vlfp002.VLFP002.test_lookalikes_are_not_fail_paths) ... ok
+test_mutant_without_recognition_reports_again (tests.test_vlfp002.VLFP002.test_mutant_without_recognition_reports_again)
+R3: with the recognition disabled, C1-C4 must be reported again (the test can fail). ... ok
+test_pytest_fail_is_a_fail_path (tests.test_vlfp002.VLFP002.test_pytest_fail_is_a_fail_path) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.016s
+
+OK
+exit 0

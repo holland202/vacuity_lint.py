@@ -15,6 +15,7 @@ WHAT COUNTS AS A FAIL PATH
     ordinary raise                -> potential nonzero failure
     nonzero/dynamic exit code     -> potential nonzero failure
     os.abort()                    -> nonzero termination
+    pytest.fail()                 -> raises pytest's Failed (real pytest only)
     def test_*                    -> pytest can fail it
 Simple stdlib exit aliases are recognized unless shadowed. This is a
 syntactic inventory, not a proof about reachable outcomes.
@@ -92,7 +93,8 @@ def _exit_bindings(tree):
     for node in tree.body:
         if isinstance(node, ast.Import):
             for alias in node.names:
-                if alias.name in ("sys", "os"):
+                # VL-FP-002: `pytest` is tracked only so `pytest.fail(...)` can count as a fail path.
+                if alias.name in ("sys", "os", "pytest"):
                     name = alias.asname or alias.name
                     bindings[name] = ("module", alias.name)
                     trusted.add((id(node), name))
@@ -100,6 +102,7 @@ def _exit_bindings(tree):
             for alias in node.names:
                 kind = ("exit" if node.module == "sys" and alias.name == "exit"
                         else alias.name if node.module == "os" and alias.name in ("_exit", "abort")
+                        else "pytest_fail" if node.module == "pytest" and alias.name == "fail"
                         else None)
                 if kind is not None:
                     name = alias.asname or alias.name
@@ -297,7 +300,24 @@ class Scan(ast.NodeVisitor):
                 self.fail_strings += 1
         self.generic_visit(n)
 
+    def _is_pytest_fail(self, call):
+        """VL-FP-002: `pytest.fail(...)` raises pytest's Failed, so it is a fail path like `raise`.
+
+        Counted only through a trusted, unshadowed top-level `import pytest [as x]` or
+        `from pytest import fail [as y]` (the same binding rule as sys/os exits).
+        """
+        f = call.func
+        if isinstance(f, ast.Attribute) and isinstance(f.value, ast.Name):
+            return f.attr == "fail" and self.exit_bindings.get(f.value.id) == ("module", "pytest")
+        if isinstance(f, ast.Name):
+            return self.exit_bindings.get(f.id) == ("call", "pytest_fail")
+        return False
+
     def visit_Call(self, n):
+        if self._is_pytest_fail(n):
+            self.raises += 1
+            self.generic_visit(n)
+            return
         f = n.func
         name = None
         if isinstance(f, ast.Attribute) and isinstance(f.value, ast.Name):
@@ -308,7 +328,7 @@ class Scan(ast.NodeVisitor):
                 name = f.attr
         elif isinstance(f, ast.Name):
             binding = self.exit_bindings.get(f.id)
-            if binding is not None and binding[0] == "call":
+            if binding is not None and binding[0] == "call" and binding[1] != "pytest_fail":
                 name = binding[1]
         if name:
             self.exit_calls.append(

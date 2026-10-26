@@ -1,0 +1,79 @@
+E16/fixtures: exit=1
+{
+  "coverage_errors": [],
+  "files_scanned": 14,
+  "findings": [
+    {
+      "category": "heuristic",
+      "message": "verification-shaped but has no assert, raise, test function, or nonzero exit",
+      "path": "E16/fixtures/W3/check_add.py",
+      "rule": "NO_FAIL_PATH",
+      "rule_id": "VL001",
+      "severity": "warning",
+      "suppressed": false
+    }
+  ],
+  "status": "findings",
+  "suppressions": [],
+  "tool": "vacuity-lint",
+  "verification_shaped": 7,
+  "version": "2.0.1.dev0"
+}
+independent/IE1/package/independent_cases/defective: exit=1
+{
+  "coverage_errors": [],
+  "files_scanned": 4,
+  "findings": [
+    {
+      "category": "analysis_error",
+      "message": "invalid syntax (<unknown>, line 1)",
+      "path": "independent/IE1/package/independent_cases/defective/test_broken.py",
+      "rule": "UNPARSEABLE",
+      "rule_id": "VL005",
+      "severity": "error",
+      "suppressed": false
+    },
+    {
+      "category": "heuristic",
+      "message": "verification-shaped but has no assert, raise, test function, or nonzero exit",
+      "path": "independent/IE1/package/independent_cases/defective/test_empty.py",
+      "rule": "NO_FAIL_PATH",
+      "rule_id": "VL001",
+      "severity": "warning",
+      "suppressed": false
+    },
+    {
+      "category": "heuristic",
+      "message": "named test_*.py but declares no `def test_`; pytest collects nothing here",
+      "path": "independent/IE1/package/independent_cases/defective/test_empty.py",
+      "rule": "UNCOLLECTABLE_TEST",
+      "rule_id": "VL003",
+      "severity": "warning",
+      "suppressed": false
+    },
+    {
+      "category": "heuristic",
+      "message": "contains failure text 1x but has no assert, raise, or nonzero exit",
+      "path": "independent/IE1/package/independent_cases/defective/verify_prints.py",
+      "rule": "PRINTS_FAIL_ONLY",
+      "rule_id": "VL002",
+      "severity": "warning",
+      "suppressed": false
+    },
+    {
+      "category": "heuristic",
+      "message": "1 exit call(s), all literal 0",
+      "path": "independent/IE1/package/independent_cases/defective/verify_zero.py",
+      "rule": "ALWAYS_EXITS_ZERO",
+      "rule_id": "VL004",
+      "severity": "warning",
+      "suppressed": false
+    }
+  ],
+  "status": "findings",
+  "suppressions": [],
+  "tool": "vacuity-lint",
+  "verification_shaped": 3,
+  "version": "2.0.1.dev0"
+}
+FIXTURE CONTROLS PASS

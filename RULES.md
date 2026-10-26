@@ -54,6 +54,8 @@ A top-level `try`/`if`/`for`/`while`/`with` block containing an `assert` or a ca
 Recognized fail-path shapes include any `assert`, non-`SystemExit` `raise`,
 `raise SystemExit(nonzero)`, `sys.exit(nonzero)`, `os._exit(nonzero)`,
 `quit(nonzero)`, `exit(nonzero)`, or an exit with a dynamic expression,
+`pytest.fail(...)` through a top-level `import pytest [as x]` or `from pytest import fail [as y]`
+(VL-FP-002, unreleased; same shadowing rule as below),
 plus declarations of `test_*` functions (including methods). This is a
 **syntactic** inventory, not control-flow reachability analysis. In particular,
 a conditional or unreachable `raise` still counts as a potential fail path,

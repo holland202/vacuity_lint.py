@@ -1,0 +1,10 @@
+python files scanned    : 110
+verification-shaped     : 63
+findings                : 1
+declared intentional    : 0
+
+PRINTS_FAIL_ONLY  (1)
+  claude-agent-sdk-python/examples/stderr_callback_example.py
+      contains failure text 1x but has no assert, raise, or nonzero exit
+
+exit 1
