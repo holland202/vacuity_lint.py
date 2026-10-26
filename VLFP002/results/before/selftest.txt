@@ -1,0 +1,22 @@
+[PASS] P1 test_*.py with no test funcs -> UNCOLLECTABLE_TEST        
+[PASS] P2 prints FAIL, no fail path -> PRINTS_FAIL_ONLY             
+[PASS] P3 verification shape, exit 0 only -> flagged                
+[PASS] P4 real pytest test -> no finding                            
+[PASS] P5 conditional nonzero exit -> no finding                    
+[PASS] P6 dynamic exit expression -> no finding                     
+[PASS] P7 ordinary module is not verification -> no finding         
+[PASS] P8 assert counts as a fail path -> no finding                
+[PASS] P9 clean tree yields zero findings (tool can find nothing)   
+[PASS] P10 defective tree yields findings (tool can find something) 
+[PASS] P13 library module named *_gate.py, no __main__ -> no finding
+[PASS] P14 test_*.py that exits nonzero is not UNCOLLECTABLE        
+[PASS] P15 marker WITH a reason suppresses the finding              
+[PASS] P16 bare marker with NO reason does NOT suppress             
+[PASS] P17 suppression is recorded, not silent                      
+[PASS] P18 suppression in one file does not affect another          
+[PASS] P19 tree with no python files -> exit 2, not a clean bill    
+[PASS] P20 tree with a clean python file -> still exit 0            
+[PASS] P11 syntax error reported, not silently skipped              
+[PASS] P12 documented blind spot: unreachable fail path not caught  
+
+20/20 checks passed

@@ -1,0 +1,7 @@
+python files scanned    : 2781
+verification-shaped     : 191
+findings                : 0
+declared intentional    : 0
+
+no vacuous verification found
+exit 0

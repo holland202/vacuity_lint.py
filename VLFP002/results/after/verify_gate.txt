@@ -1,0 +1,44 @@
+clean-before: exit=0
+{
+  "coverage_errors": [],
+  "files_scanned": 18,
+  "findings": [],
+  "status": "clean",
+  "suppressions": [],
+  "tool": "vacuity-lint",
+  "verification_shaped": 16,
+  "version": "2.0.1.dev0"
+}
+planted: exit=1
+{
+  "coverage_errors": [],
+  "files_scanned": 19,
+  "findings": [
+    {
+      "category": "heuristic",
+      "message": "contains failure text 1x but has no assert, raise, or nonzero exit",
+      "path": "/tmp/tmp.PfvfdHeYtr/vacuity-gate-oro9494d/verify_gate_probe.py",
+      "rule": "PRINTS_FAIL_ONLY",
+      "rule_id": "VL002",
+      "severity": "warning",
+      "suppressed": false
+    }
+  ],
+  "status": "findings",
+  "suppressions": [],
+  "tool": "vacuity-lint",
+  "verification_shaped": 17,
+  "version": "2.0.1.dev0"
+}
+clean-after: exit=0
+{
+  "coverage_errors": [],
+  "files_scanned": 18,
+  "findings": [],
+  "status": "clean",
+  "suppressions": [],
+  "tool": "vacuity-lint",
+  "verification_shaped": 16,
+  "version": "2.0.1.dev0"
+}
+GATE CONTROL PASS: clean -> sole intended VL002 -> clean
