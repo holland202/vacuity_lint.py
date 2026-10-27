@@ -5,6 +5,10 @@
 # vacuity-lint
 
 > **Release and license history:** [GitHub Releases](https://github.com/holland202/vacuity_lint.py/releases) include historical MIT versions `v1.0.0` (`6ee0671`) and `v1.1.0` (`92e1ced`), preserved in [ARCHIVED_RELEASES.md](ARCHIVED_RELEASES.md). The published [v2.0.0 baseline](https://github.com/holland202/vacuity_lint.py/releases/tag/v2.0.0) changes to BSL 1.1. Current source identifies the **unreleased 2.0.1.dev0** engineering revision; no new release is implied. See [the Issue #7 maintenance record](maintenance/ISSUE_7_2026-10-21.md). Python 3.10+ is supported. PyPI publication has not been verified.
+>
+> **Current license: BSL 1.1 (source-available), v2.0.0 and later.** GitHub's sidebar may show "MIT" because it recognizes `LICENSE-MIT`, which covers v1.1.0 and earlier only. The controlling license for current source is [LICENSE](LICENSE).
+>
+> **Research records** (E15, E16, IE1, VL-FP-…): see [RESEARCH_INDEX.md](RESEARCH_INDEX.md) for what each one is.
 
 ## Install and try it
 
@@ -67,6 +71,8 @@ reuse terms.
 
 
 Finds verification code that cannot fail.
+
+**Operationally:** it flags runnable, verification-shaped Python files that contain no *recognized* failure mechanism. A clean scan does **not** establish that tests are collected, that assertions are effective, or that failure paths are reachable. See [Limitations](#limitations).
 
 A test suite that always passes, a `verify_*.py` that prints
 `MATH IS WRONG - STOP` and then exits 0, a `test_*.py` containing no test
@@ -157,7 +163,7 @@ that had already been fixed elsewhere. Fixing a file does not fix its copies.
 | Finding | Meaning |
 |---|---|
 | `NO_FAIL_PATH` | Verification-shaped and runnable, but contains no `assert`, no `raise`, no non-zero exit, and no `def test_` |
-| `PRINTS_FAIL_ONLY` | Prints failure text ("FAIL", "ERROR", "WRONG") while having no fail path — announces the problem, reports success |
+| `PRINTS_FAIL_ONLY` | Contains a failure-text string constant while having no fail path. The string need not be printed. Matched case-insensitively against exactly: `[fail]`, `fail:`, `failed`, `[error]`, `mismatch`, `does not match`. Bare "FAIL", "ERROR" or "WRONG" do **not** match, so `print("MATH IS WRONG - STOP")` is reported as `NO_FAIL_PATH`, not here |
 | `UNCOLLECTABLE_TEST` | Named `test_*.py` but declares no test functions. Run alone, pytest collects nothing and exits 5; inside a larger suite the run stays green while this file contributes no tests |
 | `ALWAYS_EXITS_ZERO` | Every exit in the file is `exit(0)` |
 | `UNPARSEABLE` | Did not parse — reported, never silently skipped |
@@ -196,9 +202,10 @@ has a machine-dependent verdict and may be excluded from a suite on purpose.
 The tool cannot know that, so it would re-report it forever.
 
 ```python
-# vacuity-lint: intentional - reads live device temperature, so the verdict
-# depends on ambient conditions; excluded from run_all_tests.py
+# vacuity-lint: intentional - reads live device temperature, so its verdict depends on ambient conditions
 ```
+
+The recorded reason is the text after the marker on that one comment line. A comment on the next line is ordinary prose and is not part of the recorded reason.
 
 **A bare marker with no stated reason does not suppress anything.** That is
 selftest P16, and it is the point of the design: the mechanism forces the
