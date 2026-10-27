@@ -2,6 +2,8 @@
 
 **Status: EXECUTED (SELF-TESTED). R1–R5 held as registered; R6 left open by design.** Registration: [PREREG.md](PREREG.md), commit `6a38723`, made before the test or the fix. Failing test: commit `2e597d5`. Run 2026-10-27 in Claude's workspace, Linux x86_64, Python 3.13.17. Not yet reproduced on Chad's device, not independently reproduced.
 
+**Merge record (added 2026-10-27, after the merge).** Merged to `main` in PR #17 (merge commit `7d4f2e4`) on the owner's decision. The PR's description asked for independent review of the false-negative trade-off below before merging; that review had **not** taken place at merge time and is still open. CI on the PR head (`da14583`) passed: `vacuity_lint`, and `package-and-smoke` on Python 3.10, 3.11, 3.13 and 3.14. That is the author's CI, not independent review.
+
 ## Failures first
 
 - **The fix introduces a new false pass, by design.** A failure message stored inside a list (or tuple, set, dict) and printed later is no longer counted as failure text. If the file's name carries a verification hint (`verify_`, `check`, `test`…) it is still reported, downgraded from VL002 to VL001. If the name carries no hint, the file is missed entirely. Before the fix both cases were VL002. This is pinned by `test_known_blind_spot_is_recorded`, so any later change to the trade-off shows up as a test change rather than silently.
