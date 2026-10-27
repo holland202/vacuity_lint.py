@@ -1,6 +1,6 @@
 # VL-FP-003 RESULTS: failure words inside data tables
 
-**Status: EXECUTED (SELF-TESTED). R1–R5 held as registered; R6 left open by design.** Registration: [PREREG.md](PREREG.md), commit `6a38723`, made before the test or the fix. Failing test: commit `2e597d5`. Run 2026-10-27 in Claude's workspace, Linux x86_64, Python 3.13.17. Not yet reproduced on Chad's device, not independently reproduced.
+**Status: EXECUTED (SELF-TESTED). R1–R5 held as registered; R6 left open by design.** Registration: [PREREG.md](PREREG.md), commit `6a38723`, made before the test or the fix. Failing test: commit `2e597d5`. Run 2026-10-27 in Claude's workspace, Linux x86_64, Python 3.13.17. Reproduced on Chad's device 2026-10-27 (Samsung S25 Ultra, Termux, aarch64, Python 3.14) on `main` at `8616c1c`: `python -m unittest tests.test_vlfp003` → `Ran 4 tests`, `OK`. Not independently reproduced: both runs are the author's.
 
 **Merge record (added 2026-10-27, after the merge).** Merged to `main` in PR #17 (merge commit `7d4f2e4`) on the owner's decision. The PR's description asked for independent review of the false-negative trade-off below before merging; that review had **not** taken place at merge time and is still open. CI on the PR head (`da14583`) passed: `vacuity_lint`, and `package-and-smoke` on Python 3.10, 3.11, 3.13 and 3.14. That is the author's CI, not independent review.
 
