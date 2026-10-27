@@ -1,0 +1,60 @@
+# R1: tests/test_vlfp003.py on the unchanged scanner
+# scanner: vacuity_lint.py at 19eb73e (vacuity_lint.py 2.0.1.dev0), md5 6f784948e97057a029839e0576d1b4ac
+# platform: x86_64, Python 3.13.17
+# run: python3 -m unittest -v tests.test_vlfp003
+
+test_guards_still_flagged (tests.test_vlfp003.VLFP003.test_guards_still_flagged)
+R3: real printed failure messages with no fail path must still be reported. ... ok
+test_tables_are_not_findings (tests.test_vlfp003.VLFP003.test_tables_are_not_findings)
+R2: a status-code table is not verification and must scan clean. ... 
+  test_tables_are_not_findings (tests.test_vlfp003.VLFP003.test_tables_are_not_findings) (case='A1')
+R2: a status-code table is not verification and must scan clean. ... FAIL
+  test_tables_are_not_findings (tests.test_vlfp003.VLFP003.test_tables_are_not_findings) (case='A2')
+R2: a status-code table is not verification and must scan clean. ... FAIL
+
+======================================================================
+FAIL: test_tables_are_not_findings (tests.test_vlfp003.VLFP003.test_tables_are_not_findings) (case='A1')
+R2: a status-code table is not verification and must scan clean.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/claude/vacuity_lint.py/tests/test_vlfp003.py", line 106, in test_tables_are_not_findings
+    self.assertEqual(self.codes(name, body), [], cid)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['PRINTS_FAIL_ONLY'] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+'PRINTS_FAIL_ONLY'
+
+- ['PRINTS_FAIL_ONLY']
++ [] : A1
+
+======================================================================
+FAIL: test_tables_are_not_findings (tests.test_vlfp003.VLFP003.test_tables_are_not_findings) (case='A2')
+R2: a status-code table is not verification and must scan clean.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/claude/vacuity_lint.py/tests/test_vlfp003.py", line 106, in test_tables_are_not_findings
+    self.assertEqual(self.codes(name, body), [], cid)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['PRINTS_FAIL_ONLY'] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+'PRINTS_FAIL_ONLY'
+
+- ['PRINTS_FAIL_ONLY']
++ [] : A2
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.011s
+
+FAILED (failures=2)
+exit=1
+
+# per-fixture codes from lint.analyse
+A1 status_codes.py ['PRINTS_FAIL_ONLY'] fail_strings=3 executable=True
+A2 _status_codes.py ['PRINTS_FAIL_ONLY'] fail_strings=3 executable=True
+G1 verify_g1.py ['PRINTS_FAIL_ONLY'] fail_strings=1 executable=True
+G2 verify_g2.py ['PRINTS_FAIL_ONLY'] fail_strings=4 executable=True
+G3 verify_g3.py ['PRINTS_FAIL_ONLY'] fail_strings=1 executable=True

@@ -51,6 +51,8 @@ A top-level `try`/`if`/`for`/`while`/`with` block containing an `assert` or a ca
 
 `assert True` is still counted, as a documented blind spot recorded by the independent IE1 cases. Details: [VLFP001/RESULTS.md](VLFP001/RESULTS.md).
 
+VL-FP-003 (unreleased): a failure-oriented string inside a tuple, list, set or dict literal is treated as data and no longer counts as failure text, so status-code tables such as `412: ("precondition_failed",)` are not VL002. Known blind spot: a failure message stored in such a literal and printed later is no longer counted; in a file whose name carries no verification hint it is missed entirely. Details: [VLFP003/RESULTS.md](VLFP003/RESULTS.md).
+
 Recognized fail-path shapes include any `assert`, non-`SystemExit` `raise`,
 `raise SystemExit(nonzero)`, `sys.exit(nonzero)`, `os._exit(nonzero)`,
 `quit(nonzero)`, `exit(nonzero)`, or an exit with a dynamic expression,

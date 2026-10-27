@@ -1,0 +1,119 @@
+# R5: five exploration repos, unchanged (19eb73e) vs fixed scanner
+# platform: x86_64, Python 3.13.17; repo HEADs:
+#   requests 3c7baaa 2026-10-26
+#   flask d086db8 2026-10-07
+#   click 2247b35 2026-10-04
+#   rich 9d8f9a3 2026-06-23
+#   httpx b5addb6 2026-02-23
+
+=== requests (before)
+python files scanned    : 37
+verification-shaped     : 10
+findings                : 1
+declared intentional    : 0
+
+PRINTS_FAIL_ONLY  (1)
+  requests/src/requests/status_codes.py
+      contains failure text 3x but has no assert, raise, or nonzero exit
+
+exit=1
+
+=== requests (after)
+python files scanned    : 37
+verification-shaped     : 9
+findings                : 0
+declared intentional    : 0
+
+no vacuous verification found
+exit=0
+
+=== flask (before)
+python files scanned    : 83
+verification-shaped     : 30
+findings                : 0
+declared intentional    : 0
+
+no vacuous verification found
+exit=0
+
+=== flask (after)
+python files scanned    : 83
+verification-shaped     : 30
+findings                : 0
+declared intentional    : 0
+
+no vacuous verification found
+exit=0
+
+=== click (before)
+python files scanned    : 91
+verification-shaped     : 44
+findings                : 1
+declared intentional    : 0
+
+NO_FAIL_PATH  (1)
+  click/tests/typing/typing_progressbar.py
+      verification-shaped but has no assert, raise, test function, or nonzero exit
+
+exit=1
+
+=== click (after)
+python files scanned    : 91
+verification-shaped     : 44
+findings                : 1
+declared intentional    : 0
+
+NO_FAIL_PATH  (1)
+  click/tests/typing/typing_progressbar.py
+      verification-shaped but has no assert, raise, test function, or nonzero exit
+
+exit=1
+
+=== rich (before)
+python files scanned    : 213
+verification-shaped     : 69
+findings                : 2
+declared intentional    : 0
+
+NO_FAIL_PATH  (2)
+  rich/tools/stress_test_pretty.py
+      verification-shaped but has no assert, raise, test function, or nonzero exit
+  rich/benchmarks/benchmarks.py
+      verification-shaped but has no assert, raise, test function, or nonzero exit
+
+exit=1
+
+=== rich (after)
+python files scanned    : 213
+verification-shaped     : 69
+findings                : 2
+declared intentional    : 0
+
+NO_FAIL_PATH  (2)
+  rich/tools/stress_test_pretty.py
+      verification-shaped but has no assert, raise, test function, or nonzero exit
+  rich/benchmarks/benchmarks.py
+      verification-shaped but has no assert, raise, test function, or nonzero exit
+
+exit=1
+
+=== httpx (before)
+python files scanned    : 60
+verification-shaped     : 32
+findings                : 1
+declared intentional    : 0
+
+PRINTS_FAIL_ONLY  (1)
+  httpx/httpx/_status_codes.py
+      contains failure text 3x but has no assert, raise, or nonzero exit
+
+exit=1
+
+=== httpx (after)
+python files scanned    : 60
+verification-shaped     : 31
+findings                : 0
+declared intentional    : 0
+
+no vacuous verification found
+exit=0

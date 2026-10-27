@@ -1,0 +1,15 @@
+========================================================================
+ANTI-VACUITY SELFTEST
+========================================================================
+
+  A attributed.py -> reconstructible verification unit: PASS (tier=2, class=verification)
+  B plain.py -> NOT reconstructible (instrument can say no): PASS (tier=None)
+  C bait.py -> style does NOT establish authorship (Tier 5 inadmissible): PASS (tier=None)
+  D verification units counted separately from prose: PASS
+
+========================================================================
+SELFTEST PASS -- this tool reports reconstructible AND
+not-reconstructible depending on input, and refuses to infer
+authorship from coding style. It is not stuck on one verdict.
+========================================================================
+exit=0

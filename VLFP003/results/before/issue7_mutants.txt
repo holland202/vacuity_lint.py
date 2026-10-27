@@ -1,0 +1,186 @@
+ignore-missing-root: KILLED
+test_mixed_missing_root_never_clean_in_either_order_or_format (test_scan_integrity.ScanIntegrityTests.test_mixed_missing_root_never_clean_in_either_order_or_format) ... 
+  test_mixed_missing_root_never_clean_in_either_order_or_format (test_scan_integrity.ScanIntegrityTests.test_mixed_missing_root_never_clean_in_either_order_or_format) (roots=(PosixPath('/tmp/vacuity-integrity-75ov9dpo/ordinary.py'), PosixPath('/tmp/vacuity-integrity-75ov9dpo/missing')), output='text') ... FAIL
+  test_mixed_missing_root_never_clean_in_either_order_or_format (test_scan_integrity.ScanIntegrityTests.test_mixed_missing_root_never_clean_in_either_order_or_format) (roots=(PosixPath('/tmp/vacuity-integrity-75ov9dpo/ordinary.py'), PosixPath('/tmp/vacuity-integrity-75ov9dpo/missing')), output='json') ... FAIL
+  test_mixed_missing_root_never_clean_in_either_order_or_format (test_scan_integrity.ScanIntegrityTests.test_mixed_missing_root_never_clean_in_either_order_or_format) (roots=(PosixPath('/tmp/vacuity-integrity-75ov9dpo/missing'), PosixPath('/tmp/vacuity-integrity-75ov9dpo/ordinary.py')), output='text') ... FAIL
+  test_mixed_missing_root_never_clean_in_either_order_or_format (test_scan_integrity.ScanIntegrityTests.test_mixed_missing_root_never_clean_in_either_order_or_format) (roots=(PosixPath('/tmp/vacuity-integrity-75ov9dpo/missing'), PosixPath('/tmp/vacuity-integrity-75ov9dpo/ordinary.py')), output='json') ... FAIL
+
+======================================================================
+FAIL: test_mixed_missing_root_never_clean_in_either_order_or_format (test_scan_integrity.ScanIntegrityTests.test_mixed_missing_root_never_clean_in_either_order_or_format) (roots=(PosixPath('/tmp/vacuity-integrity-75ov9dpo/ordinary.py'), PosixPath('/tmp/vacuity-integrity-75ov9dpo/missing')), output='text')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/vacuity-mutant-hdrvqg33/test_scan_integrity.py", line 50, in test_mixed_missing_root_never_clean_in_either_order_or_format
+    self.assertEqual(result.returncode, 2, result.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 2 : python files scanned    : 1
+verification-shaped     : 0
+findings                : 0
+declared intentional    : 0
+
+no vacuous verification found
+
+
+======================================================================
+FAIL: test_mixed_missing_root_never_clean_in_either_order_or_format (test_scan_integrity.ScanIntegrityTests.test_mixed_missing_root_never_clean_in_either_order_or_format) (roots=(PosixPath('/tmp/vacuity-integrity-75ov9dpo/ordinary.py'), PosixPath('/tmp/vacuity-integrity-75ov9dpo/missing')), output='json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/vacuity-mutant-hdrvqg33/test_scan_integrity.py", line 50, in test_mixed_missing_root_never_clean_in_either_order_or_format
+    self.assertEqual(result.returncode, 2, result.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 2 : {
+  "coverage_errors": [],
+  "files_scanned": 1,
+  "findings": [],
+  "status": "clean",
+  "suppressions": [],
+  "tool": "vacuity-lint",
+  "verification_shaped": 0,
+  "version": "2.0.1.dev0"
+}
+
+
+======================================================================
+FAIL: test_mixed_missing_root_never_clean_in_either_order_or_format (test_scan_integrity.ScanIntegrityTests.test_mixed_missing_root_never_clean_in_either_order_or_format) (roots=(PosixPath('/tmp/vacuity-integrity-75ov9dpo/missing'), PosixPath('/tmp/vacuity-integrity-75ov9dpo/ordinary.py')), output='text')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/vacuity-mutant-hdrvqg33/test_scan_integrity.py", line 50, in test_mixed_missing_root_never_clean_in_either_order_or_format
+    self.assertEqual(result.returncode, 2, result.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 2 : python files scanned    : 1
+verification-shaped     : 0
+findings                : 0
+declared intentional    : 0
+
+no vacuous verification found
+
+
+======================================================================
+FAIL: test_mixed_missing_root_never_clean_in_either_order_or_format (test_scan_integrity.ScanIntegrityTests.test_mixed_missing_root_never_clean_in_either_order_or_format) (roots=(PosixPath('/tmp/vacuity-integrity-75ov9dpo/missing'), PosixPath('/tmp/vacuity-integrity-75ov9dpo/ordinary.py')), output='json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/vacuity-mutant-hdrvqg33/test_scan_integrity.py", line 50, in test_mixed_missing_root_never_clean_in_either_order_or_format
+    self.assertEqual(result.returncode, 2, result.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 2 : {
+  "coverage_errors": [],
+  "files_scanned": 1,
+  "findings": [],
+  "status": "clean",
+  "suppressions": [],
+  "tool": "vacuity-lint",
+  "verification_shaped": 0,
+  "version": "2.0.1.dev0"
+}
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.230s
+
+FAILED (failures=4)
+suppress-from-string: KILLED
+test_suppression_markers_inside_literals_do_not_suppress (test_scan_integrity.ScanIntegrityTests.test_suppression_markers_inside_literals_do_not_suppress) ... 
+  test_suppression_markers_inside_literals_do_not_suppress (test_scan_integrity.ScanIntegrityTests.test_suppression_markers_inside_literals_do_not_suppress) (prefix='marker = "# vacuity-lint: intentional - copied example"\n') ... FAIL
+  test_suppression_markers_inside_literals_do_not_suppress (test_scan_integrity.ScanIntegrityTests.test_suppression_markers_inside_literals_do_not_suppress) (prefix='"""# vacuity-lint: intentional - copied docstring"""\n') ... FAIL
+  test_suppression_markers_inside_literals_do_not_suppress (test_scan_integrity.ScanIntegrityTests.test_suppression_markers_inside_literals_do_not_suppress) (prefix='marker = """first\n# vacuity-lint: intentional - multiline\nlast"""\n') ... FAIL
+
+======================================================================
+FAIL: test_suppression_markers_inside_literals_do_not_suppress (test_scan_integrity.ScanIntegrityTests.test_suppression_markers_inside_literals_do_not_suppress) (prefix='marker = "# vacuity-lint: intentional - copied example"\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/vacuity-mutant-l8imyw_9/test_scan_integrity.py", line 160, in test_suppression_markers_inside_literals_do_not_suppress
+    self.assertEqual([code for code, _ in findings], ["PRINTS_FAIL_ONLY"])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['PRINTS_FAIL_ONLY']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'PRINTS_FAIL_ONLY'
+
+- []
++ ['PRINTS_FAIL_ONLY']
+
+======================================================================
+FAIL: test_suppression_markers_inside_literals_do_not_suppress (test_scan_integrity.ScanIntegrityTests.test_suppression_markers_inside_literals_do_not_suppress) (prefix='"""# vacuity-lint: intentional - copied docstring"""\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/vacuity-mutant-l8imyw_9/test_scan_integrity.py", line 160, in test_suppression_markers_inside_literals_do_not_suppress
+    self.assertEqual([code for code, _ in findings], ["PRINTS_FAIL_ONLY"])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['PRINTS_FAIL_ONLY']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'PRINTS_FAIL_ONLY'
+
+- []
++ ['PRINTS_FAIL_ONLY']
+
+======================================================================
+FAIL: test_suppression_markers_inside_literals_do_not_suppress (test_scan_integrity.ScanIntegrityTests.test_suppression_markers_inside_literals_do_not_suppress) (prefix='marker = """first\n# vacuity-lint: intentional - multiline\nlast"""\n')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/vacuity-mutant-l8imyw_9/test_scan_integrity.py", line 160, in test_suppression_markers_inside_literals_do_not_suppress
+    self.assertEqual([code for code, _ in findings], ["PRINTS_FAIL_ONLY"])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['PRINTS_FAIL_ONLY']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'PRINTS_FAIL_ONLY'
+
+- []
++ ['PRINTS_FAIL_ONLY']
+
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
+
+FAILED (failures=3)
+bare-systemexit-is-failure: KILLED
+test_systemexit_zero_forms_cannot_supply_fail_path (test_scan_integrity.ScanIntegrityTests.test_systemexit_zero_forms_cannot_supply_fail_path) ... 
+  test_systemexit_zero_forms_cannot_supply_fail_path (test_scan_integrity.ScanIntegrityTests.test_systemexit_zero_forms_cannot_supply_fail_path) (statement='raise SystemExit') ... FAIL
+
+======================================================================
+FAIL: test_systemexit_zero_forms_cannot_supply_fail_path (test_scan_integrity.ScanIntegrityTests.test_systemexit_zero_forms_cannot_supply_fail_path) (statement='raise SystemExit')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/vacuity-mutant-wjsisqkd/test_scan_integrity.py", line 187, in test_systemexit_zero_forms_cannot_supply_fail_path
+    self.assertEqual([code for code, _ in findings], ["PRINTS_FAIL_ONLY"])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['PRINTS_FAIL_ONLY']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'PRINTS_FAIL_ONLY'
+
+- []
++ ['PRINTS_FAIL_ONLY']
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+FAILED (failures=1)
+trust-shadowed-alias: KILLED
+test_imported_function_shadowed_by_assignment_is_not_recognized (test_exit_aliases.ExitAliasTests.test_imported_function_shadowed_by_assignment_is_not_recognized) ... FAIL
+
+======================================================================
+FAIL: test_imported_function_shadowed_by_assignment_is_not_recognized (test_exit_aliases.ExitAliasTests.test_imported_function_shadowed_by_assignment_is_not_recognized)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/vacuity-mutant-uz0j1nu_/test_exit_aliases.py", line 51, in test_imported_function_shadowed_by_assignment_is_not_recognized
+    self.assertEqual(self.codes(source), ["PRINTS_FAIL_ONLY"])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['PRINTS_FAIL_ONLY']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'PRINTS_FAIL_ONLY'
+
+- []
++ ['PRINTS_FAIL_ONLY']
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (failures=1)
+ISSUE 7 MUTANTS: 4/4 killed by regression assertions
+exit=0

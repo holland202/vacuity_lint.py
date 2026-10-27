@@ -1,0 +1,78 @@
+test_aliased_zero_exits_do_not_hide_findings (test_exit_aliases.ExitAliasTests.test_aliased_zero_exits_do_not_hide_findings) ... ok
+test_float_zero_is_not_process_exit_zero (test_exit_aliases.ExitAliasTests.test_float_zero_is_not_process_exit_zero) ... ok
+test_function_named_exit_shadows_builtin (test_exit_aliases.ExitAliasTests.test_function_named_exit_shadows_builtin) ... ok
+test_imported_function_shadowed_by_assignment_is_not_recognized (test_exit_aliases.ExitAliasTests.test_imported_function_shadowed_by_assignment_is_not_recognized) ... ok
+test_multiple_systemexit_arguments_are_nonzero (test_exit_aliases.ExitAliasTests.test_multiple_systemexit_arguments_are_nonzero) ... ok
+test_other_module_import_cannot_claim_sys_alias (test_exit_aliases.ExitAliasTests.test_other_module_import_cannot_claim_sys_alias) ... ok
+test_parameter_shadowing_is_conservatively_rejected (test_exit_aliases.ExitAliasTests.test_parameter_shadowing_is_conservatively_rejected) ... ok
+test_rebinding_alias_to_noop_is_not_a_failure_path (test_exit_aliases.ExitAliasTests.test_rebinding_alias_to_noop_is_not_a_failure_path) ... ok
+test_simple_imported_nonzero_exits_and_abort (test_exit_aliases.ExitAliasTests.test_simple_imported_nonzero_exits_and_abort) ... ok
+test_unrelated_exit_method_is_not_a_stdlib_exit (test_exit_aliases.ExitAliasTests.test_unrelated_exit_method_is_not_a_stdlib_exit) ... ok
+test_main_appearing_only_in_comment_is_not_entry_point (test_exit_precision.ExitPrecisionTests.test_main_appearing_only_in_comment_is_not_entry_point) ... ok
+test_main_appearing_only_in_docstring_is_not_entry_point (test_exit_precision.ExitPrecisionTests.test_main_appearing_only_in_docstring_is_not_entry_point) ... ok
+test_ordinary_script_with_zero_exit_not_assumed_verification (test_exit_precision.ExitPrecisionTests.test_ordinary_script_with_zero_exit_not_assumed_verification) ... ok
+test_os_immediate_exit_nonzero_is_failure_path (test_exit_precision.ExitPrecisionTests.test_os_immediate_exit_nonzero_is_failure_path) ... ok
+test_os_immediate_exit_zero_is_not_failure (test_exit_precision.ExitPrecisionTests.test_os_immediate_exit_zero_is_not_failure) ... ok
+test_printed_failure_preferred_to_generic_zero_class (test_exit_precision.ExitPrecisionTests.test_printed_failure_preferred_to_generic_zero_class) ... ok
+test_raise_systemexit_nonzero_is_failure_path (test_exit_precision.ExitPrecisionTests.test_raise_systemexit_nonzero_is_failure_path) ... ok
+test_raise_systemexit_zero_is_not_failure (test_exit_precision.ExitPrecisionTests.test_raise_systemexit_zero_is_not_failure) ... ok
+test_real_main_guard_is_entry_point (test_exit_precision.ExitPrecisionTests.test_real_main_guard_is_entry_point) ... ok
+test_swapped_main_guard_is_entry_point (test_exit_precision.ExitPrecisionTests.test_swapped_main_guard_is_entry_point) ... ok
+test_sys_exit_main_dynamic_remains_recognized (test_exit_precision.ExitPrecisionTests.test_sys_exit_main_dynamic_remains_recognized) ... ok
+test_sys_exit_zero_has_reachable_classification (test_exit_precision.ExitPrecisionTests.test_sys_exit_zero_has_reachable_classification) ... ok
+test_unittest_class_test_detection_unchanged (test_exit_precision.ExitPrecisionTests.test_unittest_class_test_detection_unchanged) ... ok
+test_always_one_and_always_two_are_rejected_before_planting (test_gate_control.GateControlTests.test_always_one_and_always_two_are_rejected_before_planting) ... ok
+test_always_zero_is_rejected_at_planted_exit (test_gate_control.GateControlTests.test_always_zero_is_rejected_at_planted_exit) ... ok
+test_error_exit_is_not_a_detected_defect (test_gate_control.GateControlTests.test_error_exit_is_not_a_detected_defect) ... ok
+test_preexisting_defect_cannot_mask_probe (test_gate_control.GateControlTests.test_preexisting_defect_cannot_mask_probe) ... ok
+test_real_scanner_accepts_clean_planted_clean_and_retains_raw_exits (test_gate_control.GateControlTests.test_real_scanner_accepts_clean_planted_clean_and_retains_raw_exits) ... ok
+test_unrelated_finding_cannot_satisfy_planted_control (test_gate_control.GateControlTests.test_unrelated_finding_cannot_satisfy_planted_control) ... ok
+test_zero_exit_with_invalid_json_is_rejected (test_gate_control.GateControlTests.test_zero_exit_with_invalid_json_is_rejected) ... ok
+test_docstring_case_from_ie1 (test_ie1a_wording.IE1AWording.test_docstring_case_from_ie1) ... ok
+test_printed_case_from_ie1 (test_ie1a_wording.IE1AWording.test_printed_case_from_ie1) ... ok
+test_bare_suppression_does_not_hide (test_json_cli.JSONContractTests.test_bare_suppression_does_not_hide) ... ok
+test_clean_json (test_json_cli.JSONContractTests.test_clean_json) ... ok
+test_empty_input_is_json_but_exit_two (test_json_cli.JSONContractTests.test_empty_input_is_json_but_exit_two) ... ok
+test_invalid_format_refused (test_json_cli.JSONContractTests.test_invalid_format_refused) ... ok
+test_legacy_text_mode_and_code_unchanged (test_json_cli.JSONContractTests.test_legacy_text_mode_and_code_unchanged) ... ok
+test_multiple_paths_and_quiet_json (test_json_cli.JSONContractTests.test_multiple_paths_and_quiet_json) ... ok
+test_real_finding_metadata_and_no_invented_location (test_json_cli.JSONContractTests.test_real_finding_metadata_and_no_invented_location) ... ok
+test_suppression_explained_and_visible (test_json_cli.JSONContractTests.test_suppression_explained_and_visible) ... ok
+test_unparseable_is_analysis_error (test_json_cli.JSONContractTests.test_unparseable_is_analysis_error) ... ok
+test_version (test_json_cli.JSONContractTests.test_version) ... ok
+test_zero_exit_rule (test_json_cli.JSONContractTests.test_zero_exit_rule) ... ok
+test_actual_unreadable_subtree_reports_coverage_error (test_scan_integrity.ScanIntegrityTests.test_actual_unreadable_subtree_reports_coverage_error) ... ok
+test_all_missing_roots_are_reported (test_scan_integrity.ScanIntegrityTests.test_all_missing_roots_are_reported) ... ok
+test_coverage_error_takes_precedence_without_hiding_findings (test_scan_integrity.ScanIntegrityTests.test_coverage_error_takes_precedence_without_hiding_findings) ... ok
+test_directory_traversal_error_is_not_silently_skipped (test_scan_integrity.ScanIntegrityTests.test_directory_traversal_error_is_not_silently_skipped) ... ok
+test_empty_existing_directory_retains_no_python_status (test_scan_integrity.ScanIntegrityTests.test_empty_existing_directory_retains_no_python_status) ... ok
+test_file_disappearing_after_enumeration_is_coverage_error (test_scan_integrity.ScanIntegrityTests.test_file_disappearing_after_enumeration_is_coverage_error) ... ok
+test_mixed_missing_root_never_clean_in_either_order_or_format (test_scan_integrity.ScanIntegrityTests.test_mixed_missing_root_never_clean_in_either_order_or_format) ... ok
+test_nonzero_dynamic_and_ordinary_raises_remain_fail_paths (test_scan_integrity.ScanIntegrityTests.test_nonzero_dynamic_and_ordinary_raises_remain_fail_paths) ... ok
+test_real_comment_suppression_retains_exact_reason (test_scan_integrity.ScanIntegrityTests.test_real_comment_suppression_retains_exact_reason) ... ok
+test_reasonless_comment_cannot_suppress (test_scan_integrity.ScanIntegrityTests.test_reasonless_comment_cannot_suppress) ... ok
+test_special_root_is_rejected_without_opening_it (test_scan_integrity.ScanIntegrityTests.test_special_root_is_rejected_without_opening_it) ... ok
+test_suppression_markers_inside_literals_do_not_suppress (test_scan_integrity.ScanIntegrityTests.test_suppression_markers_inside_literals_do_not_suppress) ... ok
+test_systemexit_zero_forms_cannot_supply_fail_path (test_scan_integrity.ScanIntegrityTests.test_systemexit_zero_forms_cannot_supply_fail_path) ... ok
+test_cli_exits_one_for_each_false_pass (test_vlfp001.VLFP001.test_cli_exits_one_for_each_false_pass) ... ok
+test_false_passes_now_report_a_finding (test_vlfp001.VLFP001.test_false_passes_now_report_a_finding) ... ok
+test_guards_stay_clean (test_vlfp001.VLFP001.test_guards_stay_clean) ... ok
+test_v_b_remains_a_documented_blind_spot (test_vlfp001.VLFP001.test_v_b_remains_a_documented_blind_spot) ... ok
+test_lookalikes_are_not_fail_paths (test_vlfp002.VLFP002.test_lookalikes_are_not_fail_paths) ... ok
+test_mutant_without_recognition_reports_again (test_vlfp002.VLFP002.test_mutant_without_recognition_reports_again)
+R3: with the recognition disabled, C1-C4 must be reported again (the test can fail). ... ok
+test_pytest_fail_is_a_fail_path (test_vlfp002.VLFP002.test_pytest_fail_is_a_fail_path) ... ok
+test_guards_still_flagged (test_vlfp003.VLFP003.test_guards_still_flagged)
+R3: real printed failure messages with no fail path must still be reported. ... ok
+test_known_blind_spot_is_recorded (test_vlfp003.VLFP003.test_known_blind_spot_is_recorded)
+Added with the fix (not registered): a failure message kept in a list and printed later is ... ok
+test_mutant_without_rule_reports_again (test_vlfp003.VLFP003.test_mutant_without_rule_reports_again)
+Added with the fix (not registered): with the data-literal rule disabled, A1 and A2 must be ... ok
+test_tables_are_not_findings (test_vlfp003.VLFP003.test_tables_are_not_findings)
+R2: a status-code table is not verification and must scan clean. ... ok
+
+----------------------------------------------------------------------
+Ran 67 tests in 2.279s
+
+OK
+unittest exit=0
