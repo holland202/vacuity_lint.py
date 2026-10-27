@@ -4,9 +4,11 @@ Registered in VLFP003/PREREG.md (commit 6a38723) before this test or the fix exi
 Fixture text is copied from the registration. Each case is written under its registered file name in a
 fresh directory and scanned by the imported scanner. No case file is executed.
 """
+import ast
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 import vacuity_lint as lint
 
@@ -110,6 +112,26 @@ class VLFP003(unittest.TestCase):
         for gid, (name, body) in GUARDS.items():
             with self.subTest(case=gid):
                 self.assertEqual(self.codes(name, body), ["PRINTS_FAIL_ONLY"], gid)
+
+    def test_mutant_without_rule_reports_again(self):
+        """Added with the fix (not registered): with the data-literal rule disabled, A1 and A2 must be
+        reported again, so test_tables_are_not_findings can fail."""
+        plain = ast.NodeVisitor.generic_visit
+        with mock.patch.multiple(lint.Scan, visit_Tuple=plain, visit_List=plain,
+                                 visit_Set=plain, visit_Dict=plain):
+            for cid, (name, body) in TABLES.items():
+                with self.subTest(case=cid):
+                    self.assertEqual(self.codes(name, body), ["PRINTS_FAIL_ONLY"], cid)
+
+    def test_known_blind_spot_is_recorded(self):
+        """Added with the fix (not registered): a failure message kept in a list and printed later is
+        no longer counted as failure text. Before the fix both files below were PRINTS_FAIL_ONLY. After it,
+        a file whose NAME marks it as a check is still reported (NO_FAIL_PATH); one whose name does not
+        is missed entirely, a new false pass. Pinned so any change to the trade-off is visible."""
+        body = ('ERRORS = ["check failed: arithmetic"]\n\n\ndef main():\n    if 1 + 1 != 3:\n'
+                '        for e in ERRORS:\n            print(e)\n\n\nmain()\n')
+        self.assertEqual(self.codes("verify_blind.py", body), ["NO_FAIL_PATH"])
+        self.assertEqual(self.codes("blind.py", body), [])
 
 
 if __name__ == "__main__":

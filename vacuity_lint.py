@@ -182,6 +182,7 @@ class Scan(ast.NodeVisitor):
         self.swallowed_asserts = 0      # VL-FP-001: assert inside try whose AssertionError is swallowed
         self._swallow_depth = 0
         self.fail_strings = 0
+        self._data_depth = 0            # VL-FP-003: >0 while inside a tuple/list/set/dict literal
         self.has_main = False
         self.is_executable = False
         self.suppressed = None
@@ -294,11 +295,21 @@ class Scan(ast.NodeVisitor):
         self.visit_FunctionDef(n)
 
     def visit_Constant(self, n):
-        if isinstance(n.value, str):
+        if isinstance(n.value, str) and not self._data_depth:
             low = n.value.lower()
             if any(w in low for w in FAIL_WORDS):
                 self.fail_strings += 1
         self.generic_visit(n)
+
+    def _visit_data_literal(self, n):
+        """VL-FP-003: a string inside a tuple/list/set/dict literal is data (a status-code table, an enum
+        member's phrase), not a printed failure message. Known blind spot, recorded in VLFP003/RESULTS.md:
+        a failure message stored in a list and printed later is no longer counted."""
+        self._data_depth += 1
+        self.generic_visit(n)
+        self._data_depth -= 1
+
+    visit_Tuple = visit_List = visit_Set = visit_Dict = _visit_data_literal
 
     def _is_pytest_fail(self, call):
         """VL-FP-002: `pytest.fail(...)` raises pytest's Failed, so it is a fail path like `raise`.

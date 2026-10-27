@@ -1,0 +1,6 @@
+mutant tuple-assert: KILLED (FAILED (failures=2))
+mutant swallow: KILLED (FAILED (failures=2))
+mutant uncollected-test: KILLED (FAILED (failures=2))
+mutant top-level-block-executable: KILLED (FAILED (failures=2))
+VL-FP-001 MUTANTS: 4/4 killed
+exit=0
