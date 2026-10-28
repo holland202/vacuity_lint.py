@@ -1,0 +1,32 @@
+{
+ "started_utc": "2026-10-28T09:03:45+00:00",
+ "query": "language:Python stars:5..50 pushed:>2025-09-08 fork:false archived:false",
+ "sort": "stars",
+ "order": "desc",
+ "per_page": 100,
+ "target_per_stratum": 20,
+ "max_eligible": 200,
+ "clone_timeout_s": 120,
+ "ci_patterns": [
+  ".github/workflows/*.yml",
+  ".github/workflows/*.yaml",
+  ".travis.yml",
+  ".circleci/config.yml",
+  "azure-pipelines.yml"
+ ],
+ "python": "3.14.6",
+ "platform": "Android-17-aarch64-64bit-ELF",
+ "git": "git version 2.56.0",
+ "gh": "gh version 2.101.0",
+ "finished_utc": "2026-10-28T09:14:19+00:00",
+ "stop_reason": "both strata reached 20",
+ "search_total_count": 252120,
+ "search_pages_consumed": 1,
+ "pool_items_processed": 61,
+ "pool_eligible": 50,
+ "arm_sizes": {
+  "A": 21,
+  "B": 30,
+  "C": 20
+ }
+}
