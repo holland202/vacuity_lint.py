@@ -1,0 +1,31 @@
+diff --git a/calc.py b/calc.py
+index 4693ad3..a3b52fc 100644
+--- a/calc.py
++++ b/calc.py
+@@ -1,2 +1,2 @@
+ def add(a, b):
+-    return a + b
++    return b + a
+diff --git a/tests/test_calc.py b/tests/test_calc.py
+index d509f32..bd992bf 100644
+--- a/tests/test_calc.py
++++ b/tests/test_calc.py
+@@ -3,3 +3,7 @@ from calc import add
+ 
+ def test_add():
+     assert add(2, 3) == 5
++
++
++def test_add_negatives():
++    assert add(-2, -3) == -5
+diff --git a/tests/test_zero.py b/tests/test_zero.py
+index 1c62594..fcd13ef 100644
+--- a/tests/test_zero.py
++++ b/tests/test_zero.py
+@@ -1,5 +1,5 @@
+ from calc import add
+ 
+ 
+-def test_zeros():
++def test_zeros_stay_zero():
+     assert add(0, 0) == 0

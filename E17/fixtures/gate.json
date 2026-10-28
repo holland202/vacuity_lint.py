@@ -1,0 +1,376 @@
+[
+ {
+  "check": "node base: base suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 93.991355"
+  ]
+ },
+ {
+  "check": "node base: base suite against broken code",
+  "expect": "fail",
+  "exit": 1,
+  "ok": true,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 89.175533"
+  ]
+ },
+ {
+  "check": "node base_helper: base suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 88.437425"
+  ]
+ },
+ {
+  "check": "node base_helper: base suite against broken code",
+  "expect": "fail",
+  "exit": 1,
+  "ok": true,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 89.98533"
+  ]
+ },
+ {
+  "check": "node C0: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 92.767432"
+  ]
+ },
+ {
+  "check": "node C1: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 88.371509"
+  ]
+ },
+ {
+  "check": "node C2: own patched suite",
+  "expect": "fail",
+  "exit": 1,
+  "ok": true,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 88.503991"
+  ]
+ },
+ {
+  "check": "node W1: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 80.068993"
+  ]
+ },
+ {
+  "check": "node W1p: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "# skipped 1",
+   "# todo 0",
+   "# duration_ms 98.559054"
+  ]
+ },
+ {
+  "check": "node W2: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 87.810741"
+  ]
+ },
+ {
+  "check": "node W3: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 76.337187"
+  ]
+ },
+ {
+  "check": "node W3d: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 48.686336"
+  ]
+ },
+ {
+  "check": "node W4: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 90.710107"
+  ]
+ },
+ {
+  "check": "node W4b: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 92.401059"
+  ]
+ },
+ {
+  "check": "node H1: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 89.400287"
+  ]
+ },
+ {
+  "check": "node K1: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 106.435739"
+  ]
+ },
+ {
+  "check": "node G1: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 101.531886"
+  ]
+ },
+ {
+  "check": "python base: base suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "2 passed in 0.01s",
+   "warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.",
+   "warning: The `native-tls` setting is deprecated and will be removed in a future release. Use `system-certs` instead."
+  ]
+ },
+ {
+  "check": "python base: base suite against broken code",
+  "expect": "fail",
+  "exit": 1,
+  "ok": true,
+  "tail": [
+   "1 failed, 1 passed in 0.01s",
+   "warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.",
+   "warning: The `native-tls` setting is deprecated and will be removed in a future release. Use `system-certs` instead."
+  ]
+ },
+ {
+  "check": "python base_helper: base suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "2 passed in 0.01s",
+   "warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.",
+   "warning: The `native-tls` setting is deprecated and will be removed in a future release. Use `system-certs` instead."
+  ]
+ },
+ {
+  "check": "python base_helper: base suite against broken code",
+  "expect": "fail",
+  "exit": 1,
+  "ok": true,
+  "tail": [
+   "1 failed, 1 passed in 0.01s",
+   "warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.",
+   "warning: The `native-tls` setting is deprecated and will be removed in a future release. Use `system-certs` instead."
+  ]
+ },
+ {
+  "check": "python C0: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "2 passed in 0.01s",
+   "warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.",
+   "warning: The `native-tls` setting is deprecated and will be removed in a future release. Use `system-certs` instead."
+  ]
+ },
+ {
+  "check": "python C1: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "3 passed in 0.01s",
+   "warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.",
+   "warning: The `native-tls` setting is deprecated and will be removed in a future release. Use `system-certs` instead."
+  ]
+ },
+ {
+  "check": "python C2: own patched suite",
+  "expect": "fail",
+  "exit": 1,
+  "ok": true,
+  "tail": [
+   "1 failed, 1 passed in 0.01s",
+   "warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.",
+   "warning: The `native-tls` setting is deprecated and will be removed in a future release. Use `system-certs` instead."
+  ]
+ },
+ {
+  "check": "python W1: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "1 passed in 0.01s",
+   "warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.",
+   "warning: The `native-tls` setting is deprecated and will be removed in a future release. Use `system-certs` instead."
+  ]
+ },
+ {
+  "check": "python W1p: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "1 passed, 1 skipped in 0.01s",
+   "warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.",
+   "warning: The `native-tls` setting is deprecated and will be removed in a future release. Use `system-certs` instead."
+  ]
+ },
+ {
+  "check": "python W2: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "2 passed in 0.01s",
+   "warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.",
+   "warning: The `native-tls` setting is deprecated and will be removed in a future release. Use `system-certs` instead."
+  ]
+ },
+ {
+  "check": "python W3: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "1 passed in 0.01s",
+   "warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.",
+   "warning: The `native-tls` setting is deprecated and will be removed in a future release. Use `system-certs` instead."
+  ]
+ },
+ {
+  "check": "python W3d: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "1 passed in 0.01s",
+   "warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.",
+   "warning: The `native-tls` setting is deprecated and will be removed in a future release. Use `system-certs` instead."
+  ]
+ },
+ {
+  "check": "python W4: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "2 passed in 0.01s",
+   "warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.",
+   "warning: The `native-tls` setting is deprecated and will be removed in a future release. Use `system-certs` instead."
+  ]
+ },
+ {
+  "check": "python W4b: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "2 passed in 0.01s",
+   "warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.",
+   "warning: The `native-tls` setting is deprecated and will be removed in a future release. Use `system-certs` instead."
+  ]
+ },
+ {
+  "check": "python H1: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "2 passed in 0.01s",
+   "warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.",
+   "warning: The `native-tls` setting is deprecated and will be removed in a future release. Use `system-certs` instead."
+  ]
+ },
+ {
+  "check": "python K1: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "1 passed, 1 deselected in 0.01s",
+   "warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.",
+   "warning: The `native-tls` setting is deprecated and will be removed in a future release. Use `system-certs` instead."
+  ]
+ },
+ {
+  "check": "python G1: own patched suite",
+  "expect": "pass",
+  "exit": 0,
+  "ok": true,
+  "tail": [
+   "2 passed in 0.01s",
+   "warning: The `UV_NATIVE_TLS` environment variable is deprecated and will be removed in a future release. Use `UV_SYSTEM_CERTS` instead.",
+   "warning: The `native-tls` setting is deprecated and will be removed in a future release. Use `system-certs` instead."
+  ]
+ }
+]

@@ -1,0 +1,26 @@
+diff --git a/calc.mjs b/calc.mjs
+index d0f87bf..da937b1 100644
+--- a/calc.mjs
++++ b/calc.mjs
+@@ -1 +1 @@
+-export const add = (a, b) => a + b;
++export const add = (a, b) => b + a;
+diff --git a/calc.test.mjs b/calc.test.mjs
+index ddea49d..b9faf4c 100644
+--- a/calc.test.mjs
++++ b/calc.test.mjs
+@@ -2,3 +2,4 @@ import test from "node:test";
+ import assert from "node:assert/strict";
+ import { add } from "./calc.mjs";
+ test("adds", () => { assert.equal(add(2, 3), 5); });
++test("adds negatives", () => { assert.equal(add(-2, -3), -5); });
+diff --git a/zero.test.mjs b/zero.test.mjs
+index af3d64c..24ebea6 100644
+--- a/zero.test.mjs
++++ b/zero.test.mjs
+@@ -1,4 +1,4 @@
+ import test from "node:test";
+ import assert from "node:assert/strict";
+ import { add } from "./calc.mjs";
+-test("adds zeros", () => { assert.equal(add(0, 0), 0); });
++test("adds zero to zero", () => { assert.equal(add(0, 0), 0); });

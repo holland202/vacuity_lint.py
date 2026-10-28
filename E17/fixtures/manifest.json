@@ -1,0 +1,184 @@
+[
+ {
+  "lang": "node",
+  "case": "C0",
+  "base": "base",
+  "base_commit": "3fb5c73e20fa5592863264c3915774f19dcc187e",
+  "patch_sha256": "ae534f705dc42e7c419e2be12dc31d2b49cefa4fc9aefb13f74313b5cafce958"
+ },
+ {
+  "lang": "node",
+  "case": "C1",
+  "base": "base",
+  "base_commit": "3fb5c73e20fa5592863264c3915774f19dcc187e",
+  "patch_sha256": "8623a42adb67ef4699c9bb12da786487230eaaa5ee71cdd9c46bb433257c87b2"
+ },
+ {
+  "lang": "node",
+  "case": "C2",
+  "base": "base",
+  "base_commit": "3fb5c73e20fa5592863264c3915774f19dcc187e",
+  "patch_sha256": "c81d617d43660dbc9fc70e532f4decec360c7a3f08e087d566454eccfc8f240b"
+ },
+ {
+  "lang": "node",
+  "case": "W1",
+  "base": "base",
+  "base_commit": "3fb5c73e20fa5592863264c3915774f19dcc187e",
+  "patch_sha256": "d18ad7cfd0ff39145b25d53ebe9d79a6dd423037e4013fbf91926376169efbed"
+ },
+ {
+  "lang": "node",
+  "case": "W1p",
+  "base": "base",
+  "base_commit": "3fb5c73e20fa5592863264c3915774f19dcc187e",
+  "patch_sha256": "70c3c57de098ddc7e481f8c5cae4202cc58c7439e85c1eb176aca8b7d701d31a"
+ },
+ {
+  "lang": "node",
+  "case": "W2",
+  "base": "base",
+  "base_commit": "3fb5c73e20fa5592863264c3915774f19dcc187e",
+  "patch_sha256": "91cacceef0e42f7fd72616d94534f988df27cf2fc66b18c2b5bd00ae2153f22e"
+ },
+ {
+  "lang": "node",
+  "case": "W3",
+  "base": "base",
+  "base_commit": "3fb5c73e20fa5592863264c3915774f19dcc187e",
+  "patch_sha256": "09954c0c893f94eb6e112ebfbc7c3eac682e138e12aaf98f7941ce17744f8723"
+ },
+ {
+  "lang": "node",
+  "case": "W3d",
+  "base": "base",
+  "base_commit": "3fb5c73e20fa5592863264c3915774f19dcc187e",
+  "patch_sha256": "144bc35775c232248f2dfbef50ba17919d875328b389ee63d0e5f3d92867d122"
+ },
+ {
+  "lang": "node",
+  "case": "W4",
+  "base": "base",
+  "base_commit": "3fb5c73e20fa5592863264c3915774f19dcc187e",
+  "patch_sha256": "e377180eb4bc4226159508cc9f3b74ee606b6b006ed1e0003764a12b95e319aa"
+ },
+ {
+  "lang": "node",
+  "case": "W4b",
+  "base": "base",
+  "base_commit": "3fb5c73e20fa5592863264c3915774f19dcc187e",
+  "patch_sha256": "931705b3d3717c4a18ac9ef1243a96205b62e6ad03e3dad706474d151e9f0316"
+ },
+ {
+  "lang": "node",
+  "case": "H1",
+  "base": "base_helper",
+  "base_commit": "91abf57037d8e7298d81f57c81f4ab78dbb1be8d",
+  "patch_sha256": "d71f91e6332bb000d69330a19f0c0c47e89d6e1f362e6a31a674fe616f67133b"
+ },
+ {
+  "lang": "node",
+  "case": "K1",
+  "base": "base",
+  "base_commit": "3fb5c73e20fa5592863264c3915774f19dcc187e",
+  "patch_sha256": "f7fdc05ca07d6408e0956de92863d8cb2cf2bbd2e37375fe00a558bfe1ad1dbc"
+ },
+ {
+  "lang": "node",
+  "case": "G1",
+  "base": "base",
+  "base_commit": "3fb5c73e20fa5592863264c3915774f19dcc187e",
+  "patch_sha256": "622820a920bcb132520f513ead2dc1ddbfc2cb8fecb14ba64d349e9608fdeca4"
+ },
+ {
+  "lang": "python",
+  "case": "C0",
+  "base": "base",
+  "base_commit": "143ccc879635dde32bec8383e475143323a0aee8",
+  "patch_sha256": "50e05044b932512d15a8c9f73d42e0da784183a70477d697f1fd1162f897b807"
+ },
+ {
+  "lang": "python",
+  "case": "C1",
+  "base": "base",
+  "base_commit": "143ccc879635dde32bec8383e475143323a0aee8",
+  "patch_sha256": "32a2bff7fe4c7a2c86e60d3bfecccdd8cb1a0504071f1d6869fdfb59c20c7d17"
+ },
+ {
+  "lang": "python",
+  "case": "C2",
+  "base": "base",
+  "base_commit": "143ccc879635dde32bec8383e475143323a0aee8",
+  "patch_sha256": "cbed84e92b2e0d9a3896e62884908ef45938bb8b235a6a2f26d1d0967bff4b64"
+ },
+ {
+  "lang": "python",
+  "case": "W1",
+  "base": "base",
+  "base_commit": "143ccc879635dde32bec8383e475143323a0aee8",
+  "patch_sha256": "b4d3fc64cd8993f25d138b7a2edb4067e3dbfeb2f65bc252008ab970b520a1af"
+ },
+ {
+  "lang": "python",
+  "case": "W1p",
+  "base": "base",
+  "base_commit": "143ccc879635dde32bec8383e475143323a0aee8",
+  "patch_sha256": "971374fed9b1ee43e207dfcaf2bf0a4f15d44e80b1ef7d21a3c4030037ec606b"
+ },
+ {
+  "lang": "python",
+  "case": "W2",
+  "base": "base",
+  "base_commit": "143ccc879635dde32bec8383e475143323a0aee8",
+  "patch_sha256": "49a49aa4505d379a5a01fa2baa0e6f9f8a48b5987997a8de4f6a75373d731a31"
+ },
+ {
+  "lang": "python",
+  "case": "W3",
+  "base": "base",
+  "base_commit": "143ccc879635dde32bec8383e475143323a0aee8",
+  "patch_sha256": "abc981f83a7a1e3d31a2bb58453c6b1c9b8f715d930edf87a932066d568d63ae"
+ },
+ {
+  "lang": "python",
+  "case": "W3d",
+  "base": "base",
+  "base_commit": "143ccc879635dde32bec8383e475143323a0aee8",
+  "patch_sha256": "2ff73e17fe403a454c1dc076b4ba3ab805bbddbc5c0671297b64b235acfda556"
+ },
+ {
+  "lang": "python",
+  "case": "W4",
+  "base": "base",
+  "base_commit": "143ccc879635dde32bec8383e475143323a0aee8",
+  "patch_sha256": "4259bc148df181ce715df03217a19e2a1a711cbec161a7a814b5e0f9dfa6b02d"
+ },
+ {
+  "lang": "python",
+  "case": "W4b",
+  "base": "base",
+  "base_commit": "143ccc879635dde32bec8383e475143323a0aee8",
+  "patch_sha256": "4260afdf7819aff1286ff3cc399a60e42f92c3725a100af6d4d7bf1ab419bc31"
+ },
+ {
+  "lang": "python",
+  "case": "H1",
+  "base": "base_helper",
+  "base_commit": "5f6ec6c0cd9a81e5fb8c6d740accad332dac9e58",
+  "patch_sha256": "676211f74c2f3680950df4992680a72acd35afe15d8213ccf1df5e5279500840"
+ },
+ {
+  "lang": "python",
+  "case": "K1",
+  "base": "base",
+  "base_commit": "143ccc879635dde32bec8383e475143323a0aee8",
+  "patch_sha256": "e64b388a9909d2107b4e22215e1fe126fc99313e9b34a138e7f9276e34268c0b"
+ },
+ {
+  "lang": "python",
+  "case": "G1",
+  "base": "base",
+  "base_commit": "143ccc879635dde32bec8383e475143323a0aee8",
+  "patch_sha256": "18865a69b3986ad4268e1cb64076114445515b8f8a3c90980def4924957562e9"
+ }
+]
