@@ -6,6 +6,7 @@ Plain-language map of the research records in this repository. Each folder keeps
 |---|---|---|---|
 | E15 | [E15/](E15/) | Do repositories differ in how much verification-shaped code they contain (author's repos vs sampled repos with and without CI)? Three-arm prevalence study. | Run 2026-10-28 on the re-registration ([RESULTS.md](E15/run/RESULTS.md)): P1 and P2 not confirmed, P3 inconclusive, P4 passed. Author's median 11 vs 3 and 3; the historical gap does not reproduce. Self-tested |
 | E16 | [E16/](E16/) | Do `vacuity_lint` and `mutation_probe` catch the test-weakening edits that agentic repair is reported to make? | Run: the two tools together caught 4 of 6 edits ([RESULTS.md](E16/RESULTS.md)) |
+| E17 | [E17/](E17/) | Does swarm-verify's `ci` (an outside tool) refuse test-weakening patches it was not built against, in Node and Python? | REGISTERED, NOT RUN ([PREREG.md](E17/PREREG.md)) |
 | IE1 | [independent/IE1/](independent/IE1/) | First independent evaluation of the tool, by Putluru Sandeep, with cases he wrote. | Evaluation received 2026-10-18; rerun addendum 2026-10-25 |
 | IE1-A | [IE1A/](IE1A/) | Change the VL002 message from "prints" to "contains", since the rule counts any failure string constant. | Results appended ([RESULTS.md](IE1A/RESULTS.md)) |
 | IE1-B | [IE1B/](IE1B/) | Should an empty `test_*` function (`def test_x(): pass`) be reported? | REGISTERED, NOT RUN |
