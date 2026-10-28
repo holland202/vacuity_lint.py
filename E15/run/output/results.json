@@ -1,0 +1,333 @@
+{
+ "status": "COMPLETE",
+ "instruments": {
+  "primary": {
+   "commit": "b0db5ac3fc2b20eb16abb6594f1e19746be62650",
+   "blob": "14c728c316088ad41d86b1bac913d7dfead8077d",
+   "sha256": "a92963c69fa129dbccf94e9672419c2dd2768950d97318183bc8b2820ee815d4"
+  },
+  "secondary": {
+   "commit": "e549dbfe9d8c0a03399bef45b66edf7bb6552f58",
+   "path": "vacuity_lint.py",
+   "sha256": "7a5b8d100457128f5cd17c418ea28af480e8c8a488968211508b08b09997292c"
+  }
+ },
+ "unavailable_per_arm": {
+  "A": 0,
+  "B": 0,
+  "C": 0
+ },
+ "primary": {
+  "per_arm": {
+   "A": {
+    "n": 21,
+    "median": 11.0,
+    "q1": 5.0,
+    "q3": 16.0,
+    "values_sorted": [
+     2,
+     3,
+     4,
+     4,
+     4,
+     5,
+     5,
+     6,
+     6,
+     7,
+     11,
+     11,
+     11,
+     14,
+     15,
+     16,
+     18,
+     18,
+     36,
+     54,
+     83
+    ]
+   },
+   "B": {
+    "n": 30,
+    "median": 3.0,
+    "q1": 1.0,
+    "q3": 7.0,
+    "values_sorted": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     2,
+     2,
+     3,
+     3,
+     3,
+     3,
+     4,
+     5,
+     5,
+     7,
+     7,
+     9,
+     10,
+     11,
+     23,
+     31,
+     62,
+     100
+    ]
+   },
+   "C": {
+    "n": 20,
+    "median": 3.0,
+    "q1": 1.0,
+    "q3": 9.0,
+    "values_sorted": [
+     0,
+     0,
+     0,
+     0,
+     1,
+     1,
+     2,
+     2,
+     2,
+     2,
+     4,
+     6,
+     6,
+     7,
+     7,
+     15,
+     19,
+     83,
+     110,
+     334
+    ]
+   }
+  },
+  "P1_C_gt_B": {
+   "p": 0.6321461933321069,
+   "median_diff": 0.0,
+   "ci95": [
+    -2.5,
+    5.5
+   ],
+   "verdict": "NOT CONFIRMED"
+  },
+  "P2_A_lt_C": {
+   "p": 0.052942727045587015,
+   "median_diff": 8.0,
+   "ci95": [
+    -1.0,
+    13.0
+   ],
+   "verdict": "NOT CONFIRMED"
+  },
+  "P3_A_equiv_B": {
+   "median_diff": 8.0,
+   "ci95": [
+    1.5,
+    13.0
+   ],
+   "margin": 2.0,
+   "verdict": "INCONCLUSIVE"
+  },
+  "P4_control": {
+   "splits": 1000,
+   "evaluated": 1000,
+   "half_size": 10,
+   "proportion_p_below_alpha": 0.046,
+   "band": [
+    0.02,
+    0.08
+   ],
+   "verdict": "PASS"
+  }
+ },
+ "secondary_outcome_any_finding": {
+  "A": {
+   "k": 9,
+   "n": 21,
+   "proportion": 0.42857142857142855,
+   "ci95": [
+    0.21819685688513027,
+    0.6597936907197254
+   ]
+  },
+  "B": {
+   "k": 14,
+   "n": 30,
+   "proportion": 0.4666666666666667,
+   "ci95": [
+    0.2834180791835371,
+    0.6567447618392658
+   ]
+  },
+  "C": {
+   "k": 5,
+   "n": 20,
+   "proportion": 0.25,
+   "ci95": [
+    0.08657146910143458,
+    0.49104587170795744
+   ]
+  }
+ },
+ "coverage_error_repos_per_arm": {
+  "A": 0,
+  "B": 0,
+  "C": 0
+ },
+ "bench_verification_shaped_per_arm": {
+  "A": 1,
+  "B": 1,
+  "C": 23
+ },
+ "sensitivity_secondary_instrument": {
+  "per_arm": {
+   "A": {
+    "n": 21,
+    "median": 11.0,
+    "q1": 5.0,
+    "q3": 16.0,
+    "values_sorted": [
+     3,
+     3,
+     4,
+     4,
+     4,
+     5,
+     6,
+     6,
+     7,
+     7,
+     11,
+     11,
+     12,
+     15,
+     15,
+     16,
+     18,
+     18,
+     37,
+     54,
+     86
+    ]
+   },
+   "B": {
+    "n": 30,
+    "median": 3.0,
+    "q1": 1.0,
+    "q3": 7.0,
+    "values_sorted": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1,
+     1,
+     1,
+     1,
+     2,
+     2,
+     2,
+     3,
+     3,
+     3,
+     3,
+     4,
+     5,
+     5,
+     7,
+     7,
+     7,
+     9,
+     11,
+     23,
+     31,
+     62,
+     104
+    ]
+   },
+   "C": {
+    "n": 20,
+    "median": 3.0,
+    "q1": 1.0,
+    "q3": 8.75,
+    "values_sorted": [
+     0,
+     0,
+     1,
+     1,
+     1,
+     1,
+     2,
+     2,
+     2,
+     2,
+     4,
+     6,
+     6,
+     7,
+     7,
+     14,
+     19,
+     84,
+     109,
+     335
+    ]
+   }
+  },
+  "P1_C_gt_B": {
+   "p": 0.43668327928094697,
+   "median_diff": 0.0,
+   "ci95": [
+    -2.5,
+    5.0
+   ],
+   "verdict": "NOT CONFIRMED"
+  },
+  "P2_A_lt_C": {
+   "p": 0.0341985181926247,
+   "median_diff": 8.0,
+   "ci95": [
+    0.0,
+    13.0
+   ],
+   "verdict": "NOT CONFIRMED"
+  },
+  "P3_A_equiv_B": {
+   "median_diff": 8.0,
+   "ci95": [
+    2.0,
+    13.0
+   ],
+   "margin": 2.0,
+   "verdict": "INCONCLUSIVE"
+  },
+  "P4_control": {
+   "splits": 1000,
+   "evaluated": 1000,
+   "half_size": 10,
+   "proportion_p_below_alpha": 0.051,
+   "band": [
+    0.02,
+    0.08
+   ],
+   "verdict": "PASS"
+  }
+ }
+}

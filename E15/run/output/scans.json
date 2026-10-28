@@ -1,0 +1,1991 @@
+[
+ {
+  "full_name": "holland202/aap-conformance",
+  "arm": "A",
+  "commit": "f0d1339519b544fcc6a0b668dc0323467adfd918",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 5,
+   "verification_shaped": 4,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 5,
+   "verification_shaped": 4,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "holland202/eace",
+  "arm": "A",
+  "commit": "8fcd2700c444e11f82a30966223f4966fb035e7e",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 31,
+   "verification_shaped": 18,
+   "findings": 3,
+   "coverage_errors": 0,
+   "rules": [
+    "VL001",
+    "VL003"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 31,
+   "verification_shaped": 18,
+   "findings": 3,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "holland202/eunoia",
+  "arm": "A",
+  "commit": "bf437b0e54f56b88e563f8bc3bd1890d6e5430cb",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 15,
+   "verification_shaped": 3,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 15,
+   "verification_shaped": 3,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "holland202/evidence-ledger",
+  "arm": "A",
+  "commit": "89f5b8e800241c35dfb52f5ca9da613a9075dcd2",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 1,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 25,
+   "verification_shaped": 14,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 25,
+   "verification_shaped": 15,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "holland202/principia-artificialis",
+  "arm": "A",
+  "commit": "78726b8e8f355e07e59c329aa679ec5e53e96ed8",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 1,
+   "py_files_removed": 2
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 106,
+   "verification_shaped": 36,
+   "findings": 4,
+   "coverage_errors": 0,
+   "rules": [
+    "VL001",
+    "VL002"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 106,
+   "verification_shaped": 37,
+   "findings": 4,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "holland202/quasar",
+  "arm": "A",
+  "commit": "ba050b640b791d79d4cfcf5266f01cfd406124a7",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 52,
+   "verification_shaped": 18,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 52,
+   "verification_shaped": 18,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "holland202/quasar-v2",
+  "arm": "A",
+  "commit": "fc59f1e7ab23d59f30efb3fa0fe8c8580d76bf49",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 27,
+   "verification_shaped": 7,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 27,
+   "verification_shaped": 7,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "holland202/sentinel-batadal-validation",
+  "arm": "A",
+  "commit": "ce729534594f35853028b1d15f58e4f812ff54be",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 9,
+   "verification_shaped": 5,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 9,
+   "verification_shaped": 5,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 1
+ },
+ {
+  "full_name": "holland202/sentinel-hai-validation",
+  "arm": "A",
+  "commit": "1faf2e2e6f002f76c92d52e931842b6bd2634eaa",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 13,
+   "verification_shaped": 11,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 13,
+   "verification_shaped": 11,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "holland202/skn-v1-",
+  "arm": "A",
+  "commit": "ce7bd975e13991907937d50a319e41357110c21c",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 40,
+   "verification_shaped": 2,
+   "findings": 1,
+   "coverage_errors": 0,
+   "rules": [
+    "VL002"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 40,
+   "verification_shaped": 3,
+   "findings": 1,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "holland202/slc-v12-",
+  "arm": "A",
+  "commit": "311bcae8e998fb59a71d4cadc220ed61f48de0f4",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 34,
+   "verification_shaped": 15,
+   "findings": 3,
+   "coverage_errors": 0,
+   "rules": [
+    "VL002"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 34,
+   "verification_shaped": 15,
+   "findings": 3,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "holland202/sovereign-evolution",
+  "arm": "A",
+  "commit": "f0233c0c53cdb825bd16ac4eb0ab6a90280fec36",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 36,
+   "verification_shaped": 11,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 36,
+   "verification_shaped": 12,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "holland202/sovereign-suite",
+  "arm": "A",
+  "commit": "56ca9c3b5e4a1257066bfd8cbd66c7dbd8ffd457",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 10,
+   "verification_shaped": 6,
+   "findings": 1,
+   "coverage_errors": 0,
+   "rules": [
+    "VL002"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 10,
+   "verification_shaped": 6,
+   "findings": 1,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "holland202/sovereign-veritas",
+  "arm": "A",
+  "commit": "063316759e8d1ff2a7724ed3bd389790d9b1dda9",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 158,
+   "verification_shaped": 83,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 158,
+   "verification_shaped": 86,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "holland202/token-veritas",
+  "arm": "A",
+  "commit": "0f3fc58603b899e01dd6c2244b489c0a84ea6b32",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 9,
+   "verification_shaped": 4,
+   "findings": 1,
+   "coverage_errors": 0,
+   "rules": [
+    "VL002"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 9,
+   "verification_shaped": 4,
+   "findings": 1,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "holland202/vacuity_lint.py",
+  "arm": "A",
+  "commit": "47c94ee757091685e51d99cf7854e564e9b6509f",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 67,
+   "verification_shaped": 54,
+   "findings": 10,
+   "coverage_errors": 0,
+   "rules": [
+    "VL001",
+    "VL002",
+    "VL003",
+    "VL004",
+    "VL005"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 67,
+   "verification_shaped": 54,
+   "findings": 9,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "holland202/veritas-companion",
+  "arm": "A",
+  "commit": "d7d53442b2db37b201e1b61b86c086ae3a19d592",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 26,
+   "verification_shaped": 5,
+   "findings": 2,
+   "coverage_errors": 0,
+   "rules": [
+    "VL002"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 26,
+   "verification_shaped": 6,
+   "findings": 1,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "holland202/veritas-eval-harness",
+  "arm": "A",
+  "commit": "61565c2bb9f097a229b203b43babf7748b32e4ec",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 8,
+   "verification_shaped": 4,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 8,
+   "verification_shaped": 4,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "holland202/veritas-holo",
+  "arm": "A",
+  "commit": "d1291d187a49795e1413f26773ff1d17ba183bbc",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 29,
+   "verification_shaped": 16,
+   "findings": 1,
+   "coverage_errors": 0,
+   "rules": [
+    "VL002"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 29,
+   "verification_shaped": 16,
+   "findings": 1,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "holland202/veritas-origin",
+  "arm": "A",
+  "commit": "19efdc5fc7a0f2c90226a836e0cc9163e4692b3c",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 20,
+   "verification_shaped": 11,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 20,
+   "verification_shaped": 11,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "holland202/veritas-science",
+  "arm": "A",
+  "commit": "25059eb5b96236b14b06233230541dd20d2fe102",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 24,
+   "verification_shaped": 6,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 24,
+   "verification_shaped": 7,
+   "findings": 1,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "salesforce/paprika",
+  "arm": "B",
+  "commit": "ca660c45a4b23c928b0e36a9f2e5535dd49012d0",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 36,
+   "verification_shaped": 2,
+   "findings": 1,
+   "coverage_errors": 0,
+   "rules": [
+    "VL005"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 36,
+   "verification_shaped": 2,
+   "findings": 1,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "stedrow/sherpa-dns",
+  "arm": "C",
+  "commit": "a58a38f4d97e75956684df266448d0bb7e52795d",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 14,
+   "verification_shaped": 0,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 14,
+   "verification_shaped": 0,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "kentnf/iTAK",
+  "arm": "C",
+  "commit": "10afb731358dbdbedc463e03bcfcc94f9f67a692",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 16,
+   "verification_shaped": 7,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 16,
+   "verification_shaped": 7,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "scholay/scholay-wiki",
+  "arm": "B",
+  "commit": "a5c1e176cc3638376ac53339184217b6e0e78700",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 12,
+   "verification_shaped": 4,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 12,
+   "verification_shaped": 4,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 1
+ },
+ {
+  "full_name": "phith0n/v2srt",
+  "arm": "B",
+  "commit": "43c3385904c883a00a74cbbd290543b72e4098b0",
+  "available": true,
+  "excluded": {
+   "files": 1,
+   "dirs": 0,
+   "py_files_removed": 1
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 21,
+   "verification_shaped": 5,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 21,
+   "verification_shaped": 5,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "ErfanNamira/ytget-gui",
+  "arm": "C",
+  "commit": "a4c812c8d5ff2bb1e346c57ad94211170209d9eb",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 69,
+   "verification_shaped": 15,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 69,
+   "verification_shaped": 14,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "Burgstall-labs/ComfyUI-Seamless-Equirectangular",
+  "arm": "B",
+  "commit": "97cf337419fd97ac7814e72c86df8243906b0b94",
+  "available": true,
+  "excluded": {
+   "files": 1,
+   "dirs": 0,
+   "py_files_removed": 1
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 16,
+   "verification_shaped": 3,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 16,
+   "verification_shaped": 3,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "ament/ament_lint",
+  "arm": "B",
+  "commit": "b2fa00b174dbd4645601f2cb5d39a3e7e16f09f5",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 123,
+   "verification_shaped": 62,
+   "findings": 1,
+   "coverage_errors": 0,
+   "rules": [
+    "VL003"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 123,
+   "verification_shaped": 62,
+   "findings": 1,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "HughYau/pengsida-learning-research-skills",
+  "arm": "B",
+  "commit": "c88fc14bbbaed24e600cb3cda9069837fbdee524",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 9,
+   "verification_shaped": 0,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 9,
+   "verification_shaped": 0,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "hjtr7mymht-dot/WOA_AutoBot",
+  "arm": "C",
+  "commit": "c296989dfba9a3df11602de66e572ac7bfc849a9",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 17,
+   "verification_shaped": 2,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 17,
+   "verification_shaped": 2,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "haritha99ch/HorizonHaptics",
+  "arm": "C",
+  "commit": "79fbe2fd7a56e21bd101867dbf14718f2e91ffab",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 21,
+   "verification_shaped": 0,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 21,
+   "verification_shaped": 0,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "cumc-dbmi/cehrbert",
+  "arm": "C",
+  "commit": "56538d0181fbc1bcc7ced57e004d2827f4d06a26",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 74,
+   "verification_shaped": 19,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 74,
+   "verification_shaped": 19,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "xixiaouab/ReaLVR-code",
+  "arm": "B",
+  "commit": "7433da5e46fc44be8531611a27309fbad9d3dd89",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 29,
+   "verification_shaped": 7,
+   "findings": 1,
+   "coverage_errors": 0,
+   "rules": [
+    "VL002"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 29,
+   "verification_shaped": 7,
+   "findings": 1,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "yzhou86/Data-Pilot",
+  "arm": "C",
+  "commit": "1b01fc3fb34d5c0287e4178f9fb5b36cf7885502",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 3,
+   "py_files_removed": 3
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 18,
+   "verification_shaped": 2,
+   "findings": 1,
+   "coverage_errors": 0,
+   "rules": [
+    "VL002"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 18,
+   "verification_shaped": 2,
+   "findings": 1,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "XuanRanL/loamwright-SEO-Skill",
+  "arm": "B",
+  "commit": "cc3f19dac8fe0d323724d622a73b9cb16d0f6301",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 246,
+   "verification_shaped": 100,
+   "findings": 6,
+   "coverage_errors": 0,
+   "rules": [
+    "VL002"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 246,
+   "verification_shaped": 104,
+   "findings": 5,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "pingfury108/book2tts",
+  "arm": "C",
+  "commit": "17a6fbf27f1df65520bb2a51dd0548868a6c3a40",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 122,
+   "verification_shaped": 4,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 122,
+   "verification_shaped": 4,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 2
+ },
+ {
+  "full_name": "mason369/AI-RVC",
+  "arm": "C",
+  "commit": "c6e44600d7188506a2ae930c2cc243c0f52bcd70",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 228,
+   "verification_shaped": 83,
+   "findings": 5,
+   "coverage_errors": 0,
+   "rules": [
+    "VL001",
+    "VL005"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 228,
+   "verification_shaped": 84,
+   "findings": 5,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "yuebai777/colorink",
+  "arm": "C",
+  "commit": "d609ef30ed400a78edfe8a217eb2475d99e0fd9b",
+  "available": true,
+  "excluded": {
+   "files": 1,
+   "dirs": 0,
+   "py_files_removed": 1
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 211,
+   "verification_shaped": 110,
+   "findings": 3,
+   "coverage_errors": 0,
+   "rules": [
+    "VL002",
+    "VL003"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 211,
+   "verification_shaped": 109,
+   "findings": 2,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "Hazrat-Ali9/Python-Problem-Solving",
+  "arm": "B",
+  "commit": "34465bad7ca7cc98d1b370473294ac729f06f827",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 15,
+   "verification_shaped": 1,
+   "findings": 1,
+   "coverage_errors": 0,
+   "rules": [
+    "VL001"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 15,
+   "verification_shaped": 0,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "shiyeshu/Autopt",
+  "arm": "B",
+  "commit": "d15228608abc727ba3b5eb49cef4874a83def323",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 67,
+   "verification_shaped": 23,
+   "findings": 1,
+   "coverage_errors": 0,
+   "rules": [
+    "VL002"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 67,
+   "verification_shaped": 23,
+   "findings": 1,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "edgeware/python-circuit",
+  "arm": "C",
+  "commit": "a40b107e5d539d3118ff495b03aedc08c3d011eb",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 7,
+   "verification_shaped": 2,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 7,
+   "verification_shaped": 2,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "haoyuhu/dify-client-python",
+  "arm": "C",
+  "commit": "4bb606106aac3784d623aed49540863602e23234",
+  "available": true,
+  "excluded": {
+   "files": 1,
+   "dirs": 0,
+   "py_files_removed": 1
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 22,
+   "verification_shaped": 7,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 22,
+   "verification_shaped": 7,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "RobotOperator/Eve",
+  "arm": "B",
+  "commit": "7a7f77dbc488c0f5cf619438b41a932f3e9a4395",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 11,
+   "verification_shaped": 11,
+   "findings": 3,
+   "coverage_errors": 0,
+   "rules": [
+    "VL001",
+    "VL002"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 11,
+   "verification_shaped": 11,
+   "findings": 2,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "SeanBRVFX/ComfyUI-CorridorKey",
+  "arm": "B",
+  "commit": "0f724f7c2a60ac7e918a2c19bb54dac75eda4a6b",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 11,
+   "verification_shaped": 1,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 11,
+   "verification_shaped": 1,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "Krira-Labs/krira-chunker",
+  "arm": "B",
+  "commit": "429b73141d0fe9a8484ea68ab994e630c06d3dca",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 1,
+   "py_files_removed": 4
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 13,
+   "verification_shaped": 3,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 13,
+   "verification_shaped": 2,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "yeying-xingchen/qualification-test",
+  "arm": "B",
+  "commit": "d98bf731adc114323155c98dc4d6d4e70a0de095",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 6,
+   "verification_shaped": 2,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 6,
+   "verification_shaped": 3,
+   "findings": 1,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "DominikWrobel/viomise",
+  "arm": "B",
+  "commit": "b285f7481645a9bb0b80e804fee24ec78d767e6a",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 5,
+   "verification_shaped": 0,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 5,
+   "verification_shaped": 0,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "cocoshe/MIMIGenRec",
+  "arm": "B",
+  "commit": "e843fd6e704ddcb6071eddf69962673e590a6221",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 2,
+   "py_files_removed": 3
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 252,
+   "verification_shaped": 9,
+   "findings": 3,
+   "coverage_errors": 0,
+   "rules": [
+    "VL001",
+    "VL003"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 252,
+   "verification_shaped": 9,
+   "findings": 3,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "mxhulab/cryosieve",
+  "arm": "C",
+  "commit": "3250b3ce8b0ed957162a46ce853858c685a70d0f",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 20,
+   "verification_shaped": 0,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 20,
+   "verification_shaped": 1,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "reinshift/KF_AA_MARL",
+  "arm": "B",
+  "commit": "c8d68cab016ce9e6b18f8435b2faa0048d59da41",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 10,
+   "verification_shaped": 1,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 10,
+   "verification_shaped": 1,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "Amirrdoustdar/fastclean",
+  "arm": "C",
+  "commit": "48cfeea25594b32db7fe8c083a8a3c4d4b885256",
+  "available": true,
+  "excluded": {
+   "files": 1,
+   "dirs": 0,
+   "py_files_removed": 1
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 96,
+   "verification_shaped": 1,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 96,
+   "verification_shaped": 1,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "MrGiovanni/TextoMorph",
+  "arm": "B",
+  "commit": "f780520cffe71ec9ef5703e182cbd6a29c577db2",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 84,
+   "verification_shaped": 3,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 84,
+   "verification_shaped": 3,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "RohollahHS/BAD",
+  "arm": "B",
+  "commit": "f47d0f99e3d9e90cdc35211ee2a005cef39f8fdc",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 78,
+   "verification_shaped": 1,
+   "findings": 1,
+   "coverage_errors": 0,
+   "rules": [
+    "VL005"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 78,
+   "verification_shaped": 0,
+   "findings": 1,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "yuanyue-liu-group/CP-MACE",
+  "arm": "B",
+  "commit": "ded8b3e2a01b23f0dab30a1f1f7734cc12944aa9",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 59,
+   "verification_shaped": 5,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 59,
+   "verification_shaped": 5,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "Botsthe/AV-FILE-TO-LINK-PRO",
+  "arm": "B",
+  "commit": "8da3d649d60fb0ea409c5553524841d53af5ad1d",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 31,
+   "verification_shaped": 1,
+   "findings": 1,
+   "coverage_errors": 0,
+   "rules": [
+    "VL002"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 31,
+   "verification_shaped": 1,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "Shankar-105/minicorn",
+  "arm": "B",
+  "commit": "d1b49643e45de75ae71542fdcebf4fc6eeda919d",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 6,
+   "verification_shaped": 1,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 6,
+   "verification_shaped": 1,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "Fucov/BUAASignTool",
+  "arm": "B",
+  "commit": "e85be13af213e768c4833b44fdebf34a84a8b059",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 6,
+   "verification_shaped": 1,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 6,
+   "verification_shaped": 2,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "ankushthakur2007/miyami_websearch_tool",
+  "arm": "B",
+  "commit": "27bc46930a01cec6f83a2bc8a49e7f3ebfa837d3",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 381,
+   "verification_shaped": 31,
+   "findings": 2,
+   "coverage_errors": 0,
+   "rules": [
+    "VL001",
+    "VL002"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 381,
+   "verification_shaped": 31,
+   "findings": 2,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "chiawenchen/NaP",
+  "arm": "B",
+  "commit": "0362ce16e04ada84a22b58b2a823066123c062ad",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 76,
+   "verification_shaped": 7,
+   "findings": 2,
+   "coverage_errors": 0,
+   "rules": [
+    "VL001",
+    "VL003"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 76,
+   "verification_shaped": 7,
+   "findings": 2,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "Jou719/Holo360D",
+  "arm": "B",
+  "commit": "a54b75abc5d009aa98ec165f3a45ab19b48953e4",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 60,
+   "verification_shaped": 3,
+   "findings": 4,
+   "coverage_errors": 0,
+   "rules": [
+    "VL005"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 60,
+   "verification_shaped": 3,
+   "findings": 4,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "mirzayasirabdullahbaig07/AI-ML-Learning-Journey-Part-1",
+  "arm": "B",
+  "commit": "1795e5e542ce417bea9bdb279e2c141ea6231c99",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 54,
+   "verification_shaped": 0,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 54,
+   "verification_shaped": 0,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "Aohzan/hass-prixcarburant",
+  "arm": "C",
+  "commit": "ec5e8a7ce6f5cdab0d8e0e5c94d0a7d8c8e07389",
+  "available": true,
+  "excluded": {
+   "files": 1,
+   "dirs": 0,
+   "py_files_removed": 1
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 19,
+   "verification_shaped": 6,
+   "findings": 4,
+   "coverage_errors": 0,
+   "rules": [
+    "VL005"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 19,
+   "verification_shaped": 6,
+   "findings": 4,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "microsoft/WeatherReal-Benchmark",
+  "arm": "C",
+  "commit": "95c95352054785c9e8cb1d884663b049d494fa45",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 24,
+   "verification_shaped": 1,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 24,
+   "verification_shaped": 1,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "InfinityZero3000/LexiLingo",
+  "arm": "C",
+  "commit": "bbaa7614d226b2c4ac6b598f355b66bb6fc1bc00",
+  "available": true,
+  "excluded": {
+   "files": 5,
+   "dirs": 0,
+   "py_files_removed": 5
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 854,
+   "verification_shaped": 334,
+   "findings": 17,
+   "coverage_errors": 0,
+   "rules": [
+    "VL001",
+    "VL002",
+    "VL005"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 854,
+   "verification_shaped": 335,
+   "findings": 18,
+   "exit": 1
+  },
+  "bench_verification_shaped": 21
+ },
+ {
+  "full_name": "pierre-muth/polapi-zero",
+  "arm": "B",
+  "commit": "5129c5befdec7b802edf18fbcf1b13dc1200a364",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 28,
+   "verification_shaped": 10,
+   "findings": 21,
+   "coverage_errors": 0,
+   "rules": [
+    "VL001",
+    "VL004",
+    "VL005"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 28,
+   "verification_shaped": 7,
+   "findings": 18,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "andreslomeliv/DatosMex",
+  "arm": "B",
+  "commit": "4179265209ca8345cc2de533f82612a6ca45314f",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 9,
+   "verification_shaped": 0,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 9,
+   "verification_shaped": 0,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "balajz/meine",
+  "arm": "C",
+  "commit": "9b665f806776fb7b80358ff94a53e49e1b6db547",
+  "available": true,
+  "excluded": {
+   "files": 1,
+   "dirs": 0,
+   "py_files_removed": 1
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 34,
+   "verification_shaped": 6,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 34,
+   "verification_shaped": 6,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "bilbofroggins/KarabinerKeyboard",
+  "arm": "B",
+  "commit": "116b1256fdff0e2697ecfb4156bf346efb106b25",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 39,
+   "verification_shaped": 0,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 39,
+   "verification_shaped": 0,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "IFCA-Advanced-Computing/anjana",
+  "arm": "C",
+  "commit": "5dcfc73e913824d7e918e9e9363f36a40b4abf2e",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 1,
+   "py_files_removed": 11
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 13,
+   "verification_shaped": 2,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 13,
+   "verification_shaped": 2,
+   "findings": 0,
+   "exit": 0
+  },
+  "bench_verification_shaped": 0
+ },
+ {
+  "full_name": "DCC-Lab/PyTissueOptics",
+  "arm": "C",
+  "commit": "515fd24e7f5dcd0d393125b3e5ec23bb14d72988",
+  "available": true,
+  "excluded": {
+   "files": 0,
+   "dirs": 1,
+   "py_files_removed": 19
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 217,
+   "verification_shaped": 0,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 217,
+   "verification_shaped": 1,
+   "findings": 1,
+   "exit": 1
+  },
+  "bench_verification_shaped": 0
+ }
+]
