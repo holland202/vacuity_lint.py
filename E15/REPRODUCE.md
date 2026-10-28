@@ -2,13 +2,13 @@
 
 E15's results ([run/RESULTS.md](run/RESULTS.md)) are **self-tested**: everything so far was run by the people who designed it. This page is for anyone willing to check them independently. Your result counts whether or not it matches.
 
-It takes about 15 minutes and needs no judgement calls. Every step is a command, and the last one tells you whether you got the same answer.
+It takes a few minutes on a fast connection (the scan step took 96 seconds in a cloud workspace) and needs no judgement calls. Every step is a command, and the last one tells you whether you got the same answer.
 
 ## What you need
 
 - Python 3.10 or newer, `git`, and network access to github.com
 - The Python packages `numpy` and `scipy` (`pip install numpy scipy`)
-- About 2 GB of free disk space for the downloaded repositories
+- About 2 GB of free disk space for the downloaded repositories (1.5 GB measured)
 
 ## Steps
 
@@ -70,4 +70,4 @@ Open an issue on this repository, or send it to Chad Holland directly. With your
 
 ## Provenance
 
-Written by Claude (Anthropic, Claude Opus 5.5) on 2026-10-28 at Chad Holland's direction. Before publishing, Claude followed these exact steps from a fresh clone in its own workspace. That is a check of the instructions, not an independent reproduction.
+Written by Claude (Anthropic, Claude Opus 5.5) on 2026-10-28 at Chad Holland's direction. Before publishing, Claude followed these exact steps from a fresh clone in its own workspace (Linux x86_64, Python 3.13.18, numpy 2.5.3, scipy 1.18.1). Self-tests 6/6, 10/10 and 16/16 passed; the scan's `results.json` and `scans.json` were byte-identical to the committed ones; step 4 printed `REPRODUCED`. That is a check of the instructions on the same platform type as the original run, not an independent reproduction.
