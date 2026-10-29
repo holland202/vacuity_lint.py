@@ -34,7 +34,8 @@ CUTOFF_EPOCH = int(dt.datetime(2026, 7, 27, 23, 59, 59, tzinfo=dt.timezone.utc).
 REPRODUCES_MAX = 2.4
 DOES_NOT_REPRODUCE_MIN = 4.8
 ALPHA = 0.05
-RECORDED = None
+RECORDED = ("DOES NOT REPRODUCE", "REFUTED", "NOT CONFIRMED",
+            "4ecac6843cd1263d38e9eee308550fa2a57bc90bc4b55bfe14bb485a24f45d77")  # pinned after the 2026-10-29 run
 
 
 def load(name, path):
