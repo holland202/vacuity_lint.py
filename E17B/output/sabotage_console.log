@@ -1,0 +1,9 @@
+SABOTAGE: every H1-variant outcome flipped before scoring
+P1 HELD: controls on all 5 helper bases
+P2 REFUTED: python H1 PASS (registered NOT PASS), node H1 NOT PASS (registered PASS)
+P3 REFUTED: python H1-root NOT PASS (registered PASS)
+P4 REFUTED: python H1-near NOT PASS (registered PASS)
+P5 REFUTED: node H1-tests PASS (registered NOT PASS, by the base-test re-run) (outcome)
+VERDICT 1 of 5 as registered
+DIGEST 44e99eeb26c09c49357dc80a825d9ac83748af616ef10198bddcbbe85408b841
+RECORDED not pinned yet: exit 0

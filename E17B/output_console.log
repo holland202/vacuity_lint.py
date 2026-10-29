@@ -1,0 +1,24 @@
+node   H1   PASS           regression=pass 
+node   C0-h PASS           regression=pass 
+node   C2-h NOT PASS       regression=fail fail
+node   H1-tests NOT PASS       regression=unmeasured unmeasured
+node   C0-tests PASS           regression=pass 
+node   C2-tests NOT PASS       regression=fail fail
+python H1   NOT PASS       regression=unmeasured unmeasured
+python C0-h PASS           regression=pass 
+python C2-h NOT PASS       regression=fail fail
+python H1-root PASS           regression=pass 
+python C0-root PASS           regression=pass 
+python C2-root NOT PASS       regression=fail fail
+python H1-near PASS           regression=pass 
+python C0-near PASS           regression=pass 
+python C2-near NOT PASS       regression=fail fail
+P1 HELD: controls on all 5 helper bases
+P2 HELD: python H1 NOT PASS (registered NOT PASS), node H1 PASS (registered PASS)
+P3 HELD: python H1-root PASS (registered PASS)
+P4 HELD: python H1-near PASS (registered PASS)
+P5 HELD: node H1-tests NOT PASS (registered NOT PASS, by the base-test re-run); tests/assertions.mjs in baseTestsFiles on every run
+VERDICT 5 of 5 as registered
+DIGEST 5c3444dc07cb2be74c656b9fdf9fe979b5038aa4da95143bcdeb39c015d2a263
+RECORDED not pinned yet: exit 0
+exit=0

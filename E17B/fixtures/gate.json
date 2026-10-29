@@ -1,0 +1,280 @@
+[
+ {
+  "check": "node base_helper: base suite passes with 2 tests",
+  "ok": true,
+  "exit": 0,
+  "tests": 2,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 126.858707"
+  ]
+ },
+ {
+  "check": "node base_helper: base suite fails against broken code, both tests run",
+  "ok": true,
+  "exit": 1,
+  "tests": 2,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 161.310488"
+  ]
+ },
+ {
+  "check": "node base_helper_tests: base suite passes with 2 tests",
+  "ok": true,
+  "exit": 0,
+  "tests": 2,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 130.032042"
+  ]
+ },
+ {
+  "check": "node base_helper_tests: base suite fails against broken code, both tests run",
+  "ok": true,
+  "exit": 1,
+  "tests": 2,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 124.433775"
+  ]
+ },
+ {
+  "check": "node H1: own patched suite passes, both tests run",
+  "ok": true,
+  "exit": 0,
+  "tests": 2,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 135.150451"
+  ]
+ },
+ {
+  "check": "node C0-h: own patched suite passes, both tests run",
+  "ok": true,
+  "exit": 0,
+  "tests": 2,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 150.621831"
+  ]
+ },
+ {
+  "check": "node C2-h: own patched suite fails, both tests run",
+  "ok": true,
+  "exit": 1,
+  "tests": 2,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 126.571834"
+  ]
+ },
+ {
+  "check": "node H1-tests: own patched suite passes, both tests run",
+  "ok": true,
+  "exit": 0,
+  "tests": 2,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 129.627326"
+  ]
+ },
+ {
+  "check": "node C0-tests: own patched suite passes, both tests run",
+  "ok": true,
+  "exit": 0,
+  "tests": 2,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 125.319936"
+  ]
+ },
+ {
+  "check": "node C2-tests: own patched suite fails, both tests run",
+  "ok": true,
+  "exit": 1,
+  "tests": 2,
+  "tail": [
+   "# skipped 0",
+   "# todo 0",
+   "# duration_ms 143.053643"
+  ]
+ },
+ {
+  "check": "python base_helper: base suite passes with 2 tests",
+  "ok": true,
+  "exit": 0,
+  "tests": 2,
+  "tail": [
+   "..                                                                       [100%]",
+   "2 passed in 0.01s"
+  ]
+ },
+ {
+  "check": "python base_helper: base suite fails against broken code, both tests run",
+  "ok": true,
+  "exit": 1,
+  "tests": 2,
+  "tail": [
+   "=========================== short test summary info ============================",
+   "FAILED tests/test_calc.py::test_add - AssertionError",
+   "1 failed, 1 passed in 0.02s"
+  ]
+ },
+ {
+  "check": "python base_helper_root: base suite passes with 2 tests",
+  "ok": true,
+  "exit": 0,
+  "tests": 2,
+  "tail": [
+   "..                                                                       [100%]",
+   "2 passed in 0.01s"
+  ]
+ },
+ {
+  "check": "python base_helper_root: base suite fails against broken code, both tests run",
+  "ok": true,
+  "exit": 1,
+  "tests": 2,
+  "tail": [
+   "=========================== short test summary info ============================",
+   "FAILED tests/test_calc.py::test_add - AssertionError",
+   "1 failed, 1 passed in 0.02s"
+  ]
+ },
+ {
+  "check": "python base_helper_near: base suite passes with 2 tests",
+  "ok": true,
+  "exit": 0,
+  "tests": 2,
+  "tail": [
+   "..                                                                       [100%]",
+   "2 passed in 0.01s"
+  ]
+ },
+ {
+  "check": "python base_helper_near: base suite fails against broken code, both tests run",
+  "ok": true,
+  "exit": 1,
+  "tests": 2,
+  "tail": [
+   "=========================== short test summary info ============================",
+   "FAILED tests/test_calc.py::test_add - AssertionError",
+   "1 failed, 1 passed in 0.02s"
+  ]
+ },
+ {
+  "check": "python H1: own patched suite passes, both tests run",
+  "ok": true,
+  "exit": 0,
+  "tests": 2,
+  "tail": [
+   "..                                                                       [100%]",
+   "2 passed in 0.01s"
+  ]
+ },
+ {
+  "check": "python C0-h: own patched suite passes, both tests run",
+  "ok": true,
+  "exit": 0,
+  "tests": 2,
+  "tail": [
+   "..                                                                       [100%]",
+   "2 passed in 0.01s"
+  ]
+ },
+ {
+  "check": "python C2-h: own patched suite fails, both tests run",
+  "ok": true,
+  "exit": 1,
+  "tests": 2,
+  "tail": [
+   "=========================== short test summary info ============================",
+   "FAILED tests/test_calc.py::test_add - AssertionError",
+   "1 failed, 1 passed in 0.02s"
+  ]
+ },
+ {
+  "check": "python H1-root: own patched suite passes, both tests run",
+  "ok": true,
+  "exit": 0,
+  "tests": 2,
+  "tail": [
+   "..                                                                       [100%]",
+   "2 passed in 0.01s"
+  ]
+ },
+ {
+  "check": "python C0-root: own patched suite passes, both tests run",
+  "ok": true,
+  "exit": 0,
+  "tests": 2,
+  "tail": [
+   "..                                                                       [100%]",
+   "2 passed in 0.01s"
+  ]
+ },
+ {
+  "check": "python C2-root: own patched suite fails, both tests run",
+  "ok": true,
+  "exit": 1,
+  "tests": 2,
+  "tail": [
+   "=========================== short test summary info ============================",
+   "FAILED tests/test_calc.py::test_add - AssertionError",
+   "1 failed, 1 passed in 0.02s"
+  ]
+ },
+ {
+  "check": "python H1-near: own patched suite passes, both tests run",
+  "ok": true,
+  "exit": 0,
+  "tests": 2,
+  "tail": [
+   "..                                                                       [100%]",
+   "2 passed in 0.01s"
+  ]
+ },
+ {
+  "check": "python C0-near: own patched suite passes, both tests run",
+  "ok": true,
+  "exit": 0,
+  "tests": 2,
+  "tail": [
+   "..                                                                       [100%]",
+   "2 passed in 0.01s"
+  ]
+ },
+ {
+  "check": "python C2-near: own patched suite fails, both tests run",
+  "ok": true,
+  "exit": 1,
+  "tests": 2,
+  "tail": [
+   "=========================== short test summary info ============================",
+   "FAILED tests/test_calc.py::test_add - AssertionError",
+   "1 failed, 1 passed in 0.03s"
+  ]
+ },
+ {
+  "check": "node H1: patch byte-identical to E17's",
+  "ok": true,
+  "sha256": "d71f91e6332bb000d69330a19f0c0c47e89d6e1f362e6a31a674fe616f67133b",
+  "e17": "d71f91e6332bb000d69330a19f0c0c47e89d6e1f362e6a31a674fe616f67133b"
+ },
+ {
+  "check": "python H1: patch byte-identical to E17's",
+  "ok": true,
+  "sha256": "676211f74c2f3680950df4992680a72acd35afe15d8213ccf1df5e5279500840",
+  "e17": "676211f74c2f3680950df4992680a72acd35afe15d8213ccf1df5e5279500840"
+ }
+]
