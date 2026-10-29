@@ -1,0 +1,34 @@
+[ 1/26] holland202/coverage-preserving-synthesis      INELIGIBLE AT JULY COMMIT  july b450b32 vs=None e15=None g1=True g0=None
+[ 2/26] holland202/eace                               NO JULY COMMIT             july - vs=None e15=18 g1=None g0=None
+[ 3/26] holland202/edge-ai-primitives                 INELIGIBLE AT JULY COMMIT  july c799082 vs=None e15=None g1=True g0=None
+[ 4/26] holland202/eunoia                             NO JULY COMMIT             july - vs=None e15=3 g1=None g0=None
+[ 5/26] holland202/evidence-ledger                    NO JULY COMMIT             july - vs=None e15=14 g1=None g0=None
+[ 6/26] holland202/holland202                         NO JULY COMMIT             july - vs=None e15=None g1=None g0=None
+[ 7/26] holland202/polytope-explorer                  INELIGIBLE AT JULY COMMIT  july 6118565 vs=None e15=None g1=True g0=None
+[ 8/26] holland202/principia-artificialis             SCANNED                    july c911fff vs=6 e15=36 g1=True g0=match
+[ 9/26] holland202/qolas-synthesis                    INELIGIBLE AT JULY COMMIT  july fd36e73 vs=None e15=None g1=True g0=None
+[10/26] holland202/qsleuth                            INELIGIBLE AT JULY COMMIT  july e2c8e03 vs=None e15=None g1=True g0=None
+[11/26] holland202/quasar                             SCANNED                    july 6698535 vs=5 e15=18 g1=True g0=match
+[12/26] holland202/quasar-v2                          SCANNED                    july b089ac8 vs=6 e15=7 g1=True g0=match
+[13/26] holland202/sentinel-batadal-validation        INELIGIBLE AT JULY COMMIT  july bafcb80 vs=None e15=5 g1=True g0=None
+[14/26] holland202/sentinel-hai-validation            NO JULY COMMIT             july - vs=None e15=11 g1=None g0=None
+[15/26] holland202/skn-v1-                            SCANNED                    july 1e22c48 vs=2 e15=2 g1=True g0=match
+[16/26] holland202/slc-v12-                           SCANNED                    july 14c8e63 vs=5 e15=15 g1=True g0=match
+[17/26] holland202/sovereign-evolution                SCANNED                    july fef663c vs=4 e15=11 g1=True g0=match
+[18/26] holland202/sovereign-suite                    SCANNED                    july a1c990d vs=6 e15=6 g1=True g0=match
+[19/26] holland202/sovereign-veritas                  NO JULY COMMIT             july - vs=None e15=83 g1=None g0=None
+[20/26] holland202/token-veritas                      NO JULY COMMIT             july - vs=None e15=4 g1=None g0=None
+[21/26] holland202/vacuity_lint.py                    NO JULY COMMIT             july - vs=None e15=54 g1=None g0=None
+[22/26] holland202/veritas-companion                  NO JULY COMMIT             july - vs=None e15=5 g1=None g0=None
+[23/26] holland202/veritas-eval-harness               NO JULY COMMIT             july - vs=None e15=4 g1=None g0=None
+[24/26] holland202/veritas-holo                       NO JULY COMMIT             july - vs=None e15=16 g1=None g0=None
+[25/26] holland202/veritas-origin                     NO JULY COMMIT             july - vs=None e15=11 g1=None g0=None
+[26/26] holland202/veritas-science                    NO JULY COMMIT             july - vs=None e15=6 g1=None g0=None
+STATUS COMPLETE
+ARM J n=7 mean=4.8571 median=5 values=[2, 4, 5, 5, 6, 6, 6]
+CLASSIFICATION DOES NOT REPRODUCE (REPRODUCES <= 2.4, DOES NOT REPRODUCE >= 4.8)
+P1 REFUTED: registered REPRODUCES
+P2 NOT CONFIRMED: increases 5, decreases 0, ties 2, sign-test p=0.0625
+DIGEST 4ecac6843cd1263d38e9eee308550fa2a57bc90bc4b55bfe14bb485a24f45d77
+RECORDED not pinned yet: exit 0
+exit=0

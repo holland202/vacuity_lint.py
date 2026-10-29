@@ -1,0 +1,66 @@
+{
+ "status": "COMPLETE",
+ "gate_failures": [],
+ "arm_j": {
+  "n": 7,
+  "mean": 4.857142857142857,
+  "median": 5,
+  "values_sorted": [
+   2,
+   4,
+   5,
+   5,
+   6,
+   6,
+   6
+  ],
+  "py_files_scanned": 154
+ },
+ "classification": "DOES NOT REPRODUCE",
+ "P1": "REFUTED",
+ "P2": {
+  "increases": 5,
+  "decreases": 0,
+  "ties": 2,
+  "p": 0.0625,
+  "verdict": "NOT CONFIRMED"
+ },
+ "counts": {
+  "SCANNED": 7,
+  "INELIGIBLE AT JULY COMMIT": 6,
+  "NO JULY COMMIT": 13,
+  "UNAVAILABLE": 0
+ },
+ "secondary_per_repo_diff": {
+  "holland202/principia-artificialis": 0,
+  "holland202/quasar": 0,
+  "holland202/quasar-v2": 0,
+  "holland202/skn-v1-": 0,
+  "holland202/slc-v12-": 0,
+  "holland202/sovereign-evolution": -1,
+  "holland202/sovereign-suite": 0
+ },
+ "digest": "4ecac6843cd1263d38e9eee308550fa2a57bc90bc4b55bfe14bb485a24f45d77",
+ "verdicts": {
+  "status": "COMPLETE",
+  "classification": "DOES NOT REPRODUCE",
+  "P1": "REFUTED",
+  "P2": "NOT CONFIRMED"
+ },
+ "cutoff": "2026-07-27T23:59:59Z",
+ "forks_excluded": [
+  "holland202/aap-conformance"
+ ],
+ "instruments": {
+  "primary": {
+   "commit": "b0db5ac3fc2b20eb16abb6594f1e19746be62650",
+   "blob": "14c728c316088ad41d86b1bac913d7dfead8077d",
+   "sha256": "a92963c69fa129dbccf94e9672419c2dd2768950d97318183bc8b2820ee815d4"
+  },
+  "secondary": {
+   "commit": "e549dbfe9d8c0a03399bef45b66edf7bb6552f58",
+   "path": "vacuity_lint.py",
+   "sha256": "7a5b8d100457128f5cd17c418ea28af480e8c8a488968211508b08b09997292c"
+  }
+ }
+}

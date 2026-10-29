@@ -1,0 +1,495 @@
+[
+ {
+  "full_name": "holland202/coverage-preserving-synthesis",
+  "owner": "holland202",
+  "e15_commit": null,
+  "e15_count": null,
+  "default_branch": "main",
+  "july_commit": "b450b321cb4e11f255403cae94bad3ae5bb69138",
+  "july_committer_epoch": 1784545895,
+  "child_commit": "79215d5dffb45440da69a726a3e08adbb8ec2616",
+  "child_committer_epoch": 1787488172,
+  "g1": true,
+  "py_files": 1,
+  "failed_rule": 1,
+  "eligible_july": false,
+  "state": "INELIGIBLE AT JULY COMMIT"
+ },
+ {
+  "full_name": "holland202/eace",
+  "owner": "holland202",
+  "e15_commit": "8fcd2700c444e11f82a30966223f4966fb035e7e",
+  "e15_count": 18,
+  "default_branch": "main",
+  "july_commit": null,
+  "state": "NO JULY COMMIT"
+ },
+ {
+  "full_name": "holland202/edge-ai-primitives",
+  "owner": "holland202",
+  "e15_commit": null,
+  "e15_count": null,
+  "default_branch": "main",
+  "july_commit": "c7990820bdcac1beb35db51c1d18bec808029234",
+  "july_committer_epoch": 1784543719,
+  "child_commit": "1895fe52a105bb826d6964e1df7a5b5761143de6",
+  "child_committer_epoch": 1787257852,
+  "g1": true,
+  "py_files": 4,
+  "failed_rule": 1,
+  "eligible_july": false,
+  "state": "INELIGIBLE AT JULY COMMIT"
+ },
+ {
+  "full_name": "holland202/eunoia",
+  "owner": "holland202",
+  "e15_commit": "bf437b0e54f56b88e563f8bc3bd1890d6e5430cb",
+  "e15_count": 3,
+  "default_branch": "main",
+  "july_commit": null,
+  "state": "NO JULY COMMIT"
+ },
+ {
+  "full_name": "holland202/evidence-ledger",
+  "owner": "holland202",
+  "e15_commit": "89f5b8e800241c35dfb52f5ca9da613a9075dcd2",
+  "e15_count": 14,
+  "default_branch": "main",
+  "july_commit": null,
+  "state": "NO JULY COMMIT"
+ },
+ {
+  "full_name": "holland202/holland202",
+  "owner": "holland202",
+  "e15_commit": null,
+  "e15_count": null,
+  "default_branch": "main",
+  "july_commit": null,
+  "state": "NO JULY COMMIT"
+ },
+ {
+  "full_name": "holland202/polytope-explorer",
+  "owner": "holland202",
+  "e15_commit": null,
+  "e15_count": null,
+  "default_branch": "main",
+  "july_commit": "61185652007978047de5420f115b23047a1e8daa",
+  "july_committer_epoch": 1784542883,
+  "child_commit": "f0febd255d0875754efbd1bc69e7e9e10f39c080",
+  "child_committer_epoch": 1785257783,
+  "g1": true,
+  "py_files": 2,
+  "failed_rule": 1,
+  "eligible_july": false,
+  "state": "INELIGIBLE AT JULY COMMIT"
+ },
+ {
+  "full_name": "holland202/principia-artificialis",
+  "owner": "holland202",
+  "e15_commit": "78726b8e8f355e07e59c329aa679ec5e53e96ed8",
+  "e15_count": 36,
+  "default_branch": "main",
+  "july_commit": "c911fffa7d6a1d0dc252c8b56127a1524b0d0d45",
+  "july_committer_epoch": 1785117366,
+  "child_commit": "cfabfb0f31ec91c7e1f14c3bce040c019118f51f",
+  "child_committer_epoch": 1785377421,
+  "g1": true,
+  "py_files": 48,
+  "failed_rule": null,
+  "excluded": {
+   "files": 0,
+   "dirs": 1,
+   "py_files_removed": 2
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 46,
+   "verification_shaped": 6,
+   "findings": 1,
+   "coverage_errors": 0,
+   "rules": [
+    "VL002"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 46,
+   "verification_shaped": 6,
+   "findings": 1,
+   "exit": 1
+  },
+  "eligible_july": true,
+  "state": "SCANNED",
+  "g0_count": 36,
+  "g0": "match"
+ },
+ {
+  "full_name": "holland202/qolas-synthesis",
+  "owner": "holland202",
+  "e15_commit": null,
+  "e15_count": null,
+  "default_branch": "main",
+  "july_commit": "fd36e733ef98e242a85f3b95605a1e6396825bed",
+  "july_committer_epoch": 1784545496,
+  "child_commit": null,
+  "child_committer_epoch": null,
+  "g1": true,
+  "py_files": 1,
+  "failed_rule": 1,
+  "eligible_july": false,
+  "state": "INELIGIBLE AT JULY COMMIT"
+ },
+ {
+  "full_name": "holland202/qsleuth",
+  "owner": "holland202",
+  "e15_commit": null,
+  "e15_count": null,
+  "default_branch": "main",
+  "july_commit": "e2c8e038162e48b799c8c6e3685472c049fd61ff",
+  "july_committer_epoch": 1784456604,
+  "child_commit": null,
+  "child_committer_epoch": null,
+  "g1": true,
+  "py_files": 4,
+  "failed_rule": 1,
+  "eligible_july": false,
+  "state": "INELIGIBLE AT JULY COMMIT"
+ },
+ {
+  "full_name": "holland202/quasar",
+  "owner": "holland202",
+  "e15_commit": "ba050b640b791d79d4cfcf5266f01cfd406124a7",
+  "e15_count": 18,
+  "default_branch": "main",
+  "july_commit": "6698535a8234ccd123428999484429c3d28be8b8",
+  "july_committer_epoch": 1785065270,
+  "child_commit": "87d6c520caa3893f47afc16a4ae0a95188fbfd6f",
+  "child_committer_epoch": 1785199331,
+  "g1": true,
+  "py_files": 16,
+  "failed_rule": null,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 0,
+   "status": "clean",
+   "files_scanned": 16,
+   "verification_shaped": 5,
+   "findings": 0,
+   "coverage_errors": 0,
+   "rules": []
+  },
+  "secondary": {
+   "files_scanned": 16,
+   "verification_shaped": 5,
+   "findings": 0,
+   "exit": 0
+  },
+  "eligible_july": true,
+  "state": "SCANNED",
+  "g0_count": 18,
+  "g0": "match"
+ },
+ {
+  "full_name": "holland202/quasar-v2",
+  "owner": "holland202",
+  "e15_commit": "fc59f1e7ab23d59f30efb3fa0fe8c8580d76bf49",
+  "e15_count": 7,
+  "default_branch": "main",
+  "july_commit": "b089ac871243bcddb21ca935c8fc74bac2f9203f",
+  "july_committer_epoch": 1783904882,
+  "child_commit": "ee90bc3eea63c4b5defa321acbf67f0fd0f6fbbd",
+  "child_committer_epoch": 1785887093,
+  "g1": true,
+  "py_files": 26,
+  "failed_rule": null,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 26,
+   "verification_shaped": 6,
+   "findings": 1,
+   "coverage_errors": 0,
+   "rules": [
+    "VL001"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 26,
+   "verification_shaped": 6,
+   "findings": 1,
+   "exit": 1
+  },
+  "eligible_july": true,
+  "state": "SCANNED",
+  "g0_count": 7,
+  "g0": "match"
+ },
+ {
+  "full_name": "holland202/sentinel-batadal-validation",
+  "owner": "holland202",
+  "e15_commit": "ce729534594f35853028b1d15f58e4f812ff54be",
+  "e15_count": 5,
+  "default_branch": "main",
+  "july_commit": "bafcb8073f56f9fc97a3364d2891bac185cbdf03",
+  "july_committer_epoch": 1785087556,
+  "child_commit": "052f650f6d8b83d19130a242250930188e975e9d",
+  "child_committer_epoch": 1785232555,
+  "g1": true,
+  "py_files": 1,
+  "failed_rule": 1,
+  "eligible_july": false,
+  "state": "INELIGIBLE AT JULY COMMIT"
+ },
+ {
+  "full_name": "holland202/sentinel-hai-validation",
+  "owner": "holland202",
+  "e15_commit": "1faf2e2e6f002f76c92d52e931842b6bd2634eaa",
+  "e15_count": 11,
+  "default_branch": "main",
+  "july_commit": null,
+  "state": "NO JULY COMMIT"
+ },
+ {
+  "full_name": "holland202/skn-v1-",
+  "owner": "holland202",
+  "e15_commit": "ce7bd975e13991907937d50a319e41357110c21c",
+  "e15_count": 2,
+  "default_branch": "main",
+  "july_commit": "1e22c48cecb98b230c41dfcbe4dc9252d4a690ac",
+  "july_committer_epoch": 1784839378,
+  "child_commit": "f2f547d285911a4317a76a8023cfe12840300b72",
+  "child_committer_epoch": 1786334889,
+  "g1": true,
+  "py_files": 19,
+  "failed_rule": null,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 19,
+   "verification_shaped": 2,
+   "findings": 2,
+   "coverage_errors": 0,
+   "rules": [
+    "VL002",
+    "VL005"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 19,
+   "verification_shaped": 2,
+   "findings": 2,
+   "exit": 1
+  },
+  "eligible_july": true,
+  "state": "SCANNED",
+  "g0_count": 2,
+  "g0": "match"
+ },
+ {
+  "full_name": "holland202/slc-v12-",
+  "owner": "holland202",
+  "e15_commit": "311bcae8e998fb59a71d4cadc220ed61f48de0f4",
+  "e15_count": 15,
+  "default_branch": "main",
+  "july_commit": "14c8e63ad94b8af4b583d8c384a9a6378846bc10",
+  "july_committer_epoch": 1785181449,
+  "child_commit": "aba07497165c3a8f89326ad53844904beed3fb78",
+  "child_committer_epoch": 1786294469,
+  "g1": true,
+  "py_files": 19,
+  "failed_rule": null,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 19,
+   "verification_shaped": 5,
+   "findings": 1,
+   "coverage_errors": 0,
+   "rules": [
+    "VL002"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 19,
+   "verification_shaped": 5,
+   "findings": 1,
+   "exit": 1
+  },
+  "eligible_july": true,
+  "state": "SCANNED",
+  "g0_count": 15,
+  "g0": "match"
+ },
+ {
+  "full_name": "holland202/sovereign-evolution",
+  "owner": "holland202",
+  "e15_commit": "f0233c0c53cdb825bd16ac4eb0ab6a90280fec36",
+  "e15_count": 11,
+  "default_branch": "main",
+  "july_commit": "fef663cfd48615169b6ede6d6d029e102c2f5010",
+  "july_committer_epoch": 1783873178,
+  "child_commit": "367454e449f73c313951a7aea94189fd601998d1",
+  "child_committer_epoch": 1786748115,
+  "g1": true,
+  "py_files": 18,
+  "failed_rule": null,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 18,
+   "verification_shaped": 4,
+   "findings": 2,
+   "coverage_errors": 0,
+   "rules": [
+    "VL001"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 18,
+   "verification_shaped": 5,
+   "findings": 2,
+   "exit": 1
+  },
+  "eligible_july": true,
+  "state": "SCANNED",
+  "g0_count": 11,
+  "g0": "match"
+ },
+ {
+  "full_name": "holland202/sovereign-suite",
+  "owner": "holland202",
+  "e15_commit": "56ca9c3b5e4a1257066bfd8cbd66c7dbd8ffd457",
+  "e15_count": 6,
+  "default_branch": "main",
+  "july_commit": "a1c990db089e3b6790b4b0071ec9f1b7dac36184",
+  "july_committer_epoch": 1785166250,
+  "child_commit": "b4acb7ff2203a701c70a6a0def29e6141f580f54",
+  "child_committer_epoch": 1786961671,
+  "g1": true,
+  "py_files": 10,
+  "failed_rule": null,
+  "excluded": {
+   "files": 0,
+   "dirs": 0,
+   "py_files_removed": 0
+  },
+  "primary": {
+   "exit": 1,
+   "status": "findings",
+   "files_scanned": 10,
+   "verification_shaped": 6,
+   "findings": 2,
+   "coverage_errors": 0,
+   "rules": [
+    "VL001",
+    "VL002"
+   ]
+  },
+  "secondary": {
+   "files_scanned": 10,
+   "verification_shaped": 6,
+   "findings": 2,
+   "exit": 1
+  },
+  "eligible_july": true,
+  "state": "SCANNED",
+  "g0_count": 6,
+  "g0": "match"
+ },
+ {
+  "full_name": "holland202/sovereign-veritas",
+  "owner": "holland202",
+  "e15_commit": "063316759e8d1ff2a7724ed3bd389790d9b1dda9",
+  "e15_count": 83,
+  "default_branch": "main",
+  "july_commit": null,
+  "state": "NO JULY COMMIT"
+ },
+ {
+  "full_name": "holland202/token-veritas",
+  "owner": "holland202",
+  "e15_commit": "0f3fc58603b899e01dd6c2244b489c0a84ea6b32",
+  "e15_count": 4,
+  "default_branch": "main",
+  "july_commit": null,
+  "state": "NO JULY COMMIT"
+ },
+ {
+  "full_name": "holland202/vacuity_lint.py",
+  "owner": "holland202",
+  "e15_commit": "47c94ee757091685e51d99cf7854e564e9b6509f",
+  "e15_count": 54,
+  "default_branch": "main",
+  "july_commit": null,
+  "state": "NO JULY COMMIT"
+ },
+ {
+  "full_name": "holland202/veritas-companion",
+  "owner": "holland202",
+  "e15_commit": "d7d53442b2db37b201e1b61b86c086ae3a19d592",
+  "e15_count": 5,
+  "default_branch": "main",
+  "july_commit": null,
+  "state": "NO JULY COMMIT"
+ },
+ {
+  "full_name": "holland202/veritas-eval-harness",
+  "owner": "holland202",
+  "e15_commit": "61565c2bb9f097a229b203b43babf7748b32e4ec",
+  "e15_count": 4,
+  "default_branch": "main",
+  "july_commit": null,
+  "state": "NO JULY COMMIT"
+ },
+ {
+  "full_name": "holland202/veritas-holo",
+  "owner": "holland202",
+  "e15_commit": "d1291d187a49795e1413f26773ff1d17ba183bbc",
+  "e15_count": 16,
+  "default_branch": "main",
+  "july_commit": null,
+  "state": "NO JULY COMMIT"
+ },
+ {
+  "full_name": "holland202/veritas-origin",
+  "owner": "holland202",
+  "e15_commit": "19efdc5fc7a0f2c90226a836e0cc9163e4692b3c",
+  "e15_count": 11,
+  "default_branch": "main",
+  "july_commit": null,
+  "state": "NO JULY COMMIT"
+ },
+ {
+  "full_name": "holland202/veritas-science",
+  "owner": "holland202",
+  "e15_commit": "25059eb5b96236b14b06233230541dd20d2fe102",
+  "e15_count": 6,
+  "default_branch": "main",
+  "july_commit": null,
+  "state": "NO JULY COMMIT"
+ }
+]
