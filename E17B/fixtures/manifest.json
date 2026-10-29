@@ -1,0 +1,107 @@
+[
+ {
+  "lang": "node",
+  "case": "H1",
+  "base": "base_helper",
+  "base_commit": "91abf57037d8e7298d81f57c81f4ab78dbb1be8d",
+  "patch_sha256": "d71f91e6332bb000d69330a19f0c0c47e89d6e1f362e6a31a674fe616f67133b"
+ },
+ {
+  "lang": "node",
+  "case": "C0-h",
+  "base": "base_helper",
+  "base_commit": "91abf57037d8e7298d81f57c81f4ab78dbb1be8d",
+  "patch_sha256": "ae534f705dc42e7c419e2be12dc31d2b49cefa4fc9aefb13f74313b5cafce958"
+ },
+ {
+  "lang": "node",
+  "case": "C2-h",
+  "base": "base_helper",
+  "base_commit": "91abf57037d8e7298d81f57c81f4ab78dbb1be8d",
+  "patch_sha256": "c81d617d43660dbc9fc70e532f4decec360c7a3f08e087d566454eccfc8f240b"
+ },
+ {
+  "lang": "node",
+  "case": "H1-tests",
+  "base": "base_helper_tests",
+  "base_commit": "392aae53f53915e61aebfe127be3ab58cc572740",
+  "patch_sha256": "d1e3e92ad12d45d997130ab46acea1e12f2a37ca8bbf54915e323366c3aee8dc"
+ },
+ {
+  "lang": "node",
+  "case": "C0-tests",
+  "base": "base_helper_tests",
+  "base_commit": "392aae53f53915e61aebfe127be3ab58cc572740",
+  "patch_sha256": "ae534f705dc42e7c419e2be12dc31d2b49cefa4fc9aefb13f74313b5cafce958"
+ },
+ {
+  "lang": "node",
+  "case": "C2-tests",
+  "base": "base_helper_tests",
+  "base_commit": "392aae53f53915e61aebfe127be3ab58cc572740",
+  "patch_sha256": "c81d617d43660dbc9fc70e532f4decec360c7a3f08e087d566454eccfc8f240b"
+ },
+ {
+  "lang": "python",
+  "case": "H1",
+  "base": "base_helper",
+  "base_commit": "5f6ec6c0cd9a81e5fb8c6d740accad332dac9e58",
+  "patch_sha256": "676211f74c2f3680950df4992680a72acd35afe15d8213ccf1df5e5279500840"
+ },
+ {
+  "lang": "python",
+  "case": "C0-h",
+  "base": "base_helper",
+  "base_commit": "5f6ec6c0cd9a81e5fb8c6d740accad332dac9e58",
+  "patch_sha256": "50e05044b932512d15a8c9f73d42e0da784183a70477d697f1fd1162f897b807"
+ },
+ {
+  "lang": "python",
+  "case": "C2-h",
+  "base": "base_helper",
+  "base_commit": "5f6ec6c0cd9a81e5fb8c6d740accad332dac9e58",
+  "patch_sha256": "cbed84e92b2e0d9a3896e62884908ef45938bb8b235a6a2f26d1d0967bff4b64"
+ },
+ {
+  "lang": "python",
+  "case": "H1-root",
+  "base": "base_helper_root",
+  "base_commit": "34bc161848b56e5f16ba08a9246b5c62fe1ee127",
+  "patch_sha256": "653bae9f6434a0618c278e07a224283625c107d4d204d03d8bd56c34ad5884c5"
+ },
+ {
+  "lang": "python",
+  "case": "C0-root",
+  "base": "base_helper_root",
+  "base_commit": "34bc161848b56e5f16ba08a9246b5c62fe1ee127",
+  "patch_sha256": "50e05044b932512d15a8c9f73d42e0da784183a70477d697f1fd1162f897b807"
+ },
+ {
+  "lang": "python",
+  "case": "C2-root",
+  "base": "base_helper_root",
+  "base_commit": "34bc161848b56e5f16ba08a9246b5c62fe1ee127",
+  "patch_sha256": "cbed84e92b2e0d9a3896e62884908ef45938bb8b235a6a2f26d1d0967bff4b64"
+ },
+ {
+  "lang": "python",
+  "case": "H1-near",
+  "base": "base_helper_near",
+  "base_commit": "71c9a34e7ef1d80c8ded67f9795d77d84ef69f6e",
+  "patch_sha256": "8aad8102510d8e822064ed98f236c9aaf57f2dfad70636e4f233f9e12a182d6d"
+ },
+ {
+  "lang": "python",
+  "case": "C0-near",
+  "base": "base_helper_near",
+  "base_commit": "71c9a34e7ef1d80c8ded67f9795d77d84ef69f6e",
+  "patch_sha256": "50e05044b932512d15a8c9f73d42e0da784183a70477d697f1fd1162f897b807"
+ },
+ {
+  "lang": "python",
+  "case": "C2-near",
+  "base": "base_helper_near",
+  "base_commit": "71c9a34e7ef1d80c8ded67f9795d77d84ef69f6e",
+  "patch_sha256": "cbed84e92b2e0d9a3896e62884908ef45938bb8b235a6a2f26d1d0967bff4b64"
+ }
+]
