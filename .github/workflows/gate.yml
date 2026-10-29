@@ -37,3 +37,8 @@ jobs:
         run: python3 provenance_audit.py --selftest
       - name: Mutation probe selftest
         run: python3 mutation_probe.py --selftest
+      - name: E17-B scorer selftest, recorded outcome, and sabotage must differ
+        run: |
+          python3 E17B/run_e17b.py --selftest
+          python3 E17B/run_e17b.py evaluate E17B/output/results.json
+          if python3 E17B/run_e17b.py evaluate E17B/output/results.json --sabotage; then echo 'sabotage did not change the outcome'; exit 1; fi

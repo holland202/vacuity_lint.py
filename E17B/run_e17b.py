@@ -28,7 +28,8 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 
-RECORDED = None  # (held tuple, digest), pinned after the run in its own commit
+RECORDED = (("P1", "P2", "P3", "P4", "P5"),
+            "5c3444dc07cb2be74c656b9fdf9fe979b5038aa4da95143bcdeb39c015d2a263")  # pinned after the 2026-10-29 run
 
 PREDICTIONS = ["P1", "P2", "P3", "P4", "P5"]
 BASES = {  # (language, case suffix) -> base name, for P1's control pairs
