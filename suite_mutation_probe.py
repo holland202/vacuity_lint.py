@@ -608,6 +608,10 @@ def probe(source_path, suite_cmd, cwd, timeout, sample, seed,
     original_hash = sha256(source_path)
     backup = source_path + ".mutbak"
     shutil.copy2(source_path, backup)
+    # SMP-001 P4: the coverage stub directory is created in the suite's cwd;
+    # remove it afterwards unless it was already there before this run.
+    stub_dir = os.path.join(cwd, "_smp_cov")
+    stub_preexisted = os.path.exists(stub_dir)
 
     def restore():
         with open(source_path, "w", encoding="utf-8") as f:
@@ -881,6 +885,8 @@ def probe(source_path, suite_cmd, cwd, timeout, sample, seed,
         restore()
         if os.path.exists(backup):
             os.unlink(backup)
+        if not stub_preexisted:  # SMP-001 P4
+            shutil.rmtree(stub_dir, ignore_errors=True)
 
     if manifest:
         bad = verify_manifest(manifest, "after run")

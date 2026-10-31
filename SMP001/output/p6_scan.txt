@@ -1,0 +1,7 @@
+python files scanned    : 5
+verification-shaped     : 2
+findings                : 0
+declared intentional    : 0
+
+no vacuous verification found
+P6 exit=0

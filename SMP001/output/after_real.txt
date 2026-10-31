@@ -1,0 +1,74 @@
+source under mutation : SMP001/demo/governor.py
+source sha256         : a9ab0cb525dcfa0e4b6398b3692aa04dc02cce382d98ef431cbd23031ab467fb
+suite command         : python3 suite_real.py
+suite cwd             : SMP001/demo
+
+running suite unmutated (baseline)...
+baseline              : exit 0, 1 line(s) of output, no uncaught traceback
+coverage              : 13 line(s) of the target executed by the suite
+attachment            : 1 python process(es) attached, 1 launched, 0 orphaned
+
+eligible sites        : 6
+suite runs to do      : 6
+
+[1/6] line 8     KILLED        LtE -> Lt              exit 0 -> 1
+        @@ -5,3 +5,3 @@
+         def thermal_admits(temp_c):
+        -    return temp_c <= CEILING_C
+        +    return temp_c < CEILING_C
+         
+        suite output: -9/9 PASS
+        suite output: +8/9 PASS
+
+[2/6] line 16    KILLED        LtE -> Lt              exit 0 -> 1
+        @@ -12,3 +12,3 @@
+                 return False
+        -    return units <= MAX_UNITS_PER_DISPATCH
+        +    return units < MAX_UNITS_PER_DISPATCH
+         
+        suite output: -9/9 PASS
+        suite output: +8/9 PASS
+
+[3/6] line 20    KILLED        And -> Or              exit 0 -> 1
+        @@ -15,2 +15,2 @@
+         def capability_attenuates(parent_scope, child_scope):
+        -    return child_scope.issubset(parent_scope) and child_scope != parent_scope
+        +    return child_scope.issubset(parent_scope) or child_scope != parent_scope
+        suite output: -9/9 PASS
+        suite output: +7/9 PASS
+
+[4/6] line 13    KILLED        False -> True          exit 0 -> 1
+        @@ -9,3 +9,3 @@
+             if revoked:
+        -        return False
+        +        return True
+             if not authorized:
+        suite output: -9/9 PASS
+        suite output: +8/9 PASS
+
+[5/6] line 15    KILLED        False -> True          exit 0 -> 1
+        @@ -11,3 +11,3 @@
+             if not authorized:
+        -        return False
+        +        return True
+             return units <= MAX_UNITS_PER_DISPATCH
+        suite output: -9/9 PASS
+        suite output: +8/9 PASS
+
+[6/6] line 20    KILLED        NotEq -> Eq            exit 0 -> 1
+        @@ -15,2 +15,2 @@
+         def capability_attenuates(parent_scope, child_scope):
+        -    return child_scope.issubset(parent_scope) and child_scope != parent_scope
+        +    return child_scope.issubset(parent_scope) and child_scope == parent_scope
+        suite output: -9/9 PASS
+        suite output: +7/9 PASS
+
+======================================================================
+counted   : killed=6 survived=0 survived_out=0
+excluded  : not_exercised=0 crashed=0 invalid=0 errored=0 topology_changed=0
+denominator n = 6  (of 6 eligible sites)
+mutation score = 100.0%   95% CI [54.1%, 100.0%]
+
+WARNING: n = 6. That interval spans most of the unit line. Report it with its denominator or not at all.
+======================================================================
+P2 exit=0
