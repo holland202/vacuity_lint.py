@@ -1,0 +1,131 @@
+======================================================================
+ANTI-VACUITY SELFTEST
+======================================================================
+
+This tool exists to find suites that cannot fail. If it could only
+return one verdict it would be that defect. Each fixture forces a
+different answer on a case where the answer is known, and each
+checks the source file is left byte-identical.
+
+I1/I2 are a matched pair: the same fixture must read SURVIVED with
+mutants traced and SURVIVED_OUT with mutants untraced. A control
+that passes whatever the code does is a log line, so it is run in
+both directions and the defect has to reappear on demand.
+
+Fixture F is the coverage control: the suite exercises one
+comparison and never calls the other. An instrument that cannot
+tell them apart reports 50%% when the honest answer is 100%% of
+what was actually measured, plus one site it never got to see.
+
+----------------------------------------------------------------------
+Fixture A  suite genuinely constrains the module
+  verdicts seen ['KILLED']
+  killed=1 survivors=0 crashed=0 topology=0 n=1 score=100.0%
+  expected KILLED        got KILLED        | restored yes  -> PASS
+
+----------------------------------------------------------------------
+Fixture B  suite prints 1000/1000, checks nothing
+  verdicts seen ['SURVIVED']
+  killed=0 survivors=1 crashed=0 topology=0 n=1 score=0.0%
+  expected SURVIVED      got SURVIVED      | restored yes  -> PASS
+
+----------------------------------------------------------------------
+Fixture C  suite prints the broken value, still exits 0
+  verdicts seen ['SURVIVED_OUT']
+  killed=0 survivors=1 crashed=0 topology=0 n=1 score=0.0%
+  expected SURVIVED_OUT  got SURVIVED_OUT  | restored yes  -> PASS
+
+----------------------------------------------------------------------
+Fixture D  mutation breaks the module (must NOT count as a kill)
+  verdicts seen ['CRASHED', 'SURVIVED_OUT']
+  killed=0 survivors=1 crashed=1 topology=0 n=1 score=0.0%
+  expected CRASHED       got CRASHED       | restored yes  -> PASS
+
+----------------------------------------------------------------------
+Fixture E  oracle already failing -- refuse to score
+  ABORT -- suite exited 1 at baseline (expected 0). The oracle must reproduce before mutation.
+  expected ABORT         got ABORT         | restored yes  -> PASS
+
+----------------------------------------------------------------------
+Fixture F  one site exercised, one dormant (COVERAGE SABOTAGE CONTROL)
+  verdicts seen ['KILLED', 'NOT_EXERCISED']
+  killed=1 survivors=0 crashed=0 topology=0 n=1 score=100.0%
+  expected KILLED        got KILLED        | restored yes  -> PASS
+
+----------------------------------------------------------------------
+Fixture G  suite spawns an honest python child (TOPOLOGY: must attach)
+  verdicts seen ['KILLED']
+  killed=1 survivors=0 crashed=0 topology=0 n=1 score=100.0%
+  expected KILLED        got KILLED        | restored yes  -> PASS
+
+----------------------------------------------------------------------
+Fixture H  suite spawns an env-stripped child (TOPOLOGY SABOTAGE: must fail closed)
+  ABORT -- TOPOLOGY QUALIFICATION FAILED. 1 Python process(es) ran during the baseline without the tracer attached, so their coverage is invisible and every NOT_EXERCISED verdict below would be unsound:
+  expected ABORT         got ABORT         | restored yes  -> PASS
+
+----------------------------------------------------------------------
+Fixture I1 mutants traced: tracer-sensitive suite must read SURVIVED (ENVIRONMENT PARITY CONTROL)
+  verdicts seen ['SURVIVED']
+  killed=0 survivors=1 crashed=0 topology=0 n=1 score=0.0%
+  expected SURVIVED      got SURVIVED      | restored yes  -> PASS
+
+----------------------------------------------------------------------
+Fixture I2 same fixture, mutants UNtraced: the pre-v2.4 defect must reappear as SURVIVED_OUT (proves I1 can fail)
+  verdicts seen ['SURVIVED_OUT']
+  killed=0 survivors=1 crashed=0 topology=0 n=1 score=0.0%
+  expected SURVIVED_OUT  got SURVIVED_OUT  | restored yes  -> PASS
+
+----------------------------------------------------------------------
+Fixture J  mutation starts an unattachable child (PER-MUTANT TOPOLOGY CONTROL)
+  verdicts seen ['KILLED', 'NOT_EXERCISED', 'TOPOLOGY_CHANGED']
+  killed=1 survivors=0 crashed=0 topology=1 n=1 score=100.0%
+  expected TOPOLOGY_CHANGED got TOPOLOGY_CHANGED | restored yes  -> PASS
+
+----------------------------------------------------------------------
+Fixture L1 suite that refuses a second run (RE-RUNNABILITY SABOTAGE: must fail closed, not score every mutant KILLED)
+  ABORT -- the suite is NOT RE-RUNNABLE. Two consecutive unmutated runs returned different exit codes (0 then 1) with no mutation between them. Mutation testing runs this suite once per mutant, so every mutant after the first would inherit that second exit code and be scored KILLED for a reason that is not the mutation. That inflates the score instead of deflating it. Refusing to measure. Make the suite idempotent, or give the audit a reset step that restores the tree between runs.
+  expected ABORT         got ABORT         | restored yes  -> PASS
+
+----------------------------------------------------------------------
+Fixture L2 same suite made idempotent: must still be measurable (proves L1 is not just refusing everything)
+  verdicts seen ['KILLED']
+  killed=1 survivors=0 crashed=0 topology=0 n=1 score=100.0%
+  expected KILLED        got KILLED        | restored yes  -> PASS
+
+----------------------------------------------------------------------
+Fixture N  an abort writes a campaign record (EVIDENCE CONTROL)
+  result                   : yes
+  abort.code               : yes
+  abort.reason             : yes
+  target_sha256            : yes
+  suite_command            : yes
+  interpreter              : yes
+  score is null            : yes
+  status NO_MEASUREMENT    : yes
+  abort code recorded      : SUITE_NOT_REPRODUCIBLE
+  -> PASS
+
+----------------------------------------------------------------------
+Fixture K  declared version derives from content (IDENTITY SABOTAGE CONTROL)
+  this file       : 2.5+8e9f91387ec8
+  +1 comment line : 2.5+043a781793a2
+  version ends in its own sha256[:12] : yes
+  one byte of drift moves the version : yes
+  series label unchanged by drift     : yes
+  -> PASS
+
+======================================================================
+SELFTEST PASS 15/15. The tool returns KILLED, SURVIVED,
+SURVIVED_OUT, CRASHED, NOT_EXERCISED, TOPOLOGY_CHANGED and
+ABORT depending on input; excludes crashed, unexercised and
+topology-changed sites from the score; runs mutants in the
+same environment as the baseline, and reproduces the old
+unlike-run confound on demand when that is switched off;
+refuses to score when a python process ran unattached;
+refuses to score a suite that will not run twice, because
+every mutant after the first would be a false KILLED;
+writes a machine-readable record when it aborts;
+derives its declared version from its own bytes; and leaves
+the source byte-identical.
+======================================================================
+P1 exit=0
