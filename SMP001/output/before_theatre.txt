@@ -1,0 +1,56 @@
+source under mutation : SMP001/demo/governor.py
+source sha256         : a9ab0cb525dcfa0e4b6398b3692aa04dc02cce382d98ef431cbd23031ab467fb
+suite command         : python3 suite_theatre.py
+suite cwd             : SMP001/demo
+
+running suite unmutated (baseline)...
+baseline              : exit 0, 3 line(s) of output, no uncaught traceback
+coverage              : 11 line(s) of the target executed by the suite
+attachment            : 1 python process(es) attached, 1 launched, 0 orphaned
+
+eligible sites        : 6
+suite runs to do      : 6
+
+[1/6] line 8     SURVIVED      LtE -> Lt              exit 0 -> 0, output identical
+        @@ -5,3 +5,3 @@
+         def thermal_admits(temp_c):
+        -    return temp_c <= CEILING_C
+        +    return temp_c < CEILING_C
+         
+
+[2/6] line 16    SURVIVED      LtE -> Lt              exit 0 -> 0, output identical
+        @@ -12,3 +12,3 @@
+                 return False
+        -    return units <= MAX_UNITS_PER_DISPATCH
+        +    return units < MAX_UNITS_PER_DISPATCH
+         
+
+[3/6] line 20    SURVIVED      And -> Or              exit 0 -> 0, output identical
+        @@ -15,2 +15,2 @@
+         def capability_attenuates(parent_scope, child_scope):
+        -    return child_scope.issubset(parent_scope) and child_scope != parent_scope
+        +    return child_scope.issubset(parent_scope) or child_scope != parent_scope
+
+[4/6] line 13    NOT_EXERCISED False -> True          never executed -- excluded
+
+[5/6] line 15    NOT_EXERCISED False -> True          never executed -- excluded
+
+[6/6] line 20    SURVIVED      NotEq -> Eq            exit 0 -> 0, output identical
+        @@ -15,2 +15,2 @@
+         def capability_attenuates(parent_scope, child_scope):
+        -    return child_scope.issubset(parent_scope) and child_scope != parent_scope
+        +    return child_scope.issubset(parent_scope) and child_scope == parent_scope
+
+======================================================================
+counted   : killed=0 survived=4 survived_out=0
+excluded  : not_exercised=2 crashed=0 invalid=0 errored=0 topology_changed=0
+denominator n = 4  (of 6 eligible sites)
+mutation score = 0.0%   95% CI [0.0%, 60.2%]
+
+2 site(s) NOT_EXERCISED: the suite never ran those lines, so a mutation there could not have been detected. Excluded from both numerator and denominator. This is a COVERAGE gap, not a sensitivity gap, and the two must not be reported as one number.
+
+WARNING: n = 4. That interval spans most of the unit line. Report it with its denominator or not at all.
+
+4 survivor(s) above, each with its source diff. A survivor is a coverage or sensitivity gap, not a proven production defect -- classify equivalents by hand.
+======================================================================
+P3 exit=1

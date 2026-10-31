@@ -112,17 +112,18 @@ included; nothing has to be printed. See [IE1A/](IE1A/).)
 
 ## Also in this repository
 
-`vacuity_lint.py` is one of four artifacts here. The other three exist
+`vacuity_lint.py` is one of five artifacts here. The other four exist
 because the first one is not enough.
 
 | | |
 |---|---|
 | `vacuity_lint.py` | Finds gates with no fail path. Static, AST-based. |
 | `mutation_probe.py` | Asks the question the linter cannot: does the verdict actually *depend* on the logic it claims to check? Mutates the target and reports KILLED, SURVIVED, or CRASHED. A mutant that makes the target die to an uncaught exception has not been *detected* by it, so CRASHED is excluded from both sides of the score. |
+| `suite_mutation_probe.py` | The two-file version of that question: mutates a *runtime module* and runs a *separate test suite* as the judge. If the code breaks, does the suite notice? It reports KILLED, SURVIVED, SURVIVED_OUT (the output changed but the exit code did not) and NOT_EXERCISED (the suite never ran that line), with the denominator and a 95% interval. Imports its operators from `mutation_probe.py`. Self-tested; see [SMP001/](SMP001/). |
 | `provenance_audit.py` | Measures whether a repository can say who wrote its verification code, under a five-tier evidence hierarchy frozen in code. Tier 5, "inferred from coding style", is inadmissible by construction, so the measurement cannot become circular. A low score is a result, not a build failure, so it exits 0 either way. |
 | `E15/PREREG.md` | Original frozen three-arm prevalence registration, pinned to `e549dbf`. Status remains REGISTERED, NOT RUN. The instrument-freeze deviation is recorded separately in [E15/DEVIATIONS.md](E15/DEVIATIONS.md); the development scanner is not substituted for that instrument. |
 
-Each of the three tools ships a self-test that proves it can return **more than one
+Each of the four tools ships a self-test that proves it can return **more than one
 verdict**, under fixtures that force each answer in turn. A detector stuck on one answer is the defect this repository exists
 to find, and that applies to these tools first.
 
