@@ -37,6 +37,12 @@ jobs:
         run: python3 provenance_audit.py --selftest
       - name: Mutation probe selftest
         run: python3 mutation_probe.py --selftest
+      - name: Suite mutation probe selftest, and the two demo suites must differ (SMP-001)
+        run: |
+          python3 suite_mutation_probe.py --selftest
+          python3 suite_mutation_probe.py --source SMP001/demo/governor.py --suite "python3 suite_real.py" --cwd SMP001/demo --timeout 60
+          if python3 suite_mutation_probe.py --source SMP001/demo/governor.py --suite "python3 suite_theatre.py" --cwd SMP001/demo --timeout 60; then echo 'theatre suite was not caught'; exit 1; fi
+          test -z "$(git status --porcelain SMP001)" || { git status --porcelain SMP001; echo 'probe left files behind'; exit 1; }
       - name: E17-B scorer selftest, recorded outcome, and sabotage must differ
         run: |
           python3 E17B/run_e17b.py --selftest
