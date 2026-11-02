@@ -1,0 +1,43 @@
+{
+  "case": "A3",
+  "command": [
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "/tmp/smp-independent-A3-9nfzd63s/tool/suite_mutation_probe.py",
+    "--source",
+    "/tmp/smp-independent-A3-9nfzd63s/demo/governor.py",
+    "--suite",
+    "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 suite_real.py",
+    "--cwd",
+    "/tmp/smp-independent-A3-9nfzd63s/demo",
+    "--timeout",
+    "10",
+    "--seed",
+    "11022026",
+    "--json",
+    "/workspace/scratch/97ebc2027612/vacuity-lint-review/review/smp_chatgpt_20261102/repro_A3/A3/campaign.json"
+  ],
+  "cwd": "/workspace/scratch/97ebc2027612/vacuity-lint-review",
+  "started_unix": 1793620159.1237416,
+  "elapsed_seconds": 0.34747910499572754,
+  "exit_code": 2,
+  "status": "FAILED",
+  "criterion_held": false,
+  "tree_identical": false,
+  "changed_paths": [
+    "_smp_cov",
+    "_smp_cov/attach.log",
+    "_smp_cov/bin",
+    "_smp_cov/bin/python",
+    "_smp_cov/bin/python3",
+    "_smp_cov/executed.txt",
+    "_smp_cov/sitecustomize.py",
+    "governor.py",
+    "governor.py.mutbak"
+  ],
+  "campaign_summary": {},
+  "source_sha256_before": "008b0f886b50a71b48d897e43b622bf12eb4b8682c14c832da8224349cdefaf0",
+  "source_sha256_after": "a9ab0cb525dcfa0e4b6398b3692aa04dc02cce382d98ef431cbd23031ab467fb",
+  "tool_sha256": "9650f6452ccd552a6a1e944f33f06a9319d223bf250ef2cb976ea0c32b79ded5",
+  "operator_sha256": "90180d53443c8297f1ef6a1ffefd671b04b4c22951e8de57c5ee91f18b4ee24d",
+  "source_restore_backup_present": true
+}

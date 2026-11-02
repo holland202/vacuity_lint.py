@@ -1,0 +1,13 @@
+source under mutation : /tmp/smp-independent-A3-9nfzd63s/demo/governor.py
+source sha256         : 008b0f886b50a71b48d897e43b622bf12eb4b8682c14c832da8224349cdefaf0
+suite command         : /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3 suite_real.py
+suite cwd             : /tmp/smp-independent-A3-9nfzd63s/demo
+
+running suite unmutated (baseline)...
+baseline              : exit 0, 1 line(s) of output, no uncaught traceback
+coverage              : 13 line(s) of the target executed by the suite
+attachment            : 1 python process(es) attached, 0 launched, 0 orphaned
+
+eligible sites        : 6
+suite runs to do      : 6
+

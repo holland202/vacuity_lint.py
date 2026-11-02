@@ -1,0 +1,4 @@
+
+FATAL: could not restore /tmp/smp-independent-A3-s000hsce/demo/governor.py. Untouched copy is at /tmp/smp-independent-A3-s000hsce/demo/governor.py.mutbak -- move it back by hand.
+
+FATAL: could not restore /tmp/smp-independent-A3-s000hsce/demo/governor.py. Untouched copy is at /tmp/smp-independent-A3-s000hsce/demo/governor.py.mutbak -- move it back by hand.

@@ -1,0 +1,3 @@
+#!/bin/sh
+printf "LAUNCH %d %s\n" "$$" "$0" >> "$SMP_ATTACH_LOG"
+exec "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3" "$@"
