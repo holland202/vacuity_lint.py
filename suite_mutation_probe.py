@@ -78,6 +78,7 @@ import platform
 import random
 import re
 import shutil
+import tempfile
 import subprocess
 import sys
 import time
@@ -380,9 +381,11 @@ if _TARGET and _OUT:
 """
 
 
-def make_coverage_env(source_path, workdir):
-    """Return (env_overrides, out_path). Injects a sitecustomize tracer."""
-    stubdir = os.path.join(workdir, "_smp_cov")
+def make_coverage_env(source_path, stubdir):
+    """Return (env_overrides, out_path). Injects a sitecustomize tracer.
+
+    SMP-002 A1 (found by ChatGPT): `stubdir` is a fresh directory the probe created itself (outside the
+    user's tree). It used to be the fixed `<cwd>/_smp_cov`, which overwrote any user files there."""
     os.makedirs(stubdir, exist_ok=True)
     with open(os.path.join(stubdir, "sitecustomize.py"), "w") as f:
         f.write(COVERAGE_STUB)
@@ -604,18 +607,23 @@ def probe(source_path, suite_cmd, cwd, timeout, sample, seed,
         if verbose:
             print("sealed manifest       : verified before run")
 
-    original = open(source_path, "r", encoding="utf-8").read()
+    # SMP-002 A3 (found by ChatGPT): keep the exact bytes and restore them; read the text without newline
+    # translation so a CRLF source keeps its line endings in every mutant.
+    with open(source_path, "rb") as f:
+        original_bytes = f.read()
+    original = original_bytes.decode("utf-8")
     original_hash = sha256(source_path)
-    backup = source_path + ".mutbak"
+    # SMP-002 A2: a unique backup name, so an existing <source>.mutbak is never overwritten or deleted.
+    fd, backup = tempfile.mkstemp(prefix=os.path.basename(source_path) + ".mutbak.",
+                                  dir=os.path.dirname(os.path.abspath(source_path)))
+    os.close(fd)
     shutil.copy2(source_path, backup)
-    # SMP-001 P4: the coverage stub directory is created in the suite's cwd;
-    # remove it afterwards unless it was already there before this run.
-    stub_dir = os.path.join(cwd, "_smp_cov")
-    stub_preexisted = os.path.exists(stub_dir)
+    # SMP-002 A1: instrumentation lives in a fresh directory outside the user's tree, always removed.
+    stub_dir = tempfile.mkdtemp(prefix="smp_cov_")
 
     def restore():
-        with open(source_path, "w", encoding="utf-8") as f:
-            f.write(original)
+        with open(source_path, "wb") as f:
+            f.write(original_bytes)
         if sha256(source_path) != original_hash:
             sys.stderr.write("\nFATAL: could not restore %s. Untouched copy "
                              "is at %s -- move it back by hand.\n"
@@ -631,7 +639,7 @@ def probe(source_path, suite_cmd, cwd, timeout, sample, seed,
             print()
             print("running suite unmutated (baseline)...")
 
-        cov_env, cov_out, attach_log = make_coverage_env(source_path, cwd)
+        cov_env, cov_out, attach_log = make_coverage_env(source_path, stub_dir)
         base_rc, base_out, base_err = run_suite(suite_cmd, cwd, timeout,
                                                source_path, cov_env)
         executed = read_executed(cov_out)
@@ -804,7 +812,7 @@ def probe(source_path, suite_cmd, cwd, timeout, sample, seed,
                                     n_changed=0))
                 continue
 
-            with open(source_path, "w", encoding="utf-8") as f:
+            with open(source_path, "w", encoding="utf-8", newline="") as f:
                 f.write(mutant)
             if trace_mutants:
                 # v2.4: the mutant runs in the SAME environment as the
@@ -885,8 +893,7 @@ def probe(source_path, suite_cmd, cwd, timeout, sample, seed,
         restore()
         if os.path.exists(backup):
             os.unlink(backup)
-        if not stub_preexisted:  # SMP-001 P4
-            shutil.rmtree(stub_dir, ignore_errors=True)
+        shutil.rmtree(stub_dir, ignore_errors=True)  # SMP-001 P4 / SMP-002 A1: always ours
 
     if manifest:
         bad = verify_manifest(manifest, "after run")
