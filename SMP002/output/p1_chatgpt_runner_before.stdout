@@ -1,0 +1,6 @@
+C0 VERIFIED exit 0 changed []
+C1 VERIFIED exit 1 changed []
+C2 VERIFIED exit 0 changed ['_smp_cov', '_smp_cov/attach.log', '_smp_cov/bin', '_smp_cov/bin/python', '_smp_cov/bin/python3', '_smp_cov/executed.txt', '_smp_cov/sitecustomize.py']
+A1 FAILED exit 0 changed ['_smp_cov/attach.log', '_smp_cov/bin/python', '_smp_cov/bin/python3', '_smp_cov/executed.txt', '_smp_cov/sitecustomize.py']
+A2 FAILED exit 0 changed ['governor.py.mutbak']
+A3 FAILED exit 2 changed ['_smp_cov', '_smp_cov/attach.log', '_smp_cov/bin', '_smp_cov/bin/python', '_smp_cov/bin/python3', '_smp_cov/executed.txt', '_smp_cov/sitecustomize.py', 'governor.py', 'governor.py.mutbak']

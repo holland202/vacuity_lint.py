@@ -1,0 +1,10 @@
+C0 VERIFIED exit 0 changed []
+C1 VERIFIED exit 1 changed []
+Traceback (most recent call last):
+  File "/home/claude/vacuity_lint.py/review/smp_chatgpt_20261102/review.py", line 117, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/home/claude/vacuity_lint.py/review/smp_chatgpt_20261102/review.py", line 53, in main
+    assert text.count(old) == 1
+           ^^^^^^^^^^^^^^^^^^^^
+AssertionError
