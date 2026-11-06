@@ -113,6 +113,27 @@ def main():
                 and lexical_data["findings"][0]["rule_id"] == "VL002",
                 "installed CLI rejects string suppression and bare successful SystemExit")
 
+    with TemporaryDirectory(prefix="vacuity-release-encoding-") as temp:
+        target = Path(temp) / "verify_encoding.py"
+        for encoding, prefix in (("utf-8-sig", ""), ("latin-1", "# coding: latin-1\n")):
+            target.write_bytes((prefix + "café = 1\nassert café == 1\n").encode(encoding))
+            clean = invoke(target, "--format", "json")
+            require(clean.returncode == 0 and json.loads(clean.stdout)["status"] == "clean",
+                    f"installed CLI accepts valid {encoding} source")
+            target.write_bytes((prefix + "print('[FAIL] café')\n").encode(encoding))
+            defective = invoke(target, "--format", "json")
+            require(defective.returncode == 1 and
+                    [f["rule_id"] for f in json.loads(defective.stdout)["findings"]] == ["VL002"],
+                    f"installed CLI detects defects in {encoding} source")
+        for source in (b"# coding: imaginary-codec\nvalue = 1\n", b'value = "\xff"\n'):
+            target.write_bytes(source)
+            invalid = invoke(target, "--format", "json")
+            data = json.loads(invalid.stdout)
+            require(invalid.returncode == 1 and invalid.stderr == "" and
+                    data["status"] == "findings" and data["coverage_errors"] == [] and
+                    [f["rule_id"] for f in data["findings"]] == ["VL005"],
+                    "installed CLI reports invalid source encoding as VL005")
+
     print("RELEASE CONTRACT: PASS (v2.0.1.dev0)")
     return 0
 
