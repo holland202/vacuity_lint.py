@@ -15,6 +15,8 @@ jobs:
           python-version: '3.11'
       - name: Run vacuity_lint selftest
         run: python3 vacuity_lint.py --selftest
+      - name: Run repeatability probe controls
+        run: python3 repeatability_probe.py --selftest
       - name: Regression and gate sabotage tests
         run: python3 -m unittest discover -s tests -v
       - name: Prove issue 7 regression tests reject deliberate scanner defects
