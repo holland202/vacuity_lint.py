@@ -40,7 +40,7 @@ There is no calibrated probability or automated correctness score.
 | VL002 | `PRINTS_FAIL_ONLY` | heuristic | warning | Verification-shaped file containing a failure-oriented **string constant** but no recognized failure path (name is historical; the string need not be printed) |
 | VL003 | `UNCOLLECTABLE_TEST` | heuristic | warning | File named `test_*.py` with no `test_` function and no recognized fail path; may coexist with VL001/VL002 |
 | VL004 | `ALWAYS_EXITS_ZERO` | heuristic | warning | Verification-shaped file with exit calls all classified as literal zero, no recognized assert/raise/test function and no failure-string signal |
-| VL005 | `UNPARSEABLE` | analysis_error | error | Python AST parsing failed; CLI filesystem coverage failures are reported separately in `coverage_errors` |
+| VL005 | `UNPARSEABLE` | analysis_error | error | Python source decoding or AST parsing failed; CLI filesystem coverage failures are reported separately in `coverage_errors` |
 
 **What does not count as a fail path (VL-FP-001, unreleased):**
 - an `assert` whose test is a non-empty tuple, e.g. `assert (x == 1, "msg")`, which is always true;
@@ -172,6 +172,15 @@ The **exit code contract** for text and JSON is:
 - `1`: unsuppressed findings, including syntax-error VL005, with no coverage error.
 - `2`: no Python files scanned, or any requested root/traversal/read failed.
 
+Source files are decoded with Python's `tokenize.open`: UTF-8 by default,
+with UTF-8 BOMs and recognized first- or second-line encoding declarations
+supported. Unknown or non-text encodings, BOM/declaration conflicts and
+undecodable bytes produce an unsuppressible VL005 finding and exit `1`,
+just like a syntax error. Source bytes are never replaced to obtain a
+parseable file. These are source-analysis errors, so they appear in
+`findings`, not `coverage_errors`; a simultaneous filesystem coverage
+failure still takes precedence and exits `2`.
+
 Coverage errors take precedence over findings and produce JSON status
 `analysis_error` with `coverage_errors: [{"path": "...", "message": "..."}]`.
 Successfully obtained findings and suppressions are retained. The
@@ -202,6 +211,8 @@ included** in this release.
 - `tests/test_scan_integrity.py`: missing roots, incomplete traversal/read,
   real permission denial where supported, lexical suppressions and bare SystemExit.
 - `tests/test_exit_aliases.py`: imported exits, shadowing and precise literal exits.
+- `tests/test_source_encoding.py`: valid encoding clean/finding pairs, exact
+  suppression reasons, invalid encodings, partial scans and no source execution.
 - `tests/test_gate_control.py`: real clean/planted/clean control plus constant,
   unrelated-finding, malformed-output and scan-error substitutes.
 - `ci/check_issue7_mutants.py`: four deliberate scanner regressions must fail

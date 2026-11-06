@@ -45,6 +45,10 @@ Any findings from the partial scan remain in the report. Syntax errors
 retain the historical VL005 finding and exit **1** unless a coverage error
 also occurred.
 
+Python encoding declarations and UTF-8 BOMs are honored. Invalid encodings
+or undecodable source bytes are reported as VL005 (`UNPARSEABLE`), with
+exit **1**, rather than replacing bytes and scanning altered source.
+
 Use [RULES.md](RULES.md) for precise triggers, examples, rule metadata and
 limitations. CI can enforce the existing code `1`, or capture and review it
 as an advisory report; the tool does not provide a configurable
