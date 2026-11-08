@@ -396,7 +396,9 @@ def _comment_suppression(src):
 def analyse(path, *, strict_io=False):
     """Return (findings, scan) for one file. findings is a list of codes."""
     try:
-        with open(path, encoding="utf-8", errors="replace") as fh:
+        # Honor Python encoding cookies and UTF-8 BOMs; never replace undecodable
+        # bytes, which could turn invalid source into an apparently clean scan.
+        with tokenize.open(path) as fh:
             src = fh.read()
         tree = ast.parse(src)
         has_main = any(_is_main_guard(n) for n in tree.body)
@@ -404,7 +406,7 @@ def analyse(path, *, strict_io=False):
         if strict_io:
             raise
         return [("UNPARSEABLE", str(e).split("\n")[0][:60])], None
-    except SyntaxError as e:
+    except (SyntaxError, UnicodeError, LookupError) as e:
         return [("UNPARSEABLE", str(e).split("\n")[0][:60])], None
 
     s = Scan(tree)
