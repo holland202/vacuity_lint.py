@@ -9,6 +9,8 @@
 > **Current license: BSL 1.1 (source-available), v2.0.0 and later.** GitHub's sidebar may show "MIT" because it recognizes `LICENSE-MIT`, which covers v1.1.0 and earlier only. The controlling license for current source is [LICENSE](LICENSE).
 >
 > **Research records** (E15, E16, IE1, VL-FP-…): see [RESEARCH_INDEX.md](RESEARCH_INDEX.md) for what each one is.
+>
+> **Prior art:** this is not the first tool to look for checks that cannot fail. See [PRIOR_ART.md](PRIOR_ART.md) for what came first, what overlaps, and when to prefer [falsegreen](https://pypi.org/project/falsegreen/) instead.
 
 ## Install and try it
 

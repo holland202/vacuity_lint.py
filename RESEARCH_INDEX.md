@@ -1,5 +1,10 @@
 # Research index
 
+**[PRIOR_ART.md](PRIOR_ART.md)** — the existing tools and research this work sits downstream of,
+what overlaps, and what E15's numbers can and cannot be compared against. Not an experiment record;
+read it before citing any result here as new.
+
+
 Plain-language map of the research records in this repository. Each folder keeps its own registration and results; nothing here replaces them. Status lines are copied from the records as of 2026-10-27.
 
 | ID | Folder | What it asks | Status |
