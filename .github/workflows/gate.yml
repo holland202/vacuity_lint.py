@@ -45,6 +45,10 @@ jobs:
           python3 suite_mutation_probe.py --source SMP001/demo/governor.py --suite "python3 suite_real.py" --cwd SMP001/demo --timeout 60
           if python3 suite_mutation_probe.py --source SMP001/demo/governor.py --suite "python3 suite_theatre.py" --cwd SMP001/demo --timeout 60; then echo 'theatre suite was not caught'; exit 1; fi
           test -z "$(git status --porcelain SMP001)" || { git status --porcelain SMP001; echo 'probe left files behind'; exit 1; }
+      - name: E18 absence-only selftest, and sabotage must differ
+        run: |
+          python3 E18/run_e18.py --selftest
+          if python3 E18/run_e18.py --sabotage; then echo 'E18 sabotage went unnoticed'; exit 1; fi
       - name: E17-B scorer selftest, recorded outcome, and sabotage must differ
         run: |
           python3 E17B/run_e17b.py --selftest
