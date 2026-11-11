@@ -1,0 +1,401 @@
+=== E18 P1 selftest ===
+selftest sabotage=False: flagged 8/8 planted, escaped=[], wrongly_flagged=[], unexpected=[], detector_rc=1
+P1 selftest: PASS
+rc=0
+
+=== E18 P2 sabotage control ===
+selftest sabotage=True: flagged 6/8 planted, escaped=['test_a1_secret_absent', 'test_a2_no_leak_no_flag'], wrongly_flagged=[], unexpected=[], detector_rc=1
+P2 sabotage control: broken instrument rejected as required
+rc=1
+
+=== E18 P3 corpus scan ===
+{
+ "scanned_test_files": 93,
+ "sabotage": false,
+ "findings": [
+  {
+   "file": "/home/claude/vacuity_lint.py/independent/IE1/package/independent_cases/defective/test_broken.py",
+   "error": "could not parse: invalid syntax",
+   "line": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/independent/IE1/package/source_snapshot/tests/test_exit_precision.py",
+   "line": 31,
+   "function": "test_raise_systemexit_nonzero_is_failure_path",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/independent/IE1/package/source_snapshot/tests/test_exit_precision.py",
+   "line": 38,
+   "function": "test_os_immediate_exit_nonzero_is_failure_path",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/independent/IE1/package/source_snapshot/tests/test_exit_precision.py",
+   "line": 63,
+   "function": "test_main_appearing_only_in_comment_is_not_entry_point",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/independent/IE1/package/source_snapshot/tests/test_exit_precision.py",
+   "line": 70,
+   "function": "test_main_appearing_only_in_docstring_is_not_entry_point",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/independent/IE1/package/source_snapshot/tests/test_exit_precision.py",
+   "line": 91,
+   "function": "test_ordinary_script_with_zero_exit_not_assumed_verification",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/independent/IE1/package/source_snapshot/tests/test_exit_precision.py",
+   "line": 95,
+   "function": "test_sys_exit_main_dynamic_remains_recognized",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/independent/IE1/package/source_snapshot/tests/test_exit_precision.py",
+   "line": 102,
+   "function": "test_unittest_class_test_detection_unchanged",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/tests/test_exit_aliases.py",
+   "line": 19,
+   "function": "test_simple_imported_nonzero_exits_and_abort",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/tests/test_exit_aliases.py",
+   "line": 70,
+   "function": "test_float_zero_is_not_process_exit_zero",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/tests/test_exit_aliases.py",
+   "line": 73,
+   "function": "test_multiple_systemexit_arguments_are_nonzero",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/tests/test_exit_precision.py",
+   "line": 31,
+   "function": "test_raise_systemexit_nonzero_is_failure_path",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/tests/test_exit_precision.py",
+   "line": 38,
+   "function": "test_os_immediate_exit_nonzero_is_failure_path",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/tests/test_exit_precision.py",
+   "line": 63,
+   "function": "test_main_appearing_only_in_comment_is_not_entry_point",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/tests/test_exit_precision.py",
+   "line": 70,
+   "function": "test_main_appearing_only_in_docstring_is_not_entry_point",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/tests/test_exit_precision.py",
+   "line": 91,
+   "function": "test_ordinary_script_with_zero_exit_not_assumed_verification",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/tests/test_exit_precision.py",
+   "line": 95,
+   "function": "test_sys_exit_main_dynamic_remains_recognized",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/tests/test_exit_precision.py",
+   "line": 102,
+   "function": "test_unittest_class_test_detection_unchanged",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/tests/test_scan_integrity.py",
+   "line": 189,
+   "function": "test_nonzero_dynamic_and_ordinary_raises_remain_fail_paths",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/tests/test_smp002_preservation.py",
+   "line": 68,
+   "function": "test_no_instrumentation_left_in_tmpdir",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/tests/test_vlfp001.py",
+   "line": 68,
+   "function": "test_v_b_remains_a_documented_blind_spot",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/tests/test_vlfp001.py",
+   "line": 72,
+   "function": "test_guards_stay_clean",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/tests/test_vlfp002.py",
+   "line": 51,
+   "function": "test_pytest_fail_is_a_fail_path",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/vacuity_lint.py/tests/test_vlfp003.py",
+   "line": 104,
+   "function": "test_tables_are_not_findings",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/evidence/attacks/issue-005/test_vehicle_action.pre-nonfinite-fix.py",
+   "line": 137,
+   "function": "test_v8_stated_limit_a_consistent_snapshot_rewrite_verifies_unsigned",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_bt002_gap_pins.py",
+   "line": 121,
+   "function": "test_workflow_18_and_16_nan_uncertainty_refused_before_execution",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_evidence_states.py",
+   "line": 126,
+   "function": "test_e5_stated_limit_untagging_verifies_unsigned",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_field_sweep.py",
+   "line": 70,
+   "function": "test_load_bearing_fields_are_bound",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_gate.py",
+   "line": 126,
+   "function": "test_evidence_package_digest_changes_when_provenance_changes",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_gate_constraint.py",
+   "line": 20,
+   "function": "test_gate_allow_set_equals_fail_closed_spec",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_gate_constraint.py",
+   "line": 25,
+   "function": "test_gate_constraint_instrument_kills_its_mutants",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_gate_floor_overflow.py",
+   "line": 35,
+   "function": "test_huge_negative_floor_adds_no_reason",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_idempotency.py",
+   "line": 111,
+   "function": "test_key_without_store_refused_before_execution",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_idempotency.py",
+   "line": 151,
+   "function": "test_keys_compared_byte_for_byte_no_unicode_normalization",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_jg1_probe.py",
+   "line": 17,
+   "function": "test_unknown_thermal_or_budget_stops_search",
+   "rule": "AL001",
+   "assertions": 2
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_model_action.py",
+   "line": 117,
+   "function": "test_a7_stated_limit_rewriting_the_reply_itself_verifies_unsigned",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_model_action.py",
+   "line": 238,
+   "function": "test_without_a_model_file_there_is_nothing_to_compare",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_package.py",
+   "line": 218,
+   "function": "test_p2_every_inconsistent_rewrite_is_caught_after_full_reseal",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_package.py",
+   "line": 270,
+   "function": "test_p4_boundary_a_consistent_rewrite_verifies",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_package_recovery.py",
+   "line": 72,
+   "function": "test_r2_no_single_bit_flip_is_accepted",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_planner.py",
+   "line": 100,
+   "function": "test_empty_plan_rejected_before_execution",
+   "rule": "AL001",
+   "assertions": 2
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_planner.py",
+   "line": 108,
+   "function": "test_duplicate_record_ids_rejected_before_execution",
+   "rule": "AL001",
+   "assertions": 2
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_planner.py",
+   "line": 165,
+   "function": "test_plan_exceeding_max_steps_rejected_in_preflight",
+   "rule": "AL001",
+   "assertions": 2
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_planner.py",
+   "line": 187,
+   "function": "test_planner_cannot_use_one_capability_to_authorize_another",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_planner.py",
+   "line": 205,
+   "function": "test_missing_capability_rejected_in_preflight",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_published_evidence.py",
+   "line": 70,
+   "function": "test_r2_published_evidence_holds",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_published_evidence.py",
+   "line": 101,
+   "function": "test_checker_passes_an_intact_tree",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_published_evidence.py",
+   "line": 139,
+   "function": "test_checker_expects_stale_for_an_earlier_entry",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_skills_single_source.py",
+   "line": 9,
+   "function": "test_built_skills_match_their_single_source",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_thermal.py",
+   "line": 78,
+   "function": "test_missing_root_is_empty_not_an_exception",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_thermal_policy.py",
+   "line": 193,
+   "function": "test_t3_stated_limit_full_relabel_verifies_unsigned",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_thermal_policy.py",
+   "line": 203,
+   "function": "test_t3_stated_limit_lowered_readings_verify_unsigned",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_vehicle_action.py",
+   "line": 188,
+   "function": "test_v8_stated_limit_a_consistent_snapshot_rewrite_verifies_unsigned",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-veritas/tests/test_verifier_guards.py",
+   "line": 59,
+   "function": "test_every_published_package_passes_schema_closed",
+   "rule": "AL001",
+   "assertions": 1
+  },
+  {
+   "file": "/home/claude/corpus-sovereign-memory-layer/tests/test_memory.py",
+   "line": 73,
+   "function": "test_threshold_is_strict",
+   "rule": "AL001",
+   "assertions": 1
+  }
+ ]
+}
+rc=1
