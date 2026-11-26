@@ -57,7 +57,7 @@ check, or stops flagging the control, CI fails and this record must be revisited
 The fixtures are scanned, never executed, in CI, so Pillow is not a CI dependency.
 The pin was sabotaged both ways before commit and failed both times:
 S1 (control made unflagged with `assert True`) -> `AssertionError: CB001/fixtures: expected findings exit 1`;
-S2 (alpha-only made unflagged-exit-free) -> `planted findings changed: [verify_alpha_only.py VL002, verify_no_exit.py VL002]`.
+S2 (exit line removed from alpha-only, so it gets flagged) -> `planted findings changed: [verify_alpha_only.py VL002, verify_no_exit.py VL002]`.
 Fixtures restored and re-hashed identical afterwards.
 
 ## Open door
