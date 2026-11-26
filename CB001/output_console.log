@@ -1,0 +1,71 @@
+# CB-001 raw console output, 2026-11-26T14:21:23Z, x86_64, repo HEAD 7488571
+$ python3 vacuity_lint.py CB001/fixtures/verify_alpha_only.py
+python files scanned    : 1
+verification-shaped     : 1
+findings                : 0
+declared intentional    : 0
+
+no vacuous verification found
+rc=0
+$ python3 vacuity_lint.py CB001/fixtures/verify_no_exit.py
+python files scanned    : 1
+verification-shaped     : 1
+findings                : 1
+declared intentional    : 0
+
+PRINTS_FAIL_ONLY  (1)
+  CB001/fixtures/verify_no_exit.py
+      contains failure text 1x but has no assert, raise, or nonzero exit
+
+rc=1
+$ python3 vacuity_lint.py CB001/fixtures/verify_rgba_full.py
+python files scanned    : 1
+verification-shaped     : 1
+findings                : 0
+declared intentional    : 0
+
+no vacuous verification found
+rc=0
+$ python3 -W ignore CB001/fixtures/verify_alpha_only.py --ink 0,0,0
+python=3.13.18 pillow=12.3.0 ink=(0, 0, 0)
+px0 direct=(0, 0, 0, 148) masked=(0, 0, 0, 148)
+px1 direct=(0, 0, 0, 85) masked=(0, 0, 0, 85)
+px2 direct=(0, 0, 0, 85) masked=(0, 0, 0, 85)
+px3 direct=(0, 0, 0, 148) masked=(0, 0, 0, 148)
+alpha-only compare: match
+rc=0
+$ python3 -W ignore CB001/fixtures/verify_rgba_full.py --ink 0,0,0
+python=3.13.18 pillow=12.3.0 ink=(0, 0, 0)
+px0 direct=(0, 0, 0, 148) masked=(0, 0, 0, 148)
+px1 direct=(0, 0, 0, 85) masked=(0, 0, 0, 85)
+px2 direct=(0, 0, 0, 85) masked=(0, 0, 0, 85)
+px3 direct=(0, 0, 0, 148) masked=(0, 0, 0, 148)
+full RGBA compare: match
+rc=0
+$ python3 -W ignore CB001/fixtures/verify_alpha_only.py --ink 255,0,0
+python=3.13.18 pillow=12.3.0 ink=(255, 0, 0)
+px0 direct=(255, 0, 0, 148) masked=(0, 0, 0, 148)
+px1 direct=(255, 0, 0, 85) masked=(0, 0, 0, 85)
+px2 direct=(255, 0, 0, 85) masked=(0, 0, 0, 85)
+px3 direct=(255, 0, 0, 148) masked=(0, 0, 0, 148)
+alpha-only compare: match
+rc=0
+$ python3 -W ignore CB001/fixtures/verify_rgba_full.py --ink 255,0,0
+python=3.13.18 pillow=12.3.0 ink=(255, 0, 0)
+px0 direct=(255, 0, 0, 148) masked=(0, 0, 0, 148)
+px1 direct=(255, 0, 0, 85) masked=(0, 0, 0, 85)
+px2 direct=(255, 0, 0, 85) masked=(0, 0, 0, 85)
+px3 direct=(255, 0, 0, 148) masked=(0, 0, 0, 148)
+full RGBA compare: MISMATCH at [0, 1, 2, 3]
+rc=1
+$ python3 -W ignore mutation_probe.py <copy of verify_alpha_only.py> --timeout 60
+target        : /tmp/mp_target.py
+baseline exit : 0
+mutation sites: 1
+
+  line 28   KILLED    NotEq -> Eq          exit 0 -> 1
+
+counted  : killed=1 survived=0
+excluded : crashed=0 invalid=0 errored=0
+score    = 100.0%   n = 1
+rc=0

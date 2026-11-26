@@ -14,6 +14,9 @@ GROUPS = {
         ("independent/IE1/package/independent_cases/defective/verify_zero.py", "VL004"),
         ("independent/IE1/package/independent_cases/defective/test_broken.py", "VL005"),
     },
+    # CB-001: the alpha-only (channel-blind) check must stay UNflagged -- a documented
+    # blind spot -- while the no-exit control must stay flagged. See CB001/RESULTS.md.
+    "CB001/fixtures": {("CB001/fixtures/verify_no_exit.py", "VL002")},
 }
 
 

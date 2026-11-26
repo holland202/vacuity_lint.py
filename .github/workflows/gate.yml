@@ -26,7 +26,7 @@ jobs:
       - name: Prepare fixture-free scan tree
         run: |
           scan=$(mktemp -d "$RUNNER_TEMP/vacuity-scan.XXXXXX")
-          tar --exclude=./E16/fixtures --exclude=./independent/IE1/package --exclude=./.git -cf - . | tar -xf - -C "$scan"
+          tar --exclude=./E16/fixtures --exclude=./CB001/fixtures --exclude=./independent/IE1/package --exclude=./.git -cf - . | tar -xf - -C "$scan"
           printf 'VACUITY_SCAN_ROOT=%s\n' "$scan" >> "$GITHUB_ENV"
       - name: Require clean, intended planted failure, then clean
         run: python3 ci/verify_gate.py vacuity_lint.py "$VACUITY_SCAN_ROOT" --evidence-dir "$RUNNER_TEMP/vacuity-gate-evidence"
